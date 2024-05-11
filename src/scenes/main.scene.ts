@@ -1,50 +1,77 @@
 import Phaser from "phaser";
+import {DealerService} from "../services/dealer.service";
+import {ZoneService} from "../services/zone.service";
+import {PreloadService} from "../services/preload.service";
+import Zone from "../objects/zone";
 
 export default class MainScene extends Phaser.Scene {
-  private image: Phaser.GameObjects.Image | undefined;
 
-  constructor() {
-    super("main-scene");
-  }
+    private text: Phaser.GameObjects.Text | undefined;
+    private zone: Zone | undefined;
 
-  preload() {
-    this.load.setBaseURL("./assets/");
-    this.load.image("cardBack", "images/cards/card_back.png");
-    this.load.image("cardFront1", "images/cards/card_1_front.png");
-    this.load.image("cardFront2", "images/cards/card_2_front.png");
-    this.load.image("cardFront3", "images/cards/card_3_front.png");
-    this.load.image("cardFront4", "images/cards/card_4_front.png");
-  }
+    private dealerService: DealerService;
+    private zoneService: ZoneService;
+    private preloadService: PreloadService;
 
-  create() {
-    this.add
-      .text(75, 350, ["DEAL CARDS"])
-      .setFontSize(18)
-      .setFontFamily("Trebuchet MS")
-      .setColor("#00ffff")
-      .setInteractive();
-    this.image = this.add
-      .image(300, 300, "cardFront1")
-      .setScale(0.5, 0.5)
-      .setInteractive();
-    this.input.setDraggable(this.image);
+    constructor() {
+        super("main-scene");
+        this.dealerService = new DealerService(this);
+        this.zoneService = new ZoneService();
+        this.preloadService = new PreloadService(this);
+    }
 
-    this.input.on(
-      "drag",
-      (pointer: any, gameObject: any, dragX: any, dragY: any) =>
-        this.handleDrag(pointer, gameObject, dragX, dragY)
-    );
-  }
+    preload() {
+        this.preloadService.loadBaseImages();
+    }
+
+    create() {
+        const self = this;
+        this.text = this.add.text(75, 350,['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
+        this.text.on('pointerdown', () => this.dealerService.dealCards())
+        this.text.on('pointerover', function () {
+            self.text?.setColor("#ff69b4");
+        });
+        this.text.on('pointerout', function () {
+            self.text?.setColor("#00ffff");
+        });
+
+        this.input.on('drag',
+            (pointer: Phaser.Input.Pointer, gameObject: any, dragX: number, dragY: number) =>
+                this.handleDrag(pointer, gameObject, dragX, dragY)
+        );
+
+        this.zone = new Zone(this);
+        this.zone.renderZone();
+        this.zone.renderOutline();
+
+        this.input.on('dragstart', function (pointer: Phaser.Input.Pointer, gameObject: any) {
+            gameObject.setTint(0xff69b4);
+            self.children.bringToTop(gameObject);
+        })
+
+        this.input.on('dragend', function (pointer: Phaser.Input.Pointer, gameObject: any, dropped: boolean) {
+            // Drop not in zone
+            gameObject.setTint();
+            if (!dropped) {
+                gameObject.x = gameObject.input.dragStartX;
+                gameObject.y = gameObject.input.dragStartY;
+            }
+        })
+
+        this.input.on('drop', function (pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Image, dropZone: Phaser.GameObjects.Zone) {
+            // Drop in zone
+            dropZone.data.values.cards++;
+            gameObject.x = (dropZone.x - 350) + (dropZone.data.values.cards * 50);
+            gameObject.y = dropZone.y;
+            gameObject.disableInteractive();
+        })
+    }
 
   update(time: number, delta: number) {}
 
-  handleDrag(
-    pointer: any,
-    gameObject: { x: any; y: any },
-    dragX: any,
-    dragY: any
-  ) {
-    gameObject.x = dragX;
-    gameObject.y = dragY;
-  }
+    handleDrag(pointer: Phaser.Input.Pointer, gameObject: any, dragX: number, dragY: number) {
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+    }
+
 }

@@ -1,6 +1,21 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import Phaser from 'phaser'
 
-bootstrapApplication(AppComponent, appConfig)
-    .catch((err) => console.error(err));
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from "./cst";
+import MainScene from "./scenes/MainScene";
+
+const config: Phaser.Types.Core.GameConfig = {
+	type: Phaser.AUTO,
+	parent: 'app',
+	width: SCREEN_WIDTH,
+	height: SCREEN_HEIGHT,
+	physics: {
+		default: 'arcade',
+		arcade: {
+			gravity: { y: 0 },
+		},
+	},
+	scene: [MainScene],
+}
+
+export default new Phaser.Game(config)
+

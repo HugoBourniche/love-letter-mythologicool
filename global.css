@@ -1,0 +1,19 @@
+
+@font-face {
+    font-family: sugar;
+    src: url("/assets/fonts/nice_sugar.ttf");
+}
+
+@font-face {
+    font-family: coffee;
+    src: url("/assets/fonts/take_coffee.ttf");
+}
+
+body {
+    background: linear-gradient(#9AD7EA, #094464) no-repeat;
+    background-color: #094464;
+}
+
+h2 {
+    font-family: 'sugar', serif;
+}

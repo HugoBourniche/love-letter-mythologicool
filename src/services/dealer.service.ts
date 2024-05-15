@@ -16,7 +16,8 @@ export class DealerService {
     public dealCards() {
         for (let i = 0; i < 5; i++) {
             const playerCard = new Card(this.context);
-            playerCard.render(475 + (i * 100), 650, 'cardFront' + (randomInt(4) + 1));
+            const randomIntValue = randomInt(3) + 1;
+            playerCard.render(475 + (i * 100), 650, 'cardFront' + randomIntValue);
         }
     }
 }

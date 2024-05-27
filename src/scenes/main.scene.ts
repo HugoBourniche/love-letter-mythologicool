@@ -3,6 +3,9 @@ import {DealerService} from "../services/dealer.service";
 import {ZoneService} from "../services/zone.service";
 import {PreloadService} from "../services/preload.service";
 import Zone from "../objects/zone";
+import {GameManagerService} from "../services/game-manager.service";
+import {Player} from "../objects/player";
+import {InitializedGameResponse} from "../objects/response/InitializedGameResponse";
 
 export default class MainScene extends Phaser.Scene {
 
@@ -12,12 +15,14 @@ export default class MainScene extends Phaser.Scene {
     private dealerService: DealerService;
     private zoneService: ZoneService;
     private preloadService: PreloadService;
+    private gameManager: GameManagerService;
 
     constructor() {
         super("main-scene");
         this.dealerService = new DealerService(this);
         this.zoneService = new ZoneService();
         this.preloadService = new PreloadService(this);
+        this.gameManager = new GameManagerService();
     }
 
     preload() {
@@ -27,7 +32,15 @@ export default class MainScene extends Phaser.Scene {
     create() {
         const self = this;
         this.text = this.add.text(75, 350,['DEAL CARDS']).setFontSize(18).setFontFamily('Trebuchet MS').setColor('#00ffff').setInteractive();
-        this.text.on('pointerdown', () => this.dealerService.dealCards())
+        // this.text.on('pointerdown', () => this.dealerService.dealCards())
+        this.text.on('pointerdown', () => {
+            const players = [
+                new Player("Théo", 0),
+                new Player("Hugo", 1),
+            ];
+            const result = this.gameManager.initializeGame(players).then( (result: InitializedGameResponse) => console.log(result));
+            console.log(result);
+        })
         this.text.on('pointerover', function () {
             self.text?.setColor("#ff69b4");
         });

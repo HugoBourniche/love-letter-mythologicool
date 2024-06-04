@@ -8,10 +8,22 @@ export class PreloadService {
         this.context = context;
     }
 
-    public loadBackground() {
+    public loadMainMenuImages() {
         this.context.load.setBaseURL("./assets/");
+        this.loadBackground();
+        this.loadUI();
+    }
+
+    public loadBackground() {
         this.context.load.image('background', 'images/background/background1.png')
     }
+
+    public loadUI() {
+        this.context.load.image("input-frame", "images/forms/input-field.png")
+        this.context.load.image("button", "images/forms/button.png")
+        this.context.load.image("buttonHover", "images/forms/buttonHover.png")
+    }
+
     public loadBaseImages() {
         this.context.load.setBaseURL("./assets/");
         this.context.load.image('cardBack', 'images/cards/card_back.png');

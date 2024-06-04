@@ -6,6 +6,14 @@ import Graphics = Phaser.GameObjects.Graphics;
 import Tween = Phaser.Tweens.Tween;
 import GameObject = Phaser.GameObjects.GameObject;
 
+/**
+ * Source
+ *
+ * Code
+ * https://github.com/ErlendKK/Input-form-built-in-Phaser-3.5-with-no-DOM-Element/blob/main/menu.js
+ * Test
+ * https://raw.githack.com/ErlendKK/Input-form-with-Phaser-3.5-No-DOM-Elements-/main/index.html
+ */
 export class TextInputField {
 
     // *****************************************************************************************************************
@@ -13,44 +21,66 @@ export class TextInputField {
     // *****************************************************************************************************************
 
     // OBJECTS
-    private context:  Scene;
-    private textObject: Text;
-    private imageFrame: Image | undefined;
-    private rectangleFrame: Graphics | undefined;
-    private cursor: Text | undefined;
-    private tweens: Tween;
+    private _context:  Scene;
+    private _textObject: Text;
+    private _imageFrame: Image | undefined;
+    private _rectangleFrame: Graphics | undefined;
+    private _cursor: Text | undefined;
+    private _tween: Tween | undefined;
 
 
     // CUSTOM VALUES
-    private positionX: number;
-    private positionY: number;
-    private value: string;
-    private placeholder: string;
-    private isFocus: boolean;
-    private maxLength: number;
-    private style: Phaser.Types.GameObjects.Text.TextStyle;
+    private _positionX: number;
+    private _positionY: number;
+    private _value: string;
+    private _placeholder: string;
+    private _isFocus: boolean;
+    private _maxLength: number;
+    private _style: Phaser.Types.GameObjects.Text.TextStyle;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
     constructor(context: Phaser.Scene, positionX: number, positionY: number, placeholder: string, style: Phaser.Types.GameObjects.Text.TextStyle, maxLength = 16) {
-        this.context = context;
-        this.style = style;
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.value = placeholder;
-        this.placeholder = placeholder;
-        this.isFocus = false;
-        this.maxLength = maxLength;
+        this._context = context;
+        this._style = style;
+        this._positionX = positionX;
+        this._positionY = positionY;
+        this._value = "";
+        this._placeholder = placeholder;
+        this._isFocus = false;
+        this._maxLength = maxLength;
 
         // INIT OBJECTS
 
-        this.textObject = this.context.add.text(positionX, positionY, this.value, style).setDepth(22);
+        this._textObject = this._context.add.text(positionX, positionY, this._placeholder, style).setDepth(22);
 
         this.initFieldBoxes();
         this.initCursor();
         this.initKeydownEvent();
+    }
+
+    // *****************************************************************************************************************
+    // PUBLIC METHODS
+    // *****************************************************************************************************************
+
+    public value(): string {
+        return this._value;
+    }
+
+    public update(): void {
+        let textWidth = 0;
+        if (this._isFocus) {
+            // Dynamically updates the displayed input text as it is being typed
+            this._textObject.setText(!this._isFocus && this._value == "" ? this._placeholder : this._value);
+            textWidth = this._textObject.width;
+
+            // Dynamically positions the cursor at the end of the typed text
+            if (this._cursor) {
+                this._cursor.x = this._textObject.x + textWidth - 7;
+            }
+        }
     }
 
     // *****************************************************************************************************************
@@ -60,26 +90,26 @@ export class TextInputField {
     // INITIALIZERS
 
     private initFieldBoxes() {
-        this.imageFrame = this.context.add.image(this.positionX, this.positionY, 'input-frame');
-        this.imageFrame.setScale(1.2, 0.60).setInteractive().setDepth(20);
+        this._imageFrame = this._context.add.image(this._positionX, this._positionY, 'input-frame');
+        this._imageFrame.setScale(1.2, 0.60).setInteractive().setDepth(20);
 
-        this.rectangleFrame = this.context.add.graphics({x: this.positionX - 20, y: this.positionY - 20});
-        this.rectangleFrame.fillStyle(0xffffff, 1).setDepth(21);
-        this.rectangleFrame.fillRect(0, 0, 300, 65);
-        this.rectangleFrame.setInteractive(new Phaser.Geom.Rectangle(0, 0, 300, 65), Phaser.Geom.Rectangle.Contains);
+        this._rectangleFrame = this._context.add.graphics({x: this._positionX - 20, y: this._positionY - 20});
+        this._rectangleFrame.fillStyle(0xffffff, 1).setDepth(21);
+        this._rectangleFrame.fillRect(0, 0, 300, 65);
+        this._rectangleFrame.setInteractive(new Phaser.Geom.Rectangle(0, 0, 300, 65), Phaser.Geom.Rectangle.Contains);
 
-        this.animateAfterFocus(this.imageFrame);
-        this.animateAfterFocus(this.rectangleFrame);
+        this.animateAfterFocus(this._imageFrame);
+        this.animateAfterFocus(this._rectangleFrame);
     }
 
     private initCursor() {
         const cursorStyle = { fontSize: '32px', fill: '#000000' };
-        this.cursor = this.context.add.text(this.positionX + 50, this.positionY - 4, '|', cursorStyle);
-        this.cursor.setDepth(21).setAlpha(0);
+        this._cursor = this._context.add.text(this._positionX + 50, this._positionY - 4, '|', cursorStyle);
+        this._cursor.setDepth(21).setAlpha(0);
 
-        this.tweens = this.context.tweens.add(
+        this._tween = this._context.tweens.add(
             {
-                targets: this.cursor,
+                targets: this._cursor,
                 alpha: 1,
                 duration: 300,
                 hold: 600,
@@ -92,19 +122,19 @@ export class TextInputField {
     }
 
     private initKeydownEvent() {
-        this.context.input.keyboard?.on('keydown', (event: KeyboardEvent) => {
-            if (!this.isFocus) {
+        this._context.input.keyboard?.on('keydown', (event: KeyboardEvent) => {
+            if (!this._isFocus) {
                 return;
             }
 
-            if (event.key === "Backspace" && this.value.length > 0) { // Delete
-                this.value = this.value.slice(0, -1);
-            } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && this.value.length < this.maxLength) {
-                this.value += event.key
-            } else if ( this.value.length === this.maxLength) {
-                //
+            if (event.key === "Backspace" && this._value.length > 0) { // Delete
+                this._value = this._value.slice(0, -1);
+            } else if (event.key.length === 1 && event.key.match(/[a-zA-Z0-9\s\-_]/) && this._value.length < this._maxLength) {
+                this._value += event.key
+            } else if ( this._value.length === this._maxLength) {
+                // max
             }
-            this.textObject.text = this.value;
+            this._textObject.text = this._value;
         });
     }
 
@@ -112,19 +142,19 @@ export class TextInputField {
     private animateAfterFocus(gameObject: GameObject) {
         gameObject.on('pointerup', () => {
             console.log("Pointer up");
-            if (this.isFocus) {
+            if (this._isFocus) {
                 return;
             }
-            this.isFocus = true;
+            this._isFocus = true;
 
             // Reset name form
-            if (this.value === this.placeholder) {
-                this.updateValue('');
+            if (this._textObject.text === this._placeholder) {
+                this._textObject.text = '';
             }
 
             // Add blinking cursor
-            this.cursor?.setAlpha(0);
-            this.tweens.resume();
+            this._cursor?.setAlpha(0);
+            this._tween?.resume();
 
             // Activate the on-screen keyboard for mobile devices
             // if (isMobileDevice()) {
@@ -133,33 +163,33 @@ export class TextInputField {
 
             // deactivateNameForm() must be called after a short delay to ensure that the pointerup
             // event that called activateNameForm() doesn't inadvertently call it as well.
-            this.context.time.delayedCall(200, () => {
+            this._context.time.delayedCall(200, () => {
                 this.animateFocusOut();
             });
         });
     }
 
     private animateFocusOut() {
-        this.context.input.off('pointerup');
-        this.context.input.once('pointerup', () => {
+        this._context.input.off('pointerup');
+        this._context.input.once('pointerup', () => {
 
-            if (this.isFocus) {
+            if (this._isFocus) {
                 let delayTime = 0;
 
                 // Reset form if it's empty
-                if (!this.value) {
-                    this.updateValue(this.placeholder);
+                if (this._value == '') {
+                    this._textObject.text = this._placeholder;
                     delayTime = 100; // Gives Update() time to update the name field before !isEnteringName.
                 }
 
                 // Deactivates typing
-                this.context.time.delayedCall(delayTime, () => {
-                    this.isFocus = false;
+                this._context.time.delayedCall(delayTime, () => {
+                    this._isFocus = false;
                 })
 
                 // Remove cursor
-                this.cursor?.setAlpha(0);
-                this.tweens.pause();
+                this._cursor?.setAlpha(0);
+                this._tween?.pause();
 
                 // Deactivate the on-screen keyboard for mobile devices
                 // if (isMobileDevice()) {
@@ -167,11 +197,6 @@ export class TextInputField {
                 // }
             }
         });
-    }
-
-    private updateValue(value: string) {
-        this.value = value;
-        this.textObject.text = value;
     }
 
 }

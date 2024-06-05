@@ -19,9 +19,9 @@ export class PreloadService {
     }
 
     public loadUI() {
-        this.context.load.image("input-frame", "images/forms/input-field.png")
-        this.context.load.image("button", "images/forms/button.png")
-        this.context.load.image("buttonHover", "images/forms/buttonHover.png")
+        this.context.load.image("input-frame", "images/forms/stoneButtonFrame.png")
+        this.context.load.image("button", "images/forms/stoneButtonInsetReady.png")
+        this.context.load.image("buttonHover", "images/forms/stoneButtonInsetHovered.png")
     }
 
     public loadBaseImages() {

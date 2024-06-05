@@ -1,23 +1,25 @@
 import Phaser from "phaser";
 import {PreloadService} from "../services/preload.service";
 import {TextInputField} from "../objects/forms/TextInputField";
+import {JoinLobbyButton} from "../objects/forms/buttons/JoinLobbyButton";
 
 
 export default class MainMenuScene extends Phaser.Scene {
 
     // Services
-    private preloadService: PreloadService;
+    private _preloadService: PreloadService;
 
     // Attributes
-    inputField: TextInputField;
+    private _inputField: TextInputField;
+    private _joinButton: JoinLobbyButton;
 
     constructor() {
         super();
-        this.preloadService = new PreloadService(this);
+        this._preloadService = new PreloadService(this);
     }
 
     preload() {
-        this.preloadService.loadMainMenuImages();
+        this._preloadService.loadMainMenuImages();
     }
 
     create() {
@@ -32,16 +34,16 @@ export default class MainMenuScene extends Phaser.Scene {
 
         // Initiate form and input field
         const nameTextConfig = { fontSize: '23px', fill: '#000000'};
-        this.inputField = new TextInputField(this, 420, 200, "Enter your name", nameTextConfig);
-
+        this._inputField = new TextInputField(this, 420, 200, "Enter your name", nameTextConfig);
+        this._joinButton = new JoinLobbyButton(this, 550, 400, "Join", nameTextConfig);
     }
 
     update() {
-        this.inputField.update();
+        this._inputField.update();
     }
 
     private startgame() {
-        console.log("Start game with " + this.inputField.value());
+        console.log("Start game with " + this._inputField.value());
 
         this.cameras.main.fadeOut(1000);
         this.cameras.main.shake(1000, .0030, false);

@@ -42,13 +42,13 @@ export class TextInputField {
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(context: Phaser.Scene, positionX: number, positionY: number, placeholder: string, style: Phaser.Types.GameObjects.Text.TextStyle, maxLength = 16) {
+    constructor(context: Scene, positionX: number, positionY: number, placeholder: string, style: Phaser.Types.GameObjects.Text.TextStyle, maxLength = 16) {
         this._context = context;
-        this._style = style;
         this._positionX = positionX;
         this._positionY = positionY;
-        this._value = "";
         this._placeholder = placeholder;
+        this._value = "";
+        this._style = style;
         this._isFocus = false;
         this._maxLength = maxLength;
 
@@ -66,6 +66,9 @@ export class TextInputField {
     // *****************************************************************************************************************
 
     public value(): string {
+        if (this._value == this._placeholder) {
+            return "";
+        }
         return this._value;
     }
 
@@ -90,13 +93,13 @@ export class TextInputField {
     // INITIALIZERS
 
     private initFieldBoxes() {
-        this._imageFrame = this._context.add.image(this._positionX, this._positionY, 'input-frame');
+        this._imageFrame = this._context.add.image(this._positionX + 125, this._positionY + 11, 'input-frame');
         this._imageFrame.setScale(1.2, 0.60).setInteractive().setDepth(20);
 
         this._rectangleFrame = this._context.add.graphics({x: this._positionX - 20, y: this._positionY - 20});
-        this._rectangleFrame.fillStyle(0xffffff, 1).setDepth(21);
-        this._rectangleFrame.fillRect(0, 0, 300, 65);
-        this._rectangleFrame.setInteractive(new Phaser.Geom.Rectangle(0, 0, 300, 65), Phaser.Geom.Rectangle.Contains);
+        this._rectangleFrame.fillStyle(0xffffff, 0.90).setDepth(21);
+        this._rectangleFrame.fillRect(0, 0, 290, 60);
+        this._rectangleFrame.setInteractive(new Phaser.Geom.Rectangle(0, 0, 290, 60), Phaser.Geom.Rectangle.Contains);
 
         this.animateAfterFocus(this._imageFrame);
         this.animateAfterFocus(this._rectangleFrame);
@@ -148,8 +151,8 @@ export class TextInputField {
             this._isFocus = true;
 
             // Reset name form
-            if (this._textObject.text === this._placeholder) {
-                this._textObject.text = '';
+            if (this._value === this._placeholder) {
+                this._value = '';
             }
 
             // Add blinking cursor
@@ -178,7 +181,7 @@ export class TextInputField {
 
                 // Reset form if it's empty
                 if (this._value == '') {
-                    this._textObject.text = this._placeholder;
+                    this._value = this._placeholder;
                     delayTime = 100; // Gives Update() time to update the name field before !isEnteringName.
                 }
 

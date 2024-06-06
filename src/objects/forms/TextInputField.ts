@@ -23,10 +23,10 @@ export class TextInputField {
     // OBJECTS
     private _context:  Scene;
     private _textObject: Text;
-    private _imageFrame: Image | undefined;
-    private _rectangleFrame: Graphics | undefined;
-    private _cursor: Text | undefined;
-    private _tween: Tween | undefined;
+    private _imageFrame?: Image;
+    private _rectangleFrame?: Graphics;
+    private _cursor?: Text;
+    private _tween?: Tween;
 
 
     // CUSTOM VALUES
@@ -54,7 +54,7 @@ export class TextInputField {
 
         // INIT OBJECTS
 
-        this._textObject = this._context.add.text(positionX, positionY, this._placeholder, style).setDepth(22);
+        this._textObject = this._context.add.text(positionX - 140, positionY - 12, this._placeholder, style).setDepth(22);
 
         this.initFieldBoxes();
         this.initCursor();
@@ -93,10 +93,10 @@ export class TextInputField {
     // INITIALIZERS
 
     private initFieldBoxes() {
-        this._imageFrame = this._context.add.image(this._positionX + 125, this._positionY + 11, 'input-frame');
+        this._imageFrame = this._context.add.image(this._positionX, this._positionY, 'input-frame');
         this._imageFrame.setScale(1.2, 0.60).setInteractive().setDepth(20);
 
-        this._rectangleFrame = this._context.add.graphics({x: this._positionX - 20, y: this._positionY - 20});
+        this._rectangleFrame = this._context.add.graphics({x: this._positionX - 145, y: this._positionY - 30});
         this._rectangleFrame.fillStyle(0xffffff, 0.90).setDepth(21);
         this._rectangleFrame.fillRect(0, 0, 290, 60);
         this._rectangleFrame.setInteractive(new Phaser.Geom.Rectangle(0, 0, 290, 60), Phaser.Geom.Rectangle.Contains);
@@ -107,7 +107,7 @@ export class TextInputField {
 
     private initCursor() {
         const cursorStyle = { fontSize: '32px', fill: '#000000' };
-        this._cursor = this._context.add.text(this._positionX + 50, this._positionY - 4, '|', cursorStyle);
+        this._cursor = this._context.add.text(this._positionX + 50, this._positionY - 20, '|', cursorStyle);
         this._cursor.setDepth(21).setAlpha(0);
 
         this._tween = this._context.tweens.add(

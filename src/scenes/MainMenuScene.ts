@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import {PreloadService} from "../services/preload.service";
 import {TextInputField} from "../objects/forms/TextInputField";
 import {JoinLobbyButton} from "../objects/forms/buttons/JoinLobbyButton";
+import {CreateLobbyButton} from "../objects/forms/buttons/CreateLobbyButton";
 
 
 export default class MainMenuScene extends Phaser.Scene {
@@ -10,8 +11,9 @@ export default class MainMenuScene extends Phaser.Scene {
     private _preloadService: PreloadService;
 
     // Attributes
-    private _inputField: TextInputField;
-    private _joinButton: JoinLobbyButton;
+    private _inputField?: TextInputField;
+    private _joinButton?: JoinLobbyButton;
+    private _createButton?: CreateLobbyButton;
 
     constructor() {
         super();
@@ -25,17 +27,13 @@ export default class MainMenuScene extends Phaser.Scene {
     create() {
         console.log("Create main menu");
 
-        this.add.image(0, 0, "background");
-        // const style = new TextStyle();
-        const text = this.add.text(0, 0, "Menu");
-        text.setColor("#ffff00");
-
         this.input.keyboard?.createCursorKeys();
 
         // Initiate form and input field
         const nameTextConfig = { fontSize: '23px', fill: '#000000'};
-        this._inputField = new TextInputField(this, 420, 200, "Enter your name", nameTextConfig);
-        this._joinButton = new JoinLobbyButton(this, 550, 400, "Join", nameTextConfig);
+        this._inputField = new TextInputField(this, 550, 200, "Enter your name...", nameTextConfig);
+        this._createButton = new CreateLobbyButton(this, 550, 300, "Create lobby", nameTextConfig);
+        this._joinButton = new JoinLobbyButton(this, 550, 400, "Join lobby", nameTextConfig);
     }
 
     update() {

@@ -30,7 +30,7 @@ export abstract class AButton {
 
         this._image = context.add.image(positionX, positionY, 'button');
         this._image.setScale(1.2, 0.6).setInteractive();
-        this._textObject = context.add.text(positionX - 25, positionY - 10, label, style);
+        this._textObject = context.add.text(positionX - (7*label.length), positionY - 10, label, style);
 
         this.enableAnimation();
     }

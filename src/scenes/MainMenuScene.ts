@@ -1,14 +1,17 @@
 import Phaser from "phaser";
 import {PreloadService} from "../services/preload.service";
-import {TextInputField} from "../objects/forms/TextInputField";
-import {JoinLobbyButton} from "../objects/forms/buttons/JoinLobbyButton";
-import {CreateLobbyButton} from "../objects/forms/buttons/CreateLobbyButton";
+import {TextInputField} from "../gameobjects/forms/TextInputField";
+import {JoinLobbyButton} from "../gameobjects/forms/buttons/JoinLobbyButton";
+import {CreateLobbyButton} from "../gameobjects/forms/buttons/CreateLobbyButton";
+import {ServicesFactory} from "../utils/factories/services.factory";
+import {LobbyService} from "../services/lobby.service";
 
 
 export default class MainMenuScene extends Phaser.Scene {
 
     // Services
     private _preloadService: PreloadService;
+    private _lobbyService: LobbyService;
 
     // Attributes
     private _inputField?: TextInputField;
@@ -17,7 +20,8 @@ export default class MainMenuScene extends Phaser.Scene {
 
     constructor() {
         super();
-        this._preloadService = new PreloadService(this);
+        this._preloadService = ServicesFactory.Preload(this);
+        this._lobbyService = ServicesFactory.Lobby();
     }
 
     preload() {
@@ -32,16 +36,16 @@ export default class MainMenuScene extends Phaser.Scene {
         // Initiate form and input field
         const nameTextConfig = { fontSize: '23px', fill: '#000000'};
         this._inputField = new TextInputField(this, 550, 200, "Enter your name...", nameTextConfig);
-        this._createButton = new CreateLobbyButton(this, 550, 300, "Create lobby", nameTextConfig);
+        this._createButton = new CreateLobbyButton(this, 550, 300, "Create lobby", nameTextConfig, this._inputField.value());
         this._joinButton = new JoinLobbyButton(this, 550, 400, "Join lobby", nameTextConfig);
     }
 
     update() {
-        this._inputField.update();
+        this._inputField?.update();
     }
 
     private startgame() {
-        console.log("Start game with " + this._inputField.value());
+        console.log("Start game with " + this._inputField?.value());
 
         this.cameras.main.fadeOut(1000);
         this.cameras.main.shake(1000, .0030, false);

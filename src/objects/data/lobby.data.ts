@@ -8,19 +8,39 @@ export class LobbyData {
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private key: string;
-    private owner: UserData;
-    private users: LobbyUserData[];
-    private options: GameOptionData;
+    private _key: string;
+    private _owner: UserData;
+    private _users: LobbyUserData[];
+    private _options: GameOptionData;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
     constructor(key: string, owner: UserData, users: LobbyUserData[], options: GameOptionData) {
-        this.key = key;
-        this.owner = owner;
-        this.users = users;
-        this.options = options;
+        this._key = key;
+        this._owner = owner;
+        this._users = users;
+        this._options = options;
+    }
+
+    // *****************************************************************************************************************
+    // GETTER
+    // *****************************************************************************************************************
+
+    get key(): string {
+        return this._key;
+    }
+
+    get owner(): UserData {
+        return this._owner;
+    }
+
+    get users(): LobbyUserData[] {
+        return this._users;
+    }
+
+    get options(): GameOptionData {
+        return this._options;
     }
 }

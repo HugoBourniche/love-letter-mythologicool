@@ -2,7 +2,7 @@ import Text = Phaser.GameObjects.Text;
 import Image = Phaser.GameObjects.Image;
 import {Scene} from "phaser";
 
-export abstract class AButton {
+export class Button {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
@@ -18,15 +18,18 @@ export abstract class AButton {
     private _positionY: number;
     private _label: string;
 
+    private _action: () => void;
+
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(context: Scene, positionX: number, positionY: number, label: string, style: Phaser.Types.GameObjects.Text.TextStyle) {
+    constructor(context: Scene, positionX: number, positionY: number, label: string, style: Phaser.Types.GameObjects.Text.TextStyle, action: () => void) {
         this._context = context;
         this._positionX = positionX;
         this._positionY = positionY;
         this._label = label;
+        this._action = action;
 
         this._image = context.add.image(positionX, positionY, 'button');
         this._image.setScale(1.2, 0.6).setInteractive();
@@ -39,14 +42,12 @@ export abstract class AButton {
     // ABSTRACT METHOD
     // *****************************************************************************************************************
 
-    public abstract onClick(): void;
-
     // *****************************************************************************************************************
     // PRIVATE METHOD
     // *****************************************************************************************************************
 
     private enableAnimation(): void {
-        this._image.on("pointerup", () => this.onClick());
+        this._image.on("pointerup", () => this._action());
         this._image.on("pointerover", () => this._image.setTexture("buttonHover"));
         this._image.on("pointerout", () => this._image.setTexture("button"));
     }

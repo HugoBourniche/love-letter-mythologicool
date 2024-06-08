@@ -1,8 +1,8 @@
 import Phaser from 'phaser'
 
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "./cst";
-import MainScene from "./scenes/MainScene";
-import MainMenuScene from "./scenes/MainMenuScene";
+import MainScene from "./scenes/main.scene";
+import MainMenuScene from "./scenes/main-menu.scene";
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,

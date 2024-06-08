@@ -28,7 +28,7 @@ export default class MainMenuScene extends Phaser.Scene {
     // *****************************************************************************************************************
 
     constructor() {
-        super();
+        super("main-menu-scene");
         this._preloadService = ServicesFactory.Preload(this);
         this._lobbyService = ServicesFactory.Lobby();
     }
@@ -81,7 +81,7 @@ export default class MainMenuScene extends Phaser.Scene {
 
     private onLobbyCreated(lobbyData: LobbyData) {
         console.log("Key: " + lobbyData.key);
-        this.scene.switch("MainScene");
+        this.scene.switch("main-scene");
     }
 
 }

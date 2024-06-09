@@ -41,7 +41,7 @@ export default class LobbyScene extends Phaser.Scene {
     init(lobbyData: LobbyData) {
         console.log("Init lobby scene");
         if (lobbyData.key === undefined) {
-            lobbyData = new LobbyData("FAB-IEN", [new LobbyUserData("Théo", true, true)], new GameOptionData(6));
+            lobbyData = new LobbyData("FAB-IEN", [new LobbyUserData("Théo", true, true), new LobbyUserData("Mélanie", false, false), new LobbyUserData("Thomas", true, false), new LobbyUserData("Hugo", false, false)], new GameOptionData(6));
         }
         console.log(lobbyData);
         this._lobbyData = lobbyData;
@@ -79,7 +79,7 @@ export default class LobbyScene extends Phaser.Scene {
 
         for (let i = 0; i < this._lobbyData.users.length; i++) {
             const user = this._lobbyData.users[i];
-            this._playerLabels.push(new LobbyUserField(this, 50, 100, user, {color: "#ffffff", fontSize: DEFAULT_FONT_SIZE}));
+            this._playerLabels.push(new LobbyUserField(this, 50, 150 + i*50, user, {color: "#ffffff", fontSize: DEFAULT_FONT_SIZE}));
         }
     }
 }

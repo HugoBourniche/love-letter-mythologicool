@@ -1,9 +1,8 @@
 import { LobbyCreationRequest } from "../objects/requests/lobby-creation.request";
 import { LobbyCreationResponse } from "../objects/responses/lobby-creation.response";
-import { LobbyJoinedRequest } from "../objects/requests/lobby-joined.request";
+import {  LobbyJoinedRequest } from "../objects/requests/lobby-joined.request";
 import { LobbyJoinedResponse } from "../objects/responses/lobby-joined.response";
-import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";
-import { DataToDtoConverter } from "../utils/converters/data-to-dto.converter";
+import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";import { DataToDtoConverter } from "../utils/converters/data-to-dto.converter";
 import { UserDto } from "../objects/dtos/users/user.dto";
 import { GameOptionsData } from "../objects/data/game-options/game-options.data";
 import { ApplyGameOptionsRequest } from "../objects/requests/apply-game-options.request";
@@ -40,6 +39,7 @@ export class LobbyService {
     if (!response.ok) {
       throw new Error("Can't create a room");
     }
+
     return (await response.json()) as LobbyCreationResponse;
   }
 

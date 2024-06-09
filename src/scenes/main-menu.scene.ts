@@ -103,9 +103,8 @@ export default class MainMenuScene extends Phaser.Scene {
     this._lobbyService
       .createLobby(this._nameInputField.value())
       .then((response: LobbyCreationResponse) =>
-        this.onLobbyCreatedOrJoined(
-          DtoToDataConverter.lobby(response.lobby),
-          response.currentUserName
+        this.onLobbyCreatedOrJoined(DtoToDataConverter.lobby(response.lobby),
+      response.currentUserName
         )
       )
       .catch((error) => console.error(error));

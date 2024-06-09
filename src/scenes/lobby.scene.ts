@@ -2,12 +2,11 @@ import { PreloadService } from "../services/preload.service";
 import { ServicesFactory } from "../utils/factories/services.factory";
 import { LobbyData } from "../objects/data/lobby.data";
 import { LabelledButtonField } from "../gameobjects/forms/buttons/labelled-button.field";
-import { LobbyUserData } from "../objects/data/users/lobby-user.data";
+import {  LobbyUserData } from "../objects/data/users/lobby-user.data";
 import { SimpleLabelField } from "../gameobjects/forms/simple-label.field";
 import { DEFAULT_FONT_SIZE } from "../cst";
 import { LobbyUserField } from "../gameobjects/forms/lobby-user.field";
-import { LobbyService } from "../services/lobby.service";
-import { PartScenePositionsEnum } from "../utils/factories/part-scene-positions.enum";
+import { LobbyService } from "../services/lobby.service";import { PartScenePositionsEnum } from "../utils/factories/part-scene-positions.enum";
 import { DataFactory } from "../utils/factories/data.factory";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 import { GameOptionsPanel } from "./panel/game-options.panel";
@@ -44,8 +43,7 @@ export default class LobbyScene extends Phaser.Scene {
     super("lobby-scene");
     this._preloadService = ServicesFactory.Preload(this);
     this._lobbyService = ServicesFactory.Lobby();
-    this._gameOptionsPanel = new GameOptionsPanel(this);
-    this._lobbyData = {} as LobbyData;
+    this._gameOptionsPanel = new GameOptionsPanel(this);this._lobbyData = {} as LobbyData;
     this._playerLabels = [];
   }
 
@@ -72,17 +70,13 @@ export default class LobbyScene extends Phaser.Scene {
   preload() {
     console.log("Preload lobby scene");
     this._preloadService.loadMainMenuImages();
-    this._gameOptionsPanel.preload();
+  this._gameOptionsPanel.preload();
   }
 
   create() {
     console.log("Create lobby scene");
-    this._startButton = new StoneLabelledButtonField(
-      this,
-      400,
-      50,
-      "Start",
-      () => this.startGame()
+    this._startButton = new StoneLabelledButtonField(this, 400, 50, "Start", () =>
+      this.startGame()
     );
     this._lobbyKeyLabel = new SimpleLabelField(
       this,
@@ -90,9 +84,9 @@ export default class LobbyScene extends Phaser.Scene {
       40,
       "Lobby: " + this._lobbyData.key,
       { color: "#ffffff", fontSize: DEFAULT_FONT_SIZE }
-    );
-    this.refreshUsers();
-    this._gameOptionsPanel.create();
+
+    );this.refreshUsers();
+this._gameOptionsPanel.create();
   }
 
   update(time: number, delta: number) {

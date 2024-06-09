@@ -1,11 +1,9 @@
-import {GameManagerData} from "../models/GameManagerData";
+import { GameManagerData } from "../models/GameManagerData";
 
 export class InitializedGameResponse {
+  private gameManagerDTO: GameManagerData;
 
-    private gameManagerDTO: GameManagerData;
-
-    constructor(gameManagerDTO: GameManagerData) {
-        this.gameManagerDTO = gameManagerDTO;
-    }
-
+  constructor(gameManagerDTO: GameManagerData) {
+    this.gameManagerDTO = gameManagerDTO;
+  }
 }

@@ -46,9 +46,7 @@ export class LobbyData {
 
   set key(value: string) {
     this._key = value;
-  }
-
-  get owner(): LobbyUserData {
+  }get owner(): LobbyUserData {
     return this._users.filter((user) => user.isOwner)[0];
   }
 
@@ -62,9 +60,7 @@ export class LobbyData {
 
   get options(): GameOptionsData {
     return this._options;
-  }
-
-  set options(value: GameOptionsData) {
+  }set options(value: GameOptionsData) {
     this._options = value;
   }
 }

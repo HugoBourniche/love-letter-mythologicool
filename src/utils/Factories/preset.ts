@@ -1,4 +1,1 @@
-
-export default class Preset {
-
-}
+export default class Preset {}

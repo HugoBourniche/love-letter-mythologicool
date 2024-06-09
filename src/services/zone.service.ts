@@ -1,7 +1,3 @@
-
-
 export class ZoneService {
-
-    constructor() {
-    }
+  constructor() {}
 }

@@ -14,7 +14,7 @@ export class LobbyCreationResponse {
 
   constructor(lobby: LobbyDTO, currentUserName: string) {
     this._lobby = lobby;
-    this._currentUserName = currentUserName;
+  this._currentUserName = currentUserName;
   }
 
   // *****************************************************************************************************************

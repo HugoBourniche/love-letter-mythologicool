@@ -1,5 +1,5 @@
-import { CardData } from "./CardData";
-import { PlayerData } from "./PlayerData";
+import { CardData } from "./card.data";
+import { PlayerData } from "./player.data";
 
 export class GameManagerData {
   private playerTurn: number;

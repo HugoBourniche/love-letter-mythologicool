@@ -1,5 +1,5 @@
 import { Player } from "../objects/player";
-import { InitializedGameResponse } from "../objects/response/InitializedGameResponse";
+import { InitializedGameResponse } from "../objects/responses/initialized-game.response";
 
 export class GameManagerService {
   constructor() {}

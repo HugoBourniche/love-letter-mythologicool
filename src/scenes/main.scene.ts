@@ -5,7 +5,7 @@ import { PreloadService } from "../services/preload.service";
 import Zone from "../objects/zone";
 import { GameManagerService } from "../services/game-manager.service";
 import { Player } from "../objects/player";
-import { InitializedGameResponse } from "../objects/response/InitializedGameResponse";
+import { InitializedGameResponse } from "../objects/responses/initialized-game.response";
 
 export default class MainScene extends Phaser.Scene {
   private text: Phaser.GameObjects.Text | undefined;

@@ -1,4 +1,4 @@
-import { GameManagerData } from "../models/GameManagerData";
+import { GameManagerData } from "../data/game/game-manager.data";
 
 export class InitializedGameResponse {
   private gameManagerDTO: GameManagerData;

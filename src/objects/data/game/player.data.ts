@@ -1,4 +1,4 @@
-import { CardData } from "./CardData";
+import { CardData } from "./card.data";
 
 export class PlayerData {
   private name: string;

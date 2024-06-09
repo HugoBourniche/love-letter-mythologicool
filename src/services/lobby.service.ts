@@ -4,6 +4,7 @@ import {LobbyCreationResponse} from "../objects/responses/lobby-creation.respons
 import {UserDataDto} from "../objects/dtos/user-data.dto";
 import {LobbyJoinedRequest} from "../objects/requests/lobby-joined.request";
 import {LobbyJoinedResponse} from "../objects/responses/lobby-joined.response";
+import {LobbyUpdateResponse} from "../objects/responses/lobby-update.response";
 
 export class LobbyService {
 
@@ -63,5 +64,23 @@ export class LobbyService {
         }
 
         return (await response.json()) as LobbyJoinedResponse;
+    }
+
+    public async updateLobby(lobbyKey: string) {
+        console.log("LobbyService:updateLobby(lobbyKey="+ lobbyKey +")");
+        const response = await fetch(
+            'http://localhost:9143/lobby/update?lobbyKey=' + lobbyKey, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Can\'t update a room')
+        }
+
+        return (await response.json()) as LobbyUpdateResponse;
     }
 }

@@ -7,6 +7,7 @@ import {LobbyUserData} from "../objects/data/users/lobby-user.data";
 import {SimpleLabelField} from "../gameobjects/forms/simple-label.field";
 import {DEFAULT_FONT_SIZE} from "../cst";
 import {LobbyUserField} from "../gameobjects/forms/lobby-user.field";
+import {LobbyService} from "../services/lobby.service";
 
 export default class LobbyScene extends Phaser.Scene {
 
@@ -16,12 +17,16 @@ export default class LobbyScene extends Phaser.Scene {
 
     // Services
     private _preloadService: PreloadService;
+    private _lobbyService: LobbyService;
 
     // Objects
     private _startButton?: LabelledButtonField;
     private _lobbyKeyLabel?: SimpleLabelField;
     private _lobbyData: LobbyData;
     private _playerLabels: LobbyUserField[];
+
+    // Utils
+    private timeStamp = 0;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
@@ -30,6 +35,7 @@ export default class LobbyScene extends Phaser.Scene {
     constructor() {
         super("lobby-scene");
         this._preloadService = ServicesFactory.Preload(this);
+        this._lobbyService = ServicesFactory.Lobby();
         this._lobbyData = {} as LobbyData;
         this._playerLabels = [];
     }
@@ -60,8 +66,16 @@ export default class LobbyScene extends Phaser.Scene {
 
     }
 
-    update() {
+    update(time: number, delta: number) {
+        super.update(time, delta);
 
+        const timeSpent = time - this.timeStamp;
+        if (timeSpent >= 5000) { // Every 5s
+            this.timeStamp = time;
+            this._lobbyService.updateLobby(this._lobbyData.key).then(
+                (updatedLobbyData) => this.updateLobbyData(updatedLobbyData.lobby)
+            )
+        }
     }
 
     // *****************************************************************************************************************
@@ -70,6 +84,11 @@ export default class LobbyScene extends Phaser.Scene {
 
     private startGame() {
         console.log("Start Game");
+    }
+
+    private updateLobbyData(updatedLobbyData: LobbyData) {
+        this._lobbyData = updatedLobbyData;
+        this.refreshUsers();
     }
 
     private refreshUsers() {

@@ -49,15 +49,15 @@ export class PreloadService {
   public loadLoveLetterClassicCards() {
     this.context.load.image(
       "loveletter_classic_0_spy",
-      "images/cards/card_loveletter_classic_0_espionne.jpg"
+      "images/cards/card_loveletter_classic_0_espionne.png"
     );
     this.context.load.image(
       "loveletter_classic_1_guard",
-      "images/cards/card_loveletter_classic_1_garde.jpg"
+      "images/cards/card_loveletter_classic_1_garde.png"
     );
     this.context.load.image(
       "loveletter_classic_2_priest",
-      "images/cards/card_loveletter_classic_2_pretre.jpg"
+      "images/cards/card_loveletter_classic_2_pretre.png"
     );
     this.context.load.image(
       "loveletter_classic_3_baron",
@@ -65,7 +65,7 @@ export class PreloadService {
     );
     this.context.load.image(
       "loveletter_classic_4_handmaid",
-      "images/cards/card_loveletter_classic_4_servante.jpg"
+      "images/cards/card_loveletter_classic_4_servante.png"
     );
     this.context.load.image(
       "loveletter_classic_5_prince",

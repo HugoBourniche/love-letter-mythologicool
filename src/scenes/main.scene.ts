@@ -4,7 +4,7 @@ import Phaser from "phaser";
 export default class MainScene extends Phaser.Scene {
 
 
-    private image: Phaser.GameObjects.Image;
+    private image: Phaser.GameObjects.Image | undefined;
 
     constructor() {
         super("main-scene");

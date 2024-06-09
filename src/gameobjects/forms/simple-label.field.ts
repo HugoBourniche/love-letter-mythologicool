@@ -1,26 +1,32 @@
-import {LobbyData} from "../data/lobby.data";
+import {SimpleField} from "./simple.field";
+import Text = Phaser.GameObjects.Text;
+import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
+import {DEFAULT_STYLE} from "../../cst";
 
-export class LobbyCreationResponse {
+export class SimpleLabelField extends SimpleField {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobby: LobbyData;
+    protected _label: string;
+    protected _text: Text;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyData) {
-        this._lobby = lobby;
+    constructor(context: Phaser.Scene, positionX: number, positionY: number, label: string, style: TextStyle = DEFAULT_STYLE) {
+        super(context, positionX, positionY);
+        this._label = label;
+        this._text = context.add.text(positionX, positionY, label, style);
     }
 
     // *****************************************************************************************************************
-    // GETTER
+    // PUBLIC METHODS
     // *****************************************************************************************************************
 
-    get lobby(): LobbyData {
-        return this._lobby;
+    public override clear() {
+        this._text.removedFromScene();
     }
 }

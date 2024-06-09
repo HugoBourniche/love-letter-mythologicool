@@ -6,14 +6,29 @@ export class LobbyUserData extends UserData {
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private isReady: boolean;
+    private _isReady: boolean;
+    private _isOwner: boolean;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(name: string, isReady: boolean) {
+    constructor(name: string, isReady: boolean, isOwner: boolean) {
         super(name);
-        this.isReady = isReady;
+        this._isReady = isReady;
+        this._isOwner = isOwner;
     }
+
+    // *****************************************************************************************************************
+    // GETTER
+    // *****************************************************************************************************************
+
+    get isReady(): boolean {
+        return this._isReady;
+    }
+
+    get isOwner(): boolean {
+        return this._isOwner;
+    }
+
 }

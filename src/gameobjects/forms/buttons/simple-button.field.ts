@@ -1,7 +1,8 @@
 import {Scene} from "phaser";
 import Image = Phaser.GameObjects.Image;
+import {SimpleField} from "../simple.field";
 
-export class SimpleButton {
+export class SimpleButtonField extends SimpleField {
 
 
     // *****************************************************************************************************************
@@ -9,13 +10,9 @@ export class SimpleButton {
     // *****************************************************************************************************************
 
     // OBJECTS
-    protected _context: Scene;
     protected _image: Image;
 
     // CUSTOM VALUES
-    protected _positionX: number;
-    protected _positionY: number;
-
     protected _action: () => void;
 
     // *****************************************************************************************************************
@@ -23,9 +20,7 @@ export class SimpleButton {
     // *****************************************************************************************************************
 
     constructor(context: Scene, positionX: number, positionY: number, style: Phaser.Types.GameObjects.Text.TextStyle, action: () => void) {
-        this._context = context;
-        this._positionX = positionX;
-        this._positionY = positionY;
+        super(context, positionX, positionY);
         this._action = action;
 
         this._image = context.add.image(positionX, positionY, 'button');
@@ -34,6 +29,13 @@ export class SimpleButton {
         this.enableAnimation();
     }
 
+    // *****************************************************************************************************************
+    // PUBLIC METHOD
+    // *****************************************************************************************************************
+
+    public override clear() {
+        this._image.removedFromScene();
+    }
 
     // *****************************************************************************************************************
     // PRIVATE METHOD

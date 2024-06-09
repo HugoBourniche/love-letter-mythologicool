@@ -1,26 +1,29 @@
-import {LobbyData} from "../data/lobby.data";
+import {Scene} from "phaser";
 
-export class LobbyCreationResponse {
+export abstract class SimpleField {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobby: LobbyData;
+    protected _context: Scene;
+    protected _positionX: number;
+    protected _positionY: number;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyData) {
-        this._lobby = lobby;
+    protected constructor(context: Phaser.Scene, positionX: number, positionY: number) {
+        this._context = context;
+        this._positionX = positionX;
+        this._positionY = positionY;
     }
 
     // *****************************************************************************************************************
-    // GETTER
+    // ABSTRACT METHODS
     // *****************************************************************************************************************
 
-    get lobby(): LobbyData {
-        return this._lobby;
-    }
+    public abstract clear(): void;
+
 }

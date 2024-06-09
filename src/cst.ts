@@ -1,3 +1,4 @@
+import Phaser from "phaser";
 
 export const SCREEN_WIDTH = 1280;
 export const SCREEN_HEIGHT = 720;
@@ -14,3 +15,6 @@ export const CARD_LIST = [
     "loveletter_classic_8_countess",
     "loveletter_classic_9_princess"
 ]
+
+export const DEFAULT_FONT_SIZE = '23px';
+export const DEFAULT_STYLE = { fontSize: DEFAULT_FONT_SIZE, fill: '#000000'} as Phaser.Types.GameObjects.Text.TextStyle;

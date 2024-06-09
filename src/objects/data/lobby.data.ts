@@ -1,4 +1,3 @@
-import {UserData} from "./users/user.data";
 import {LobbyUserData} from "./users/lobby-user.data";
 import {GameOptionData} from "./game-option.data";
 
@@ -9,7 +8,6 @@ export class LobbyData {
     // *****************************************************************************************************************
 
     private _key: string;
-    private _owner: UserData;
     private _users: LobbyUserData[];
     private _options: GameOptionData;
 
@@ -17,13 +15,19 @@ export class LobbyData {
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(key: string, owner: UserData, users: LobbyUserData[], options: GameOptionData) {
+    constructor(key: string, users: LobbyUserData[], options: GameOptionData) {
         this._key = key;
-        this._owner = owner;
         this._users = users;
         this._options = options;
     }
 
+    // *****************************************************************************************************************
+    // PUBLIC METHODS
+    // *****************************************************************************************************************
+
+    public isEmpty() {
+        return this._key === null && this._users === null && this._options === null;
+    }
     // *****************************************************************************************************************
     // GETTER
     // *****************************************************************************************************************
@@ -32,8 +36,8 @@ export class LobbyData {
         return this._key;
     }
 
-    get owner(): UserData {
-        return this._owner;
+    get owner(): LobbyUserData {
+        return this._users.filter((user) => user.isOwner)[0];
     }
 
     get users(): LobbyUserData[] {

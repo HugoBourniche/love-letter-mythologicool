@@ -1,20 +1,18 @@
-import {UserDataDto} from "../dtos/user-data.dto";
 
-export class LobbyCreationRequest {
+export class UserDataDto {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private owner: UserDataDto;
-    private game: string;
+    private name: string;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(owner: UserDataDto) {
-        this.owner = owner;
-        this.game = "classic"
+    constructor(name: string) {
+        this.name = name;
     }
+
 }

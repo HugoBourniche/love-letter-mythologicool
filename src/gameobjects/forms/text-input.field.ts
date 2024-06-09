@@ -5,6 +5,8 @@ import Image = Phaser.GameObjects.Image;
 import Graphics = Phaser.GameObjects.Graphics;
 import Tween = Phaser.Tweens.Tween;
 import GameObject = Phaser.GameObjects.GameObject;
+import {SimpleField} from "./simple.field";
+import {DEFAULT_STYLE} from "../../cst";
 
 /**
  * Source
@@ -14,14 +16,13 @@ import GameObject = Phaser.GameObjects.GameObject;
  * Test
  * https://raw.githack.com/ErlendKK/Input-form-with-Phaser-3.5-No-DOM-Elements-/main/index.html
  */
-export class TextInputField {
+export class TextInputField extends SimpleField {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
     // OBJECTS
-    private _context:  Scene;
     private _textObject: Text;
     private _imageFrame?: Image;
     private _rectangleFrame?: Graphics;
@@ -30,8 +31,6 @@ export class TextInputField {
 
 
     // CUSTOM VALUES
-    private _positionX: number;
-    private _positionY: number;
     private _value: string;
     private _placeholder: string;
     private _isFocus: boolean;
@@ -42,10 +41,8 @@ export class TextInputField {
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(context: Scene, positionX: number, positionY: number, placeholder: string, style: Phaser.Types.GameObjects.Text.TextStyle, maxLength = 16) {
-        this._context = context;
-        this._positionX = positionX;
-        this._positionY = positionY;
+    constructor(context: Scene, positionX: number, positionY: number, placeholder: string, style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE, maxLength = 16) {
+        super(context, positionX, positionY);
         this._placeholder = placeholder;
         this._value = "";
         this._style = style;
@@ -84,6 +81,14 @@ export class TextInputField {
                 this._cursor.x = this._textObject.x + textWidth - 7;
             }
         }
+    }
+
+    public clear(): void {
+        this._textObject.removedFromScene();
+        this._imageFrame?.removedFromScene();
+        this._rectangleFrame?.removedFromScene();
+        this._cursor?.removedFromScene();
+        this._tween?.removeAllListeners();
     }
 
     // *****************************************************************************************************************

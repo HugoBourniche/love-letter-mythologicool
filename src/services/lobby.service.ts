@@ -1,6 +1,7 @@
 import {UserData} from "../objects/data/users/user.data";
 import {LobbyCreationRequest} from "../objects/requests/lobby-creation.request";
 import {LobbyCreationResponse} from "../objects/responses/lobby-creation.response";
+import {UserDataDto} from "../objects/dtos/user-data.dto";
 
 export class LobbyService {
 
@@ -20,7 +21,7 @@ export class LobbyService {
 
     public async createLobby(username: string) {
         console.log("LobbyService:createLobby(" + username + ")");
-        const user = new UserData(username);
+        const user = new UserDataDto(username);
         const requestBody = new LobbyCreationRequest(user);
         const response = await fetch(
             'http://localhost:9143/lobby/create', {

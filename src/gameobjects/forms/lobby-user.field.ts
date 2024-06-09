@@ -1,26 +1,29 @@
-import {LobbyData} from "../data/lobby.data";
+import {SimpleLabelField} from "./simple-label.field";
+import {LobbyUserData} from "../../objects/data/users/lobby-user.data";
+import {DEFAULT_STYLE} from "../../cst";
 
-export class LobbyCreationResponse {
+export class LobbyUserField extends SimpleLabelField {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobby: LobbyData;
+    private user: LobbyUserData;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyData) {
-        this._lobby = lobby;
+    constructor(context: Phaser.Scene, positionX: number, positionY: number, user: LobbyUserData, style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE) {
+        super(context, positionX, positionY, user.name, style);
+        this.user = user;
     }
 
     // *****************************************************************************************************************
-    // GETTER
+    // PUBLIC METHODS
     // *****************************************************************************************************************
 
-    get lobby(): LobbyData {
-        return this._lobby;
+    public clear(): void {
+        super.clear();
     }
 }

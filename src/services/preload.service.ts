@@ -61,7 +61,7 @@ export class PreloadService {
     );
     this.context.load.image(
       "loveletter_classic_3_baron",
-      "images/cards/card_loveletter_classic_3_baron.jpg"
+      "images/cards/card_loveletter_classic_3_baron.png"
     );
     this.context.load.image(
       "loveletter_classic_4_handmaid",

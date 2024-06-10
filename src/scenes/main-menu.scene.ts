@@ -7,6 +7,7 @@ import {LabelledButtonField} from "../gameobjects/forms/buttons/labelled-button.
 import {LobbyData} from "../objects/data/lobby.data";
 import {LobbyCreationResponse} from "../objects/responses/lobby-creation.response";
 import {LobbyJoinedResponse} from "../objects/responses/lobby-joined.response";
+import {StoneLabelledButtonField} from "../gameobjects/forms/buttons/stone-labelled-button.field";
 
 
 export default class MainMenuScene extends Phaser.Scene {
@@ -50,9 +51,9 @@ export default class MainMenuScene extends Phaser.Scene {
 
         // Initiate form and input field
         this._nameInputField = new TextInputField(this, 550, 200, "Enter your name...");
-        this._createButton = new LabelledButtonField(this, 550, 300, "Create lobby", () => this.createLobby());
+        this._createButton = new StoneLabelledButtonField(this, 550, 300, "Create lobby", () => this.createLobby());
         this._keyInputField = new TextInputField(this, 550, 400, "Enter the lobby key...");
-        this._joinButton = new LabelledButtonField(this, 550, 500, "Join lobby", () => this.joinLobby());
+        this._joinButton = new StoneLabelledButtonField(this, 550, 500, "Join lobby", () => this.joinLobby());
     }
 
     update() {

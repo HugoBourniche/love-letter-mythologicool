@@ -98,7 +98,7 @@ export class TextInputField extends SimpleField {
     // INITIALIZERS
 
     private initFieldBoxes() {
-        this._imageFrame = this._context.add.image(this._positionX, this._positionY, 'input-frame');
+        this._imageFrame = this._context.add.image(this._positionX, this._positionY, 'stone_input-frame');
         this._imageFrame.setScale(1.2, 0.60).setInteractive().setDepth(20);
 
         this._rectangleFrame = this._context.add.graphics({x: this._positionX - 145, y: this._positionY - 30});

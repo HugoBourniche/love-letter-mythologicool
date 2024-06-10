@@ -1,37 +1,36 @@
-import {SimpleField} from "./simple.field";
-import Text = Phaser.GameObjects.Text;
-import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import {DEFAULT_STYLE} from "../../cst";
+import {GameOptionRangeData} from "./game-option-range.data";
 
-export class SimpleLabelField extends SimpleField {
+export class GameOptionData {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    protected _label: string;
-    protected _text: Text;
+    private _maxPlayers: number;
+    private readonly _ranges: GameOptionRangeData;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(context: Phaser.Scene, positionX: number, positionY: number, label: string, style: TextStyle = DEFAULT_STYLE) {
-        super(context, positionX, positionY);
-        this._label = label;
-        this._text = context.add.text(positionX, positionY, this._label, style);
+    constructor(maxPlayers: number, gameOptionRange: GameOptionRangeData) {
+        this._maxPlayers = maxPlayers;
+        this._ranges = gameOptionRange;
     }
 
     // *****************************************************************************************************************
-    // PUBLIC METHODS
+    // GETTER / SETTER
     // *****************************************************************************************************************
 
-    public updateValue(value: string) {
-        this._label = value;
-        this._text.text = value;
+    get maxPlayers(): number {
+        return this._maxPlayers;
     }
 
-    public override clear() {
-        this._text.removedFromScene();
+    set maxPlayers(value: number) {
+        this._maxPlayers = value;
+    }
+
+    get ranges(): GameOptionRangeData {
+        return this._ranges;
     }
 }

@@ -5,6 +5,8 @@ import {UserDataDto} from "../objects/dtos/user-data.dto";
 import {LobbyJoinedRequest} from "../objects/requests/lobby-joined.request";
 import {LobbyJoinedResponse} from "../objects/responses/lobby-joined.response";
 import {LobbyUpdateResponse} from "../objects/responses/lobby-update.response";
+import {GameOptionData} from "../objects/data/gameoptions/game-option.data";
+import {ApplyGameOptionsRequest} from "../objects/requests/apply-game-options.request";
 
 export class LobbyService {
 
@@ -82,5 +84,24 @@ export class LobbyService {
         }
 
         return (await response.json()) as LobbyUpdateResponse;
+    }
+
+    public async applyGameOptions(lobbyKey: string, gameOptions: GameOptionData) {
+        console.log("LobbyService:applyGameOptions(" + gameOptions.maxPlayers + ")");
+        const requestBody = new ApplyGameOptionsRequest(lobbyKey, gameOptions);
+        const response = await fetch(
+            'http://localhost:9143/lobby/apply-game-options', {
+                method: 'POST',
+                body: JSON.stringify(requestBody),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Can\'t update game options')
+        }
     }
 }

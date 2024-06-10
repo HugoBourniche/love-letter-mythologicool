@@ -1,5 +1,5 @@
 import {LobbyUserData} from "./users/lobby-user.data";
-import {GameOptionData} from "./game-option.data";
+import {GameOptionData} from "./gameoptions/game-option.data";
 
 export class LobbyData {
 

@@ -19,11 +19,11 @@ export class GameOptionsPanel {
     // Services
     private lobbyService: LobbyService;
 
-    //
     private _context: Phaser.Scene;
     private _box?: BoxSizes;
     private _gameOptions?: GameOptionData;
     private _lobbyKey?: string;
+    private _isUserOwner?: boolean;
 
     private _title?: SimpleLabelField;
     private _playerMax?: SelectorField;
@@ -42,8 +42,9 @@ export class GameOptionsPanel {
     // PHASER LIFE CYCLE
     // *****************************************************************************************************************
 
-    public init(lobbyKey: string, gameOptions: GameOptionData, position: PartScenePositionsEnum) {
+    public init(lobbyKey: string, isUserOwner: boolean, gameOptions: GameOptionData, position: PartScenePositionsEnum) {
         this._lobbyKey = lobbyKey;
+        this._isUserOwner = isUserOwner;
         this._gameOptions = gameOptions;
         this._box = PartSceneFactory.computeBoxSizes(position, this._context.game.config.width as number, this._context.game.config.height as number);
     }
@@ -64,6 +65,13 @@ export class GameOptionsPanel {
 
     public update() {
 
+    }
+
+    public refresh(gameOptions: GameOptionData) {
+        if (this._isUserOwner) {
+            return;
+        }
+        this._playerMax?.refresh(gameOptions.maxPlayers.toString());
     }
 
     // *****************************************************************************************************************

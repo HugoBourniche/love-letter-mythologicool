@@ -50,6 +50,10 @@ export class SelectorField extends SimpleField {
         this._value.clear();
     }
 
+    refresh(value: string): void {
+        this._listIndex = this._values.indexOf(value);
+    }
+
     // Events
     onClickLeft() {
         this._listIndex = this._listIndex - 1;

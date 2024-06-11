@@ -7,13 +7,15 @@ export class LobbyCreationResponse {
     // *****************************************************************************************************************
 
     private readonly _lobby: LobbyData;
+    private readonly _currentUserName: string;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyData) {
+    constructor(lobby: LobbyData, currentUserName: string) {
         this._lobby = lobby;
+        this._currentUserName = currentUserName;
     }
 
     // *****************************************************************************************************************
@@ -22,5 +24,9 @@ export class LobbyCreationResponse {
 
     get lobby(): LobbyData {
         return this._lobby;
+    }
+
+    get currentUserName(): string {
+        return this._currentUserName;
     }
 }

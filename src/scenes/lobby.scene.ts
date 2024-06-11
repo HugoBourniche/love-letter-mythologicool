@@ -12,6 +12,7 @@ import {GameOptionsPanel} from "./panel/game-options.panel";
 import {PartScenePositionsEnum} from "../utils/factories/part-scene-positions.enum";
 import {GameOptionRangeData} from "../objects/data/gameoptions/game-option-range.data";
 import {StoneLabelledButtonField} from "../gameobjects/forms/buttons/stone-labelled-button.field";
+import {LobbySceneData} from "../objects/data/lobby-scene.data";
 
 export default class LobbyScene extends Phaser.Scene {
 
@@ -24,7 +25,7 @@ export default class LobbyScene extends Phaser.Scene {
     private _lobbyService: LobbyService;
 
     // Scene panel
-    private _gameOptionsPart: GameOptionsPanel;
+    private _gameOptionsPanel: GameOptionsPanel;
 
     // Objects
     private _startButton?: LabelledButtonField;
@@ -33,6 +34,7 @@ export default class LobbyScene extends Phaser.Scene {
     private _playerLabels: LobbyUserField[];
 
     // Utils
+    private _currentUser?: LobbyUserData;
     private timeStamp = 0;
 
     // *****************************************************************************************************************
@@ -43,7 +45,7 @@ export default class LobbyScene extends Phaser.Scene {
         super("lobby-scene");
         this._preloadService = ServicesFactory.Preload(this);
         this._lobbyService = ServicesFactory.Lobby();
-        this._gameOptionsPart = new GameOptionsPanel(this);
+        this._gameOptionsPanel = new GameOptionsPanel(this);
         this._lobbyData = {} as LobbyData;
         this._playerLabels = [];
     }
@@ -52,20 +54,21 @@ export default class LobbyScene extends Phaser.Scene {
     // PHASER LIFECYCLE
     // *****************************************************************************************************************
 
-    init(lobbyData: LobbyData) {
+    init(lobbySceneData: LobbySceneData) {
         console.log("Init lobby scene");
+        let lobbyData = lobbySceneData.lobbyData;
         if (lobbyData.key === undefined) {
             lobbyData = new LobbyData("FAB-IEN", [new LobbyUserData("Théo", true, true), new LobbyUserData("Mélanie", false, false), new LobbyUserData("Thomas", true, false), new LobbyUserData("Hugo", false, false)], new GameOptionData(6, new GameOptionRangeData(["2", "3", "4", "5", "6"])));
         }
-        console.log(lobbyData);
         this._lobbyData = lobbyData;
-        this._gameOptionsPart.init(lobbyData.key, lobbyData.options, PartScenePositionsEnum.MID_RIGHT);
+        this._currentUser = lobbyData.fetchUser(lobbySceneData.currentUser);
+        this._gameOptionsPanel.init(lobbyData.key, this._currentUser.isOwner, lobbyData.options, PartScenePositionsEnum.MID_RIGHT);
     }
 
     preload() {
         console.log("Preload lobby scene");
         this._preloadService.loadMainMenuImages();
-        this._gameOptionsPart.preload();
+        this._gameOptionsPanel.preload();
     }
 
     create() {
@@ -73,7 +76,7 @@ export default class LobbyScene extends Phaser.Scene {
         this._startButton = new StoneLabelledButtonField(this, 400, 50, "Start", () => this.startGame());
         this._lobbyKeyLabel = new SimpleLabelField(this, 24, 40, "Lobby: " + this._lobbyData.key, {color: "#ffffff", fontSize: DEFAULT_FONT_SIZE});
         this.refreshUsers();
-        this._gameOptionsPart.create();
+        this._gameOptionsPanel.create();
     }
 
     update(time: number, delta: number) {
@@ -97,7 +100,11 @@ export default class LobbyScene extends Phaser.Scene {
     }
 
     private updateLobbyData(updatedLobbyData: LobbyData) {
+        if (this._currentUser) {
+            this._currentUser = updatedLobbyData.fetchUser(this._currentUser.name);
+        }
         this._lobbyData = updatedLobbyData;
+        this._gameOptionsPanel.refresh(updatedLobbyData.options);
         this.refreshUsers();
     }
 

@@ -1,59 +1,37 @@
-import {LobbyUserData} from "./users/lobby-user.data";
-import {GameOptionData} from "./gameoptions/game-option.data";
 
-export class LobbyData {
+import {LobbyData} from "./lobby.data";
+
+export class LobbySceneData {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private _key: string;
-    private _users: LobbyUserData[];
-    private _options: GameOptionData;
+    private _lobbyData: LobbyData;
+    private _currentUser: string;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(key: string, users: LobbyUserData[], options: GameOptionData) {
-        this._key = key;
-        this._users = users;
-        this._options = options;
+    constructor(lobbyData: LobbyData, currentUser: string) {
+        this._lobbyData = lobbyData;
+        this._currentUser = currentUser;
     }
 
     // *****************************************************************************************************************
     // PUBLIC METHODS
     // *****************************************************************************************************************
 
-    public isEmpty() {
-        return this._key === null && this._users === null && this._options === null;
-    }
-
-    public fetchUser(username: string): LobbyUserData {
-        const user = this._users.filter(u => u.name == username);
-        if (user.length == 0) {
-            throw new Error(username + " does not exists");
-        }
-        return user[0];
-    }
-
     // *****************************************************************************************************************
     // GETTER
     // *****************************************************************************************************************
 
-    get key(): string {
-        return this._key;
+    get lobbyData(): LobbyData {
+        return this._lobbyData;
     }
 
-    get owner(): LobbyUserData {
-        return this._users.filter((user) => user.isOwner)[0];
-    }
-
-    get users(): LobbyUserData[] {
-        return this._users;
-    }
-
-    get options(): GameOptionData {
-        return this._options;
+    get currentUser(): string {
+        return this._currentUser;
     }
 }

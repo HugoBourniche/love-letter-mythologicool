@@ -1,4 +1,4 @@
-import {LobbyData} from "../data/lobby.data";
+import {LobbyDTO} from "../dtos/lobby.dto";
 
 export class LobbyJoinedResponse {
 
@@ -6,14 +6,14 @@ export class LobbyJoinedResponse {
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobby: LobbyData;
+    private readonly _lobby: LobbyDTO;
     private readonly _currentUserName: string;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyData, currentUserName: string) {
+    constructor(lobby: LobbyDTO, currentUserName: string) {
         this._lobby = lobby;
         this._currentUserName = currentUserName;
     }
@@ -22,7 +22,7 @@ export class LobbyJoinedResponse {
     // GETTER
     // *****************************************************************************************************************
 
-    get lobby(): LobbyData {
+    get lobby(): LobbyDTO {
         return this._lobby;
     }
 

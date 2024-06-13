@@ -1,37 +1,40 @@
+import {GameOptionRangeData} from "./game-option-range.data";
 
-import {LobbyData} from "./lobby.data";
-
-export class LobbySceneData {
+export class GameOptionsData {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobbyData: LobbyData;
-    private readonly _currentUserName: string;
+    private _maxPlayers: number;
+    private _ranges: GameOptionRangeData;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobbyData: LobbyData, currentUser: string) {
-        this._lobbyData = lobbyData;
-        this._currentUserName = currentUser;
+    constructor() {
+        this._maxPlayers = 0;
+        this._ranges = new GameOptionRangeData();
     }
 
     // *****************************************************************************************************************
-    // PUBLIC METHODS
+    // GETTER / SETTER
     // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // GETTER
-    // *****************************************************************************************************************
-
-    get lobbyData(): LobbyData {
-        return this._lobbyData;
+    get maxPlayers(): number {
+        return this._maxPlayers;
     }
 
-    get currentUserName(): string {
-        return this._currentUserName;
+    set maxPlayers(value: number) {
+        this._maxPlayers = value;
+    }
+
+    get ranges(): GameOptionRangeData {
+        return this._ranges;
+    }
+
+    set ranges(value: GameOptionRangeData) {
+        this._ranges = value;
     }
 }

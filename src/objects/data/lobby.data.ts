@@ -1,5 +1,5 @@
 import {LobbyUserData} from "./users/lobby-user.data";
-import {GameOptionData} from "./gameoptions/game-option.data";
+import {GameOptionsData} from "./game-options/game-options.data";
 
 export class LobbyData {
 
@@ -9,16 +9,16 @@ export class LobbyData {
 
     private _key: string;
     private _users: LobbyUserData[];
-    private _options: GameOptionData;
+    private _options: GameOptionsData;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(key: string, users: LobbyUserData[], options: GameOptionData) {
-        this._key = key;
-        this._users = users;
-        this._options = options;
+    constructor() {
+        this._key = "";
+        this._users = [];
+        this._options = new GameOptionsData();
     }
 
     // *****************************************************************************************************************
@@ -38,11 +38,15 @@ export class LobbyData {
     }
 
     // *****************************************************************************************************************
-    // GETTER
+    // GETTER / SETTER
     // *****************************************************************************************************************
 
     get key(): string {
         return this._key;
+    }
+
+    set key(value: string) {
+        this._key = value;
     }
 
     get owner(): LobbyUserData {
@@ -53,7 +57,15 @@ export class LobbyData {
         return this._users;
     }
 
-    get options(): GameOptionData {
+    set users(value: LobbyUserData[]) {
+        this._users = value;
+    }
+
+    get options(): GameOptionsData {
         return this._options;
+    }
+
+    set options(value: GameOptionsData) {
+        this._options = value;
     }
 }

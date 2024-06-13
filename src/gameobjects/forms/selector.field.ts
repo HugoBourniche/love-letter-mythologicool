@@ -50,8 +50,9 @@ export class SelectorField extends SimpleField {
         this._value.clear();
     }
 
-    refresh(value: string): void {
-        this._listIndex = this._values.indexOf(value);
+    refresh(value: string | number): void {
+        this._listIndex = this._values.indexOf(value.toString());
+        this._value.updateValue(this.value())
     }
 
     // Events

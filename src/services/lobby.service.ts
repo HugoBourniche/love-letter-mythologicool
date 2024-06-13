@@ -1,12 +1,13 @@
 import {UserData} from "../objects/data/users/user.data";
 import {LobbyCreationRequest} from "../objects/requests/lobby-creation.request";
 import {LobbyCreationResponse} from "../objects/responses/lobby-creation.response";
-import {UserDataDto} from "../objects/dtos/user-data.dto";
+import {UserDto} from "../objects/dtos/users/user.dto";
 import {LobbyJoinedRequest} from "../objects/requests/lobby-joined.request";
 import {LobbyJoinedResponse} from "../objects/responses/lobby-joined.response";
 import {LobbyUpdateResponse} from "../objects/responses/lobby-update.response";
-import {GameOptionData} from "../objects/data/gameoptions/game-option.data";
+import {GameOptionsData} from "../objects/data/game-options/game-options.data";
 import {ApplyGameOptionsRequest} from "../objects/requests/apply-game-options.request";
+import {DataToDtoConverter} from "../utils/converters/data-to-dto.converter";
 
 export class LobbyService {
 
@@ -26,7 +27,8 @@ export class LobbyService {
 
     public async createLobby(username: string): Promise<LobbyCreationResponse> {
         console.log("LobbyService:createLobby(" + username + ")");
-        const user = new UserDataDto(username);
+        const user = new UserDto();
+        user.name = username;
         const requestBody = new LobbyCreationRequest(user);
         const response = await fetch(
             'http://localhost:9143/lobby/create', {
@@ -42,13 +44,13 @@ export class LobbyService {
         if (!response.ok) {
             throw new Error('Can\'t create a room')
         }
-
         return (await response.json()) as LobbyCreationResponse;
     }
 
     public async joinLobby(username: string, lobbyKey: string) {
         console.log("LobbyService:joinLobby(username=" + username + ", lobbyKey="+ lobbyKey +")");
-        const user = new UserDataDto(username);
+        const user = new UserDto();
+        user.name = username;
         const requestBody = new LobbyJoinedRequest(user, lobbyKey);
         const response = await fetch(
             'http://localhost:9143/lobby/join', {
@@ -86,9 +88,10 @@ export class LobbyService {
         return (await response.json()) as LobbyUpdateResponse;
     }
 
-    public async applyGameOptions(lobbyKey: string, gameOptions: GameOptionData) {
+    public async applyGameOptions(lobbyKey: string, gameOptions: GameOptionsData) {
         console.log("LobbyService:applyGameOptions(" + gameOptions.maxPlayers + ")");
-        const requestBody = new ApplyGameOptionsRequest(lobbyKey, gameOptions);
+        const gameOptionsDTO = DataToDtoConverter.gameOptions(gameOptions);
+        const requestBody = new ApplyGameOptionsRequest(lobbyKey, gameOptionsDTO);
         const response = await fetch(
             'http://localhost:9143/lobby/apply-game-options', {
                 method: 'POST',

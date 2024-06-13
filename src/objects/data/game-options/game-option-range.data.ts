@@ -1,36 +1,29 @@
-import {GameOptionRangeData} from "./game-option-range.data";
 
-export class GameOptionData {
+export class GameOptionRangeData {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private _maxPlayers: number;
-    private readonly _ranges: GameOptionRangeData;
+    private _nbPlayersChoices: string[];
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(maxPlayers: number, gameOptionRange: GameOptionRangeData) {
-        this._maxPlayers = maxPlayers;
-        this._ranges = gameOptionRange;
+    constructor() {
+        this._nbPlayersChoices = [];
     }
 
     // *****************************************************************************************************************
-    // GETTER / SETTER
+    // GETTER
     // *****************************************************************************************************************
 
-    get maxPlayers(): number {
-        return this._maxPlayers;
+    get nbPlayersChoices(): string[] {
+        return this._nbPlayersChoices;
     }
 
-    set maxPlayers(value: number) {
-        this._maxPlayers = value;
-    }
-
-    get ranges(): GameOptionRangeData {
-        return this._ranges;
+    set nbPlayersChoices(value: string[]) {
+        this._nbPlayersChoices = value;
     }
 }

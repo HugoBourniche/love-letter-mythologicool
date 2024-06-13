@@ -1,4 +1,4 @@
-import {LobbyData} from "../data/lobby.data";
+import {LobbyDTO} from "../dtos/lobby.dto";
 
 export class LobbyUpdateResponse {
 
@@ -6,13 +6,13 @@ export class LobbyUpdateResponse {
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobby: LobbyData;
+    private readonly _lobby: LobbyDTO;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyData) {
+    constructor(lobby: LobbyDTO) {
         this._lobby = lobby;
     }
 
@@ -20,7 +20,7 @@ export class LobbyUpdateResponse {
     // GETTER
     // *****************************************************************************************************************
 
-    get lobby(): LobbyData {
+    get lobby(): LobbyDTO {
         return this._lobby;
     }
 

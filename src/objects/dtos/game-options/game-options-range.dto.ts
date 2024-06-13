@@ -1,20 +1,18 @@
-import {UserDto} from "../dtos/users/user.dto";
 
-export class LobbyJoinedRequest {
+export class GameOptionsRangeDTO {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private user: UserDto;
-    private lobbyKey: string;
+    public nbPlayersChoices: string[];
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(user: UserDto, lobbyKey: string) {
-        this.user = user;
-        this.lobbyKey = lobbyKey;
+    constructor() {
+        this.nbPlayersChoices = [];
     }
+
 }

@@ -1,25 +1,22 @@
+import {UserDto} from "./user.dto";
 
-export class GameOptionRangeData {
+export class LobbyUserDTO extends UserDto {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private _nbPlayersChoices: string[];
+    public ready: boolean;
+    public owner: boolean;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(nbPlayersChoices: string[]) {
-        this._nbPlayersChoices = nbPlayersChoices;
+    constructor() {
+        super();
+        this.ready = false;
+        this.owner = false;
     }
 
-    // *****************************************************************************************************************
-    // GETTER
-    // *****************************************************************************************************************
-
-    get nbPlayersChoices(): string[] {
-        return this._nbPlayersChoices;
-    }
 }

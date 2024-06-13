@@ -1,4 +1,4 @@
-import {GameOptionData} from "../data/gameoptions/game-option.data";
+import {GameOptionsDTO} from "../dtos/game-options/game-options.dto";
 
 export class ApplyGameOptionsRequest {
 
@@ -7,13 +7,13 @@ export class ApplyGameOptionsRequest {
     // *****************************************************************************************************************
 
     private lobbyKey: string;
-    private gameOptions: GameOptionData;
+    private gameOptions: GameOptionsDTO;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobbyKey: string, gameOptions: GameOptionData) {
+    constructor(lobbyKey: string, gameOptions: GameOptionsDTO) {
         this.lobbyKey = lobbyKey;
         this.gameOptions = gameOptions;
     }

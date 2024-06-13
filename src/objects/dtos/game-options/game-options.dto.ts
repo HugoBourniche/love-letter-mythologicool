@@ -1,18 +1,21 @@
+import {GameOptionsRangeDTO} from "./game-options-range.dto";
 
-export class UserDataDto {
+export class GameOptionsDTO {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private name: string;
+    public maxPlayers: number;
+    public ranges: GameOptionsRangeDTO;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(name: string) {
-        this.name = name;
+    constructor() {
+        this.maxPlayers = -1;
+        this.ranges = new GameOptionsRangeDTO();
     }
 
 }

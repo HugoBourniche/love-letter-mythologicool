@@ -1,4 +1,4 @@
-import {GameOptionData} from "../../objects/data/gameoptions/game-option.data";
+import {GameOptionsData} from "../../objects/data/game-options/game-options.data";
 import {BoxSizes} from "../../gameobjects/BoxSizes";
 import {PartSceneFactory} from "../../utils/factories/part-scene.factory";
 import {PartScenePositionsEnum} from "../../utils/factories/part-scene-positions.enum";
@@ -21,7 +21,7 @@ export class GameOptionsPanel {
 
     private _context: Phaser.Scene;
     private _box?: BoxSizes;
-    private _gameOptions?: GameOptionData;
+    private _gameOptions?: GameOptionsData;
     private _lobbyKey?: string;
     private _isUserOwner?: boolean;
 
@@ -42,7 +42,7 @@ export class GameOptionsPanel {
     // PHASER LIFE CYCLE
     // *****************************************************************************************************************
 
-    public init(lobbyKey: string, isUserOwner: boolean, gameOptions: GameOptionData, position: PartScenePositionsEnum) {
+    public init(lobbyKey: string, isUserOwner: boolean, gameOptions: GameOptionsData, position: PartScenePositionsEnum) {
         this._lobbyKey = lobbyKey;
         this._isUserOwner = isUserOwner;
         this._gameOptions = gameOptions;
@@ -61,17 +61,18 @@ export class GameOptionsPanel {
         this._title = new SimpleLabelField(this._context, this._box.x(50), this._box.y(20), "Game Options", DEFAULT_STYLE_WHITE);
         this._playerMax = new SelectorField(this._context, this._box.x(100), this._box.y(60), "Number of players", this._gameOptions.ranges.nbPlayersChoices, DEFAULT_STYLE_WHITE);
         this._applyButton = new StoneLabelledButtonField(this._context, this._box.midWidth, this._box.y(150), "Apply options", () => this.applyOptions());
+        this._playerMax.refresh(this._gameOptions.maxPlayers);
     }
 
     public update() {
 
     }
 
-    public refresh(gameOptions: GameOptionData) {
+    public refresh(gameOptions: GameOptionsData) {
         if (this._isUserOwner) {
             return;
         }
-        this._playerMax?.refresh(gameOptions.maxPlayers.toString());
+        this._playerMax?.refresh(gameOptions.maxPlayers);
     }
 
     // *****************************************************************************************************************

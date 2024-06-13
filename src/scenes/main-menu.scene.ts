@@ -9,6 +9,7 @@ import {LobbyCreationResponse} from "../objects/responses/lobby-creation.respons
 import {LobbyJoinedResponse} from "../objects/responses/lobby-joined.response";
 import {StoneLabelledButtonField} from "../gameobjects/forms/buttons/stone-labelled-button.field";
 import {LobbySceneData} from "../objects/data/lobby-scene.data";
+import {DtoToDataConverter} from "../utils/converters/dto-to-data.converter";
 
 
 export default class MainMenuScene extends Phaser.Scene {
@@ -77,7 +78,7 @@ export default class MainMenuScene extends Phaser.Scene {
             return;
         }
         this._lobbyService.createLobby(this._nameInputField.value()).then(
-            (response: LobbyCreationResponse) => this.onLobbyCreatedOrJoined(response.lobby as LobbyData, response.currentUserName)
+            (response: LobbyCreationResponse) => this.onLobbyCreatedOrJoined(DtoToDataConverter.lobby(response.lobby), response.currentUserName)
         ).catch(
             (error) => console.error(error)
         );
@@ -100,7 +101,7 @@ export default class MainMenuScene extends Phaser.Scene {
         }
 
         this._lobbyService.joinLobby(this._nameInputField.value(), this._keyInputField.value()).then(
-            (response: LobbyJoinedResponse) => this.onLobbyCreatedOrJoined(response.lobby as LobbyData, response.currentUserName)
+            (response: LobbyJoinedResponse) => this.onLobbyCreatedOrJoined(DtoToDataConverter.lobby(response.lobby), response.currentUserName)
         );
     }
 

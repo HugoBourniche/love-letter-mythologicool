@@ -1,9 +1,9 @@
 import {DEFAULT_STYLE} from "../../cst";
 import {SimpleLabelField} from "./simple-label.field";
 import {SimpleButtonField} from "./buttons/simple-button.field";
-import {SimpleField} from "./simple.field";
+import {SimpleInteractiveField} from "./simple-interactive.field";
 
-export class SelectorField extends SimpleField {
+export class SelectorField extends SimpleInteractiveField {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
@@ -43,7 +43,7 @@ export class SelectorField extends SimpleField {
         return this._values[this._listIndex];
     }
 
-    clear(): void {
+    override clear(): void {
         this._label.clear();
         this._arrowRight.clear();
         this._arrowLeft.clear();
@@ -53,6 +53,16 @@ export class SelectorField extends SimpleField {
     refresh(value: string | number): void {
         this._listIndex = this._values.indexOf(value.toString());
         this._value.updateValue(this.value())
+    }
+
+    override disable(): void {
+        this._arrowRight.disable();
+        this._arrowLeft.disable();
+    }
+
+    override enable(): void {
+        this._arrowRight.enable();
+        this._arrowLeft.enable();
     }
 
     // Events

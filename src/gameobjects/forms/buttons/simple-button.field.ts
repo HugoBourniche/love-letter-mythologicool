@@ -1,8 +1,8 @@
 import {Scene} from "phaser";
 import Image = Phaser.GameObjects.Image;
-import {SimpleField} from "../simple.field";
+import {SimpleInteractiveField} from "../simple-interactive.field";
 
-export class SimpleButtonField extends SimpleField {
+export class SimpleButtonField extends SimpleInteractiveField {
 
 
     // *****************************************************************************************************************
@@ -36,6 +36,14 @@ export class SimpleButtonField extends SimpleField {
 
     public override clear() {
         this._image.removedFromScene();
+    }
+
+    public override disable(): void {
+        this._image.disableInteractive();
+    }
+
+    public override enable(): void {
+        this._image.setInteractive();
     }
 
     // *****************************************************************************************************************

@@ -62,6 +62,7 @@ export class GameOptionsPanel {
         this._playerMax = new SelectorField(this._context, this._box.x(100), this._box.y(60), "Number of players", this._gameOptions.ranges.nbPlayersChoices, DEFAULT_STYLE_WHITE);
         this._applyButton = new StoneLabelledButtonField(this._context, this._box.midWidth, this._box.y(150), "Apply options", () => this.applyOptions());
         this._playerMax.refresh(this._gameOptions.maxPlayers);
+        this.isDisabled(!this._isUserOwner); // Disable fields for non-owner-user
     }
 
     public update() {
@@ -86,5 +87,10 @@ export class GameOptionsPanel {
         }
         this._gameOptions.maxPlayers = this._playerMax ? Number.parseInt(this._playerMax.value()) : -1;
         this.lobbyService.applyGameOptions(this._lobbyKey, this._gameOptions).then();
+    }
+
+    private isDisabled(disabled: boolean) {
+        this._playerMax?.setDisable(disabled);
+        this._applyButton?.setDisable(disabled);
     }
 }

@@ -21,8 +21,8 @@ export class SimpleLabelField extends SimpleField {
     positionY: number,
     label: string,
     style: TextStyle = DEFAULT_STYLE
-
-  ) {  super(context, positionX, positionY);
+  ) {
+    super(context, positionX, positionY);
     this._label = label;
     this._text = context.add.text(positionX, positionY, this._label, style);
   }
@@ -34,7 +34,9 @@ export class SimpleLabelField extends SimpleField {
   public updateValue(value: string) {
     this._label = value;
     this._text.text = value;
-  }public override clear() {
+  }
+
+  public override clear() {
     this._text.removedFromScene();
   }
 }

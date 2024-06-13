@@ -21,8 +21,8 @@ export class LabelledButtonField extends SimpleButtonField {
     positionY: number,
     label: string,
     action: () => void,
-   buttonStyle: string, style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
-
+    buttonStyle: string,
+    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
   ) {
     super(context, positionX, positionY, buttonStyle, action);
     this._label = label;

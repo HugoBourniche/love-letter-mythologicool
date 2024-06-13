@@ -28,9 +28,13 @@ export class LobbyUserData extends UserData {
 
   set isReady(value: boolean) {
     this._isReady = value;
-  }get isOwner(): boolean {
+  }
+
+  get isOwner(): boolean {
     return this._isOwner;
-  }set isOwner(value: boolean) {
+  }
+
+  set isOwner(value: boolean) {
     this._isOwner = value;
   }
 }

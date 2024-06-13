@@ -19,9 +19,11 @@ export class PreloadService {
     }
 
     public loadUI() {
-        this.context.load.image("input-frame", "images/forms/stoneButtonFrame.png")
-        this.context.load.image("button", "images/forms/stoneButtonInsetReady.png")
-        this.context.load.image("buttonHover", "images/forms/stoneButtonInsetHovered.png")
+        this.context.load.image("stone_input-frame", "images/forms/stoneButtonFrame.png")
+        this.context.load.image("stone_button", "images/forms/stoneButtonInsetReady.png")
+        this.context.load.image("button", "images/forms/button.png")
+        this.context.load.image("stone_buttonHover", "images/forms/stoneButtonInsetHovered.png")
+        this.context.load.image("buttonHover", "images/forms/buttonHover.png")
     }
 
     public loadBaseImages() {

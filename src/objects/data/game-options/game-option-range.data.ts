@@ -1,32 +1,29 @@
-import {LobbyDTO} from "../dtos/lobby.dto";
 
-export class LobbyCreationResponse {
+export class GameOptionRangeData {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobby: LobbyDTO;
-    private readonly _currentUserName: string;
+    private _nbPlayersChoices: string[];
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyDTO, currentUserName: string) {
-        this._lobby = lobby;
-        this._currentUserName = currentUserName;
+    constructor() {
+        this._nbPlayersChoices = [];
     }
 
     // *****************************************************************************************************************
     // GETTER
     // *****************************************************************************************************************
 
-    get lobby(): LobbyDTO {
-        return this._lobby;
+    get nbPlayersChoices(): string[] {
+        return this._nbPlayersChoices;
     }
 
-    get currentUserName(): string {
-        return this._currentUserName;
+    set nbPlayersChoices(value: string[]) {
+        this._nbPlayersChoices = value;
     }
 }

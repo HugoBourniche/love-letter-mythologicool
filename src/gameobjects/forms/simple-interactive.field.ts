@@ -1,38 +1,39 @@
-import Text = Phaser.GameObjects.Text;
-import {Scene} from "phaser";
-import {SimpleButtonField} from "./simple-button.field";
-import {DEFAULT_STYLE} from "../../../cst";
+import {SimpleField} from "./simple.field";
 
-export class LabelledButtonField extends SimpleButtonField {
+export abstract class SimpleInteractiveField extends SimpleField {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private _textObject: Text;
-    private _label: string;
+    protected _isDisabled = false;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(context: Scene, positionX: number, positionY: number, label: string, action: () => void, buttonStyle: string, style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE) {
-        super(context, positionX, positionY, buttonStyle, action);
-        this._label = label;
-        this._textObject = context.add.text(positionX - (7*label.length), positionY - 10, label, style);
+    protected constructor(context: Phaser.Scene, positionX: number, positionY: number) {
+        super(context, positionX, positionY)
     }
 
     // *****************************************************************************************************************
-    // PUBLIC METHOD
+    // ABSTRACT METHODS
     // *****************************************************************************************************************
 
-    public clear() {
-        super.clear();
-        this._textObject.removedFromScene();
+    public abstract enable(): void;
+    public abstract disable(): void;
+
+    // *****************************************************************************************************************
+    // PUBLIC METHODS
+    // *****************************************************************************************************************
+
+    public setDisable(value?: boolean) {
+        if (value) {
+            this._isDisabled = true;
+            this.disable();
+        } else {
+            this._isDisabled = false;
+            this.enable();
+        }
     }
-
-    // *****************************************************************************************************************
-    // PRIVATE METHOD
-    // *****************************************************************************************************************
-
 }

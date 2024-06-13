@@ -13,10 +13,10 @@ export class LobbyUserData extends UserData {
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(name: string, isReady: boolean, isOwner: boolean) {
-        super(name);
-        this._isReady = isReady;
-        this._isOwner = isOwner;
+    constructor() {
+        super();
+        this._isReady = false;
+        this._isOwner = false;
     }
 
     // *****************************************************************************************************************
@@ -27,8 +27,15 @@ export class LobbyUserData extends UserData {
         return this._isReady;
     }
 
+    set isReady(value: boolean) {
+        this._isReady = value;
+    }
+
     get isOwner(): boolean {
         return this._isOwner;
     }
 
+    set isOwner(value: boolean) {
+        this._isOwner = value;
+    }
 }

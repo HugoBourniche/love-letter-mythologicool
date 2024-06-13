@@ -1,17 +1,22 @@
+import {UserDto} from "./user.dto";
 
-export class GameOptionData {
+export class LobbyUserDTO extends UserDto {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private maxPlayers: number;
+    public ready: boolean;
+    public owner: boolean;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(maxPlayers: number) {
-        this.maxPlayers = maxPlayers;
+    constructor() {
+        super();
+        this.ready = false;
+        this.owner = false;
     }
+
 }

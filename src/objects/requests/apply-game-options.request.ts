@@ -1,20 +1,20 @@
-import {UserDto} from "../dtos/users/user.dto";
+import {GameOptionsDTO} from "../dtos/game-options/game-options.dto";
 
-export class LobbyJoinedRequest {
+export class ApplyGameOptionsRequest {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private user: UserDto;
     private lobbyKey: string;
+    private gameOptions: GameOptionsDTO;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(user: UserDto, lobbyKey: string) {
-        this.user = user;
+    constructor(lobbyKey: string, gameOptions: GameOptionsDTO) {
         this.lobbyKey = lobbyKey;
+        this.gameOptions = gameOptions;
     }
 }

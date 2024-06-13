@@ -18,3 +18,4 @@ export const CARD_LIST = [
 
 export const DEFAULT_FONT_SIZE = '23px';
 export const DEFAULT_STYLE = { fontSize: DEFAULT_FONT_SIZE, fill: '#000000'} as Phaser.Types.GameObjects.Text.TextStyle;
+export const DEFAULT_STYLE_WHITE = { fontSize: DEFAULT_FONT_SIZE, fill: '#ffffff'} as Phaser.Types.GameObjects.Text.TextStyle;

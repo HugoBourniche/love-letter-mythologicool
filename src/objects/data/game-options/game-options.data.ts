@@ -1,32 +1,40 @@
-import {LobbyDTO} from "../dtos/lobby.dto";
+import {GameOptionRangeData} from "./game-option-range.data";
 
-export class LobbyCreationResponse {
+export class GameOptionsData {
 
     // *****************************************************************************************************************
     // ATTRIBUTES
     // *****************************************************************************************************************
 
-    private readonly _lobby: LobbyDTO;
-    private readonly _currentUserName: string;
+    private _maxPlayers: number;
+    private _ranges: GameOptionRangeData;
 
     // *****************************************************************************************************************
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(lobby: LobbyDTO, currentUserName: string) {
-        this._lobby = lobby;
-        this._currentUserName = currentUserName;
+    constructor() {
+        this._maxPlayers = 0;
+        this._ranges = new GameOptionRangeData();
     }
 
     // *****************************************************************************************************************
-    // GETTER
+    // GETTER / SETTER
     // *****************************************************************************************************************
 
-    get lobby(): LobbyDTO {
-        return this._lobby;
+    get maxPlayers(): number {
+        return this._maxPlayers;
     }
 
-    get currentUserName(): string {
-        return this._currentUserName;
+    set maxPlayers(value: number) {
+        this._maxPlayers = value;
+    }
+
+    get ranges(): GameOptionRangeData {
+        return this._ranges;
+    }
+
+    set ranges(value: GameOptionRangeData) {
+        this._ranges = value;
     }
 }

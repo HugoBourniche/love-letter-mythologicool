@@ -7,6 +7,9 @@ import {LabelledButtonField} from "../gameobjects/forms/buttons/labelled-button.
 import {LobbyData} from "../objects/data/lobby.data";
 import {LobbyCreationResponse} from "../objects/responses/lobby-creation.response";
 import {LobbyJoinedResponse} from "../objects/responses/lobby-joined.response";
+import {StoneLabelledButtonField} from "../gameobjects/forms/buttons/stone-labelled-button.field";
+import {LobbySceneData} from "../objects/data/lobby-scene.data";
+import {DtoToDataConverter} from "../utils/converters/dto-to-data.converter";
 
 
 export default class MainMenuScene extends Phaser.Scene {
@@ -50,9 +53,9 @@ export default class MainMenuScene extends Phaser.Scene {
 
         // Initiate form and input field
         this._nameInputField = new TextInputField(this, 550, 200, "Enter your name...");
-        this._createButton = new LabelledButtonField(this, 550, 300, "Create lobby", () => this.createLobby());
+        this._createButton = new StoneLabelledButtonField(this, 550, 300, "Create lobby", () => this.createLobby());
         this._keyInputField = new TextInputField(this, 550, 400, "Enter the lobby key...");
-        this._joinButton = new LabelledButtonField(this, 550, 500, "Join lobby", () => this.joinLobby());
+        this._joinButton = new StoneLabelledButtonField(this, 550, 500, "Join lobby", () => this.joinLobby());
     }
 
     update() {
@@ -75,7 +78,7 @@ export default class MainMenuScene extends Phaser.Scene {
             return;
         }
         this._lobbyService.createLobby(this._nameInputField.value()).then(
-            (response: LobbyCreationResponse) => this.onLobbyCreatedOrJoined(response.lobby)
+            (response: LobbyCreationResponse) => this.onLobbyCreatedOrJoined(DtoToDataConverter.lobby(response.lobby), response.currentUserName)
         ).catch(
             (error) => console.error(error)
         );
@@ -98,13 +101,13 @@ export default class MainMenuScene extends Phaser.Scene {
         }
 
         this._lobbyService.joinLobby(this._nameInputField.value(), this._keyInputField.value()).then(
-            (response: LobbyJoinedResponse) => this.onLobbyCreatedOrJoined(response.lobby)
+            (response: LobbyJoinedResponse) => this.onLobbyCreatedOrJoined(DtoToDataConverter.lobby(response.lobby), response.currentUserName)
         );
     }
 
-    private onLobbyCreatedOrJoined(lobbyData: LobbyData) {
+    private onLobbyCreatedOrJoined(lobbyData: LobbyData, username: string) {
         console.log("Key: " + lobbyData.key);
-        this.scene.start("lobby-scene", lobbyData);
+        this.scene.start("lobby-scene", new LobbySceneData(lobbyData, username));
     }
 
 }

@@ -1,24 +1,22 @@
-import {LobbyUserDTO} from "./users/lobby-user.dto";
-import {GameOptionsDTO} from "./game-options/game-options.dto";
+import { LobbyUserDTO } from "./users/lobby-user.dto";
+import { GameOptionsDTO } from "./game-options/game-options.dto";
 
 export class LobbyDTO {
+  // *****************************************************************************************************************
+  // ATTRIBUTES
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // ATTRIBUTES
-    // *****************************************************************************************************************
+  public key: string;
+  public users: LobbyUserDTO[];
+  public options: GameOptionsDTO;
 
-    public key: string;
-    public users: LobbyUserDTO[];
-    public options: GameOptionsDTO;
+  // *****************************************************************************************************************
+  // CONSTRUCTOR
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // CONSTRUCTOR
-    // *****************************************************************************************************************
-
-    constructor() {
-        this.key = "";
-        this.users = [];
-        this.options = new GameOptionsDTO();
-    }
-
+  constructor() {
+    this.key = "";
+    this.users = [];
+    this.options = new GameOptionsDTO();
+  }
 }

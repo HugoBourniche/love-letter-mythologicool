@@ -1,29 +1,34 @@
-import {SimpleLabelField} from "./simple-label.field";
-import {LobbyUserData} from "../../objects/data/users/lobby-user.data";
-import {DEFAULT_STYLE} from "../../cst";
+import { SimpleLabelField } from "./simple-label.field";
+import { LobbyUserData } from "../../objects/data/users/lobby-user.data";
+import { DEFAULT_STYLE } from "../../cst";
 
 export class LobbyUserField extends SimpleLabelField {
+  // *****************************************************************************************************************
+  // ATTRIBUTES
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // ATTRIBUTES
-    // *****************************************************************************************************************
+  private user: LobbyUserData;
 
-    private user: LobbyUserData;
+  // *****************************************************************************************************************
+  // CONSTRUCTOR
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // CONSTRUCTOR
-    // *****************************************************************************************************************
+  constructor(
+    context: Phaser.Scene,
+    positionX: number,
+    positionY: number,
+    user: LobbyUserData,
+    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
+  ) {
+    super(context, positionX, positionY, user.name, style);
+    this.user = user;
+  }
 
-    constructor(context: Phaser.Scene, positionX: number, positionY: number, user: LobbyUserData, style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE) {
-        super(context, positionX, positionY, user.name, style);
-        this.user = user;
-    }
+  // *****************************************************************************************************************
+  // PUBLIC METHODS
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // PUBLIC METHODS
-    // *****************************************************************************************************************
-
-    public clear(): void {
-        super.clear();
-    }
+  public clear(): void {
+    super.clear();
+  }
 }

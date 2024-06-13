@@ -1,4 +1,3 @@
-
 export enum PartScenePositionsEnum {
-    MID_RIGHT
+  MID_RIGHT,
 }

@@ -1,40 +1,39 @@
-import {GameOptionRangeData} from "./game-option-range.data";
+import { GameOptionRangeData } from "./game-option-range.data";
 
 export class GameOptionsData {
+  // *****************************************************************************************************************
+  // ATTRIBUTES
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // ATTRIBUTES
-    // *****************************************************************************************************************
+  private _maxPlayers: number;
+  private _ranges: GameOptionRangeData;
 
-    private _maxPlayers: number;
-    private _ranges: GameOptionRangeData;
+  // *****************************************************************************************************************
+  // CONSTRUCTOR
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // CONSTRUCTOR
-    // *****************************************************************************************************************
+  constructor() {
+    this._maxPlayers = 0;
+    this._ranges = new GameOptionRangeData();
+  }
 
-    constructor() {
-        this._maxPlayers = 0;
-        this._ranges = new GameOptionRangeData();
-    }
+  // *****************************************************************************************************************
+  // GETTER / SETTER
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // GETTER / SETTER
-    // *****************************************************************************************************************
+  get maxPlayers(): number {
+    return this._maxPlayers;
+  }
 
-    get maxPlayers(): number {
-        return this._maxPlayers;
-    }
+  set maxPlayers(value: number) {
+    this._maxPlayers = value;
+  }
 
-    set maxPlayers(value: number) {
-        this._maxPlayers = value;
-    }
+  get ranges(): GameOptionRangeData {
+    return this._ranges;
+  }
 
-    get ranges(): GameOptionRangeData {
-        return this._ranges;
-    }
-
-    set ranges(value: GameOptionRangeData) {
-        this._ranges = value;
-    }
+  set ranges(value: GameOptionRangeData) {
+    this._ranges = value;
+  }
 }

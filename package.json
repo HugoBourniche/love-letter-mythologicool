@@ -6,12 +6,14 @@
 	"scripts": {
 		"start": "vite",
 		"build": "tsc && vite build",
+		"format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\" \"src/**/*.scss\" \"src/**/*.less\" \"src/**/*.json\"",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.40.0",
 		"@typescript-eslint/parser": "^5.40.0",
 		"eslint": "^8.25.0",
+		"prettier": "2.8.8",
 		"typescript": "^4.6.4",
 		"vite": "^3.2.7"
 	},

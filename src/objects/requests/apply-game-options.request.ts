@@ -1,20 +1,19 @@
-import {GameOptionsDTO} from "../dtos/game-options/game-options.dto";
+import { GameOptionsDTO } from "../dtos/game-options/game-options.dto";
 
 export class ApplyGameOptionsRequest {
+  // *****************************************************************************************************************
+  // ATTRIBUTES
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // ATTRIBUTES
-    // *****************************************************************************************************************
+  private lobbyKey: string;
+  private gameOptions: GameOptionsDTO;
 
-    private lobbyKey: string;
-    private gameOptions: GameOptionsDTO;
+  // *****************************************************************************************************************
+  // CONSTRUCTOR
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // CONSTRUCTOR
-    // *****************************************************************************************************************
-
-    constructor(lobbyKey: string, gameOptions: GameOptionsDTO) {
-        this.lobbyKey = lobbyKey;
-        this.gameOptions = gameOptions;
-    }
+  constructor(lobbyKey: string, gameOptions: GameOptionsDTO) {
+    this.lobbyKey = lobbyKey;
+    this.gameOptions = gameOptions;
+  }
 }

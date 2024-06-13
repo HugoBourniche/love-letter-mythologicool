@@ -1,37 +1,42 @@
-import {SimpleField} from "./simple.field";
+import { SimpleField } from "./simple.field";
 import Text = Phaser.GameObjects.Text;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import {DEFAULT_STYLE} from "../../cst";
+import { DEFAULT_STYLE } from "../../cst";
 
 export class SimpleLabelField extends SimpleField {
+  // *****************************************************************************************************************
+  // ATTRIBUTES
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // ATTRIBUTES
-    // *****************************************************************************************************************
+  protected _label: string;
+  protected _text: Text;
 
-    protected _label: string;
-    protected _text: Text;
+  // *****************************************************************************************************************
+  // CONSTRUCTOR
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // CONSTRUCTOR
-    // *****************************************************************************************************************
+  constructor(
+    context: Phaser.Scene,
+    positionX: number,
+    positionY: number,
+    label: string,
+    style: TextStyle = DEFAULT_STYLE
+  ) {
+    super(context, positionX, positionY);
+    this._label = label;
+    this._text = context.add.text(positionX, positionY, this._label, style);
+  }
 
-    constructor(context: Phaser.Scene, positionX: number, positionY: number, label: string, style: TextStyle = DEFAULT_STYLE) {
-        super(context, positionX, positionY);
-        this._label = label;
-        this._text = context.add.text(positionX, positionY, this._label, style);
-    }
+  // *****************************************************************************************************************
+  // PUBLIC METHODS
+  // *****************************************************************************************************************
 
-    // *****************************************************************************************************************
-    // PUBLIC METHODS
-    // *****************************************************************************************************************
+  public updateValue(value: string) {
+    this._label = value;
+    this._text.text = value;
+  }
 
-    public updateValue(value: string) {
-        this._label = value;
-        this._text.text = value;
-    }
-
-    public override clear() {
-        this._text.removedFromScene();
-    }
+  public override clear() {
+    this._text.removedFromScene();
+  }
 }

@@ -1,12 +1,12 @@
-import { UserDTO } from "./userDTO";
+import { ACardDTO } from "./a-card.dto";
 
-export class LobbyUserDTO extends UserDTO {
+export class LoveLetterCardDTO extends ACardDTO {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public ready: boolean;
-  public owner: boolean;
+  public name: string;
+  public value: number;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -14,7 +14,7 @@ export class LobbyUserDTO extends UserDTO {
 
   constructor() {
     super();
-    this.ready = false;
-    this.owner = false;
+    this.name = "";
+    this.value = -1;
   }
 }

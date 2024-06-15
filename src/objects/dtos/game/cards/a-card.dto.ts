@@ -1,20 +1,19 @@
-import { UserDTO } from "./userDTO";
-
-export class LobbyUserDTO extends UserDTO {
+export abstract class ACardDTO {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public ready: boolean;
-  public owner: boolean;
+  public id: string;
+  public spriteId: string;
+  public facingDown: boolean;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor() {
-    super();
-    this.ready = false;
-    this.owner = false;
+  protected constructor() {
+    this.id = "";
+    this.spriteId = "";
+    this.facingDown = true;
   }
 }

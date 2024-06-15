@@ -1,20 +1,17 @@
-import { UserDTO } from "./userDTO";
+import { UserDTO } from "../../users/userDTO";
 
-export class LobbyUserDTO extends UserDTO {
+export abstract class APlayerDTO {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public ready: boolean;
-  public owner: boolean;
+  public user: UserDTO;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor() {
-    super();
-    this.ready = false;
-    this.owner = false;
+  protected constructor() {
+    this.user = new UserDTO();
   }
 }

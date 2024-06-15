@@ -1,12 +1,16 @@
-import { UserDTO } from "./userDTO";
+import { AGameManagerDTO } from "./a-game-manager.dto";
+import { LoveLetterPlayerDTO } from "../players/love-letter-player.dto";
+import { LoveLetterCardDTO } from "../cards/love-letter-card.dto";
 
-export class LobbyUserDTO extends UserDTO {
+export class LoverLetterGameManagerDTO extends AGameManagerDTO<LoveLetterPlayerDTO> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public ready: boolean;
-  public owner: boolean;
+  public cardPile: LoveLetterCardDTO[];
+  public discardPile: LoveLetterCardDTO[];
+  public asideCard: LoveLetterCardDTO[];
+  public playerTurn: number;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -14,7 +18,9 @@ export class LobbyUserDTO extends UserDTO {
 
   constructor() {
     super();
-    this.ready = false;
-    this.owner = false;
+    this.cardPile = [];
+    this.discardPile = [];
+    this.asideCard = [];
+    this.playerTurn = -1;
   }
 }

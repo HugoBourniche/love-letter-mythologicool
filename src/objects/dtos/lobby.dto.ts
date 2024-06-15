@@ -1,5 +1,5 @@
 import { LobbyUserDTO } from "./users/lobby-user.dto";
-import { GameOptionsDTO } from "./game-options/game-options.dto";
+import { GameOptionsDTO } from "./game/options/game-options.dto";
 
 export class LobbyDTO {
   // *****************************************************************************************************************

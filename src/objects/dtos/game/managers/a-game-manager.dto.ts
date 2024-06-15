@@ -1,20 +1,17 @@
-import { UserDTO } from "./userDTO";
+import { APlayerDTO } from "../players/a-player.dto";
 
-export class LobbyUserDTO extends UserDTO {
+export abstract class AGameManagerDTO<T extends APlayerDTO> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public ready: boolean;
-  public owner: boolean;
+  public players: T[];
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor() {
-    super();
-    this.ready = false;
-    this.owner = false;
+  protected constructor() {
+    this.players = [];
   }
 }

@@ -48,8 +48,8 @@ export class PreloadService {
 
   public loadLoveLetterClassicCards() {
     this.context.load.image(
-        "loveletter_classic_dos",
-        "images/cards/card_loveletter_classic_dos_2.png"
+      "loveletter_classic_dos",
+      "images/cards/card_loveletter_classic_dos_2.png"
     );
     this.context.load.image(
       "loveletter_classic_0_spy",

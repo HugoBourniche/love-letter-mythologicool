@@ -1,5 +1,6 @@
 import { LobbyService } from "../../services/lobby.service";
 import { PreloadService } from "../../services/preload.service";
+import { GameManagerService } from "../../services/game-manager.service";
 
 export class ServicesFactory {
   // *****************************************************************************************************************
@@ -8,6 +9,7 @@ export class ServicesFactory {
 
   private static _lobbyService: LobbyService;
   private static _preloadService: PreloadService;
+  private static _gameManagerService: GameManagerService;
 
   // *****************************************************************************************************************
   // GETTERS
@@ -25,5 +27,12 @@ export class ServicesFactory {
       this._preloadService = new PreloadService(context);
     }
     return this._preloadService;
+  }
+
+  public static GameManager(): GameManagerService {
+    if (this._gameManagerService == null) {
+      this._gameManagerService = new GameManagerService();
+    }
+    return this._gameManagerService;
   }
 }

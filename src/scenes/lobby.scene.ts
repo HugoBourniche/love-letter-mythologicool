@@ -13,6 +13,10 @@ import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 import { GameOptionsPanel } from "./panel/game-options.panel";
 import { LobbySceneData } from "../objects/data/lobby-scene.data";
 import { StoneLabelledButtonField } from "../gameobjects/forms/buttons/stone-labelled-button.field";
+import { MainSceneData } from "../objects/data/main-scene.data";
+import { GameManagerService } from "../services/game-manager.service";
+import { LoveLetterInitializationGameResponse } from "../objects/responses/love-letter-initialization-game.response";
+import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";
 
 export default class LobbyScene extends Phaser.Scene {
   // *****************************************************************************************************************
@@ -22,6 +26,7 @@ export default class LobbyScene extends Phaser.Scene {
   // Services
   private _preloadService: PreloadService;
   private _lobbyService: LobbyService;
+  private _gameManagerService: GameManagerService;
 
   // Scene panel
   private _gameOptionsPanel: GameOptionsPanel;
@@ -33,7 +38,7 @@ export default class LobbyScene extends Phaser.Scene {
   private _playerLabels: LobbyUserField[];
 
   // Utils
-  private _currentUser?: LobbyUserData;
+  private _currentUser: LobbyUserData;
   private timeStamp = 0;
 
   // *****************************************************************************************************************
@@ -44,9 +49,11 @@ export default class LobbyScene extends Phaser.Scene {
     super("lobby-scene");
     this._preloadService = ServicesFactory.Preload(this);
     this._lobbyService = ServicesFactory.Lobby();
+    this._gameManagerService = ServicesFactory.GameManager();
     this._gameOptionsPanel = new GameOptionsPanel(this);
     this._lobbyData = {} as LobbyData;
     this._playerLabels = [];
+    this._currentUser = new LobbyUserData();
   }
 
   // *****************************************************************************************************************
@@ -81,8 +88,12 @@ export default class LobbyScene extends Phaser.Scene {
       this,
       400,
       50,
-      "Start",
-      () => this.startGame()
+      this._currentUser.isOwner
+        ? "Start"
+        : this._currentUser.isReady
+        ? "Ready"
+        : "Not ready",
+      () => (this._currentUser.isOwner ? this.startGame() : this.isReady())
     );
     this._lobbyKeyLabel = new SimpleLabelField(
       this,
@@ -114,17 +125,40 @@ export default class LobbyScene extends Phaser.Scene {
   // PRIVATE METHODS
   // *****************************************************************************************************************
 
+  private isReady() {
+    this._lobbyService
+      .switchUserReady(this._lobbyData.key, this._currentUser.name)
+      .then((response: LobbyUpdateResponse) =>
+        this.updateLobbyData(DtoToDataConverter.lobby(response.lobby))
+      );
+  }
   private startGame() {
     console.log("Start Game");
+    this._gameManagerService
+      .initializeGame(this._lobbyData.key)
+      .then((response: LoveLetterInitializationGameResponse) => {
+        console.log(response);
+        this.scene.start(
+          "main-scene",
+          new MainSceneData(this._lobbyData, this._currentUser.name)
+        );
+      });
   }
 
   private updateLobbyData(updatedLobbyData: LobbyData) {
-    if (this._currentUser) {
-      this._currentUser = updatedLobbyData.fetchUser(this._currentUser.name);
-    }
+    this._currentUser = updatedLobbyData.fetchUser(this._currentUser.name);
     this._lobbyData = updatedLobbyData;
     this._gameOptionsPanel.refresh(updatedLobbyData.options);
+    this.refreshButton();
     this.refreshUsers();
+  }
+
+  private refreshButton() {
+    if (!this._currentUser.isOwner) {
+      this._startButton?.refreshLabel(
+        this._currentUser.isReady ? "Ready" : "Not ready"
+      );
+    }
   }
 
   private refreshUsers() {

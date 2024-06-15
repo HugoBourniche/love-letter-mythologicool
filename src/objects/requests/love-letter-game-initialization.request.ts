@@ -1,20 +1,15 @@
-import { UserDTO } from "./userDTO";
-
-export class LobbyUserDTO extends UserDTO {
+export class LoveLetterGameInitializationRequest {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public ready: boolean;
-  public owner: boolean;
+  private lobbyKey: string;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor() {
-    super();
-    this.ready = false;
-    this.owner = false;
+  constructor(lobbyKey: string) {
+    this.lobbyKey = lobbyKey;
   }
 }

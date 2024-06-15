@@ -3,9 +3,8 @@ import { DealerService } from "../services/dealer.service";
 import { ZoneService } from "../services/zone.service";
 import { PreloadService } from "../services/preload.service";
 import Zone from "../objects/zone";
-import { GameManagerService } from "../services/game-manager.service";
-import { Player } from "../objects/player";
-import { InitializedGameResponse } from "../objects/responses/initialized-game.response";
+import { ServicesFactory } from "../utils/factories/services.factory";
+import { MainSceneData } from "../objects/data/main-scene.data";
 
 export default class MainScene extends Phaser.Scene {
   private text: Phaser.GameObjects.Text | undefined;
@@ -14,14 +13,24 @@ export default class MainScene extends Phaser.Scene {
   private dealerService: DealerService;
   private zoneService: ZoneService;
   private preloadService: PreloadService;
-  private gameManager: GameManagerService;
+
+  // *****************************************************************************************************************
+  // CONSTRUCTOR
+  // *****************************************************************************************************************
 
   constructor() {
     super("main-scene");
     this.dealerService = new DealerService(this);
     this.zoneService = new ZoneService();
-    this.preloadService = new PreloadService(this);
-    this.gameManager = new GameManagerService();
+    this.preloadService = ServicesFactory.Preload(this);
+  }
+
+  // *****************************************************************************************************************
+  // PHASER LIFECYCLE
+  // *****************************************************************************************************************
+
+  init(mainSceneData: MainSceneData) {
+    console.log(mainSceneData);
   }
 
   preload() {
@@ -36,14 +45,6 @@ export default class MainScene extends Phaser.Scene {
       .setFontFamily("Trebuchet MS")
       .setColor("#00ffff")
       .setInteractive();
-    // this.text.on('pointerdown', () => this.dealerService.dealCards())
-    this.text.on("pointerdown", () => {
-      const players = [new Player("Théo", 0), new Player("Hugo", 1)];
-      const result = this.gameManager
-        .initializeGame(players)
-        .then((result: InitializedGameResponse) => console.log(result));
-      console.log(result);
-    });
     this.text.on("pointerover", function () {
       self.text?.setColor("#ff69b4");
     });
@@ -107,7 +108,11 @@ export default class MainScene extends Phaser.Scene {
 
   update(time: number, delta: number) {}
 
-  handleDrag(
+  // *****************************************************************************************************************
+  // PRIVATE METHODS
+  // *****************************************************************************************************************
+
+  private handleDrag(
     pointer: Phaser.Input.Pointer,
     gameObject: any,
     dragX: number,

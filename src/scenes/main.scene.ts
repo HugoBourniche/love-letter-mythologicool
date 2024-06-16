@@ -5,6 +5,11 @@ import { PreloadService } from "../services/preload.service";
 import Zone from "../objects/zone";
 import { ServicesFactory } from "../utils/factories/services.factory";
 import { MainSceneData } from "../objects/data/main-scene.data";
+import { GameManagerService } from "../services/game-manager.service";
+import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-letter-game-manager.data";
+import { LoveLetterPlayerData } from "../objects/data/game/love-letter-player.data";
+import { LoveLetterGameStatusResponse } from "../objects/responses/love-letter-game-status.response";
+import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 
 export default class MainScene extends Phaser.Scene {
   private text: Phaser.GameObjects.Text | undefined;
@@ -13,6 +18,7 @@ export default class MainScene extends Phaser.Scene {
   private dealerService: DealerService;
   private zoneService: ZoneService;
   private preloadService: PreloadService;
+  private _gameManagerService: GameManagerService;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -23,6 +29,7 @@ export default class MainScene extends Phaser.Scene {
     this.dealerService = new DealerService(this);
     this.zoneService = new ZoneService();
     this.preloadService = ServicesFactory.Preload(this);
+    this._gameManagerService = ServicesFactory.GameManager();
   }
 
   // *****************************************************************************************************************
@@ -31,6 +38,14 @@ export default class MainScene extends Phaser.Scene {
 
   init(mainSceneData: MainSceneData) {
     console.log(mainSceneData);
+    this._gameManagerService
+      .gameStatus(mainSceneData.lobbyKey, mainSceneData.currentUserName)
+      .then((response: LoveLetterGameStatusResponse) =>
+        this.onGameStatus(
+          DtoToDataConverter.loveLetterGameManager(response.gameManagerDTO),
+          DtoToDataConverter.loveLetterPlayer(response.playerDTO)
+        )
+      );
   }
 
   preload() {
@@ -120,5 +135,15 @@ export default class MainScene extends Phaser.Scene {
   ) {
     gameObject.x = dragX;
     gameObject.y = dragY;
+  }
+
+  // EVENTS
+
+  private onGameStatus(
+    gameManager: LoveLetterGameManagerData,
+    player: LoveLetterPlayerData
+  ) {
+    console.log(gameManager);
+    console.log(player);
   }
 }

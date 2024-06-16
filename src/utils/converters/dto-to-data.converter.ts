@@ -35,6 +35,7 @@ export class DtoToDataConverter {
     lobby.key = lobbyDTO.key;
     lobby.users = this.lobbyUsers(lobbyDTO.users);
     lobby.options = this.gameOptions(lobbyDTO.options);
+    lobby.isInGame = lobbyDTO.inGame;
     return lobby;
   }
 

@@ -15,7 +15,6 @@ import { LobbySceneData } from "../objects/data/lobby-scene.data";
 import { StoneLabelledButtonField } from "../gameobjects/forms/buttons/stone-labelled-button.field";
 import { MainSceneData } from "../objects/data/main-scene.data";
 import { GameManagerService } from "../services/game-manager.service";
-import { LoveLetterInitializationGameResponse } from "../objects/responses/love-letter-initialization-game.response";
 import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";
 
 export default class LobbyScene extends Phaser.Scene {
@@ -116,7 +115,7 @@ export default class LobbyScene extends Phaser.Scene {
       this._lobbyService
         .updateLobby(this._lobbyData.key)
         .then((updatedLobbyData) =>
-          this.updateLobbyData(DtoToDataConverter.lobby(updatedLobbyData.lobby))
+          this.onUpdateLobby(DtoToDataConverter.lobby(updatedLobbyData.lobby))
         );
     }
   }
@@ -132,17 +131,11 @@ export default class LobbyScene extends Phaser.Scene {
         this.updateLobbyData(DtoToDataConverter.lobby(response.lobby))
       );
   }
+
   private startGame() {
-    console.log("Start Game");
     this._gameManagerService
       .initializeGame(this._lobbyData.key)
-      .then((response: LoveLetterInitializationGameResponse) => {
-        console.log(response);
-        this.scene.start(
-          "main-scene",
-          new MainSceneData(this._lobbyData, this._currentUser.name)
-        );
-      });
+      .then(() => this.onGameStarted());
   }
 
   private updateLobbyData(updatedLobbyData: LobbyData) {
@@ -152,6 +145,25 @@ export default class LobbyScene extends Phaser.Scene {
     this.refreshButton();
     this.refreshUsers();
   }
+
+  // Events
+
+  private onUpdateLobby(lobby: LobbyData) {
+    if (lobby.isInGame) {
+      this.onGameStarted();
+    } else {
+      this.updateLobbyData(lobby);
+    }
+  }
+
+  private onGameStarted() {
+    this.scene.start(
+      "main-scene",
+      new MainSceneData(this._lobbyData.key, this._currentUser.name)
+    );
+  }
+
+  // Refresh
 
   private refreshButton() {
     if (!this._currentUser.isOwner) {

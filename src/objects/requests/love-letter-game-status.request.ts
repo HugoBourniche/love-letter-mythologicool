@@ -1,24 +1,17 @@
-import { LobbyUserDTO } from "./users/lobby-user.dto";
-import { GameOptionsDTO } from "./game/options/game-options.dto";
-
-export class LobbyDTO {
+export class LoveLetterGameStatusRequest {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public key: string;
-  public users: LobbyUserDTO[];
-  public options: GameOptionsDTO;
-  public inGame: boolean;
+  private lobbyKey: string;
+  private playerName: string;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor() {
-    this.key = "";
-    this.users = [];
-    this.options = new GameOptionsDTO();
-    this.inGame = false;
+  constructor(lobbyKey: string, playerName: string) {
+    this.lobbyKey = lobbyKey;
+    this.playerName = playerName;
   }
 }

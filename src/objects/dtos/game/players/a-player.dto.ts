@@ -1,4 +1,4 @@
-import { UserDTO } from "../../users/userDTO";
+import { UserDTO } from "../../users/user.dto";
 
 export abstract class APlayerDTO {
   // *****************************************************************************************************************

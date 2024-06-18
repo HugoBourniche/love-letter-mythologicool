@@ -1,4 +1,4 @@
-import { UserDTO } from "../dtos/users/userDTO";
+import { UserDTO } from "../dtos/users/user.dto";
 
 export class LobbyJoinedRequest {
   // *****************************************************************************************************************

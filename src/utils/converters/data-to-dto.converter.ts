@@ -3,7 +3,7 @@ import { GameOptionsData } from "../../objects/data/game-options/game-options.da
 import { GameOptionsRangeDTO } from "../../objects/dtos/game/options/game-options-range.dto";
 import { GameOptionRangeData } from "../../objects/data/game-options/game-option-range.data";
 import { UserData } from "../../objects/data/users/user.data";
-import { UserDTO } from "../../objects/dtos/users/userDTO";
+import { UserDTO } from "../../objects/dtos/users/user.dto";
 
 export class DataToDtoConverter {
   // *****************************************************************************************************************

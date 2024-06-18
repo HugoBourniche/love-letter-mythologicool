@@ -4,7 +4,7 @@ import { LobbyJoinedRequest } from "../objects/requests/lobby-joined.request";
 import { LobbyJoinedResponse } from "../objects/responses/lobby-joined.response";
 import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";
 import { DataToDtoConverter } from "../utils/converters/data-to-dto.converter";
-import { UserDTO } from "../objects/dtos/users/userDTO";
+import { UserDTO } from "../objects/dtos/users/user.dto";
 import { GameOptionsData } from "../objects/data/game-options/game-options.data";
 import { ApplyGameOptionsRequest } from "../objects/requests/apply-game-options.request";
 import { LobbyUserReadyRequest } from "../objects/requests/lobby-user-ready.request";

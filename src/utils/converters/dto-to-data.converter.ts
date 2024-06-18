@@ -12,7 +12,7 @@ import { LoveLetterCardData } from "../../objects/data/game/cards/love-letter-ca
 import { LoverLetterGameManagerDTO } from "../../objects/dtos/game/managers/lover-letter-game-manager.dto";
 import { LoveLetterPlayerDTO } from "../../objects/dtos/game/players/love-letter-player.dto";
 import { LoveLetterPlayerData } from "../../objects/data/game/love-letter-player.data";
-import { UserDTO } from "../../objects/dtos/users/userDTO";
+import { UserDTO } from "../../objects/dtos/users/user.dto";
 import { UserData } from "../../objects/data/users/user.data";
 
 export class DtoToDataConverter {

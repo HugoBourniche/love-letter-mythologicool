@@ -10,6 +10,7 @@ import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-le
 import { LoveLetterPlayerData } from "../objects/data/game/love-letter-player.data";
 import { LoveLetterGameStatusResponse } from "../objects/responses/love-letter-game-status.response";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
+import {DataFactory} from "../utils/factories/data.factory";
 
 export default class MainScene extends Phaser.Scene {
   private text: Phaser.GameObjects.Text | undefined;
@@ -38,6 +39,10 @@ export default class MainScene extends Phaser.Scene {
 
   init(mainSceneData: MainSceneData) {
     console.log(mainSceneData);
+    if (mainSceneData.lobbyKey === undefined || mainSceneData.currentUserName === undefined) {
+      console.log("Use default data");
+      mainSceneData = DataFactory.defaultMainSceneData();
+    }
     this._gameManagerService
       .gameStatus(mainSceneData.lobbyKey, mainSceneData.currentUserName)
       .then((response: LoveLetterGameStatusResponse) =>

@@ -63,6 +63,7 @@ export default class LobbyScene extends Phaser.Scene {
     console.log("Init lobby scene");
     let lobbyData = lobbySceneData.lobbyData;
     if (lobbyData.key === undefined) {
+      console.log("Use default data");
       lobbyData = DataFactory.defaultLobbyData();
     }
     this._lobbyData = lobbyData;

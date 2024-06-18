@@ -89,7 +89,7 @@ export class PreloadService {
     );
     this.context.load.image(
       "loveletter_classic_9_princess",
-      "images/cards/card_loveletter_classic_9_princess.png"
+      "images/cards/card_loveletter_classic_9_princesse.png"
     );
   }
 }

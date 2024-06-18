@@ -43,6 +43,12 @@ export class LabelledButtonField extends SimpleButtonField {
     this._textObject.removedFromScene();
   }
 
+  public refreshLabel(value: string) {
+    this._label = value;
+    this._textObject.text = value;
+    this._textObject.x = this._positionX - 7 * value.length;
+  }
+
   // *****************************************************************************************************************
   // PRIVATE METHOD
   // *****************************************************************************************************************

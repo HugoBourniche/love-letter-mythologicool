@@ -1,5 +1,5 @@
 import { LobbyUserDTO } from "./users/lobby-user.dto";
-import { GameOptionsDTO } from "./game-options/game-options.dto";
+import { GameOptionsDTO } from "./game/options/game-options.dto";
 
 export class LobbyDTO {
   // *****************************************************************************************************************
@@ -9,6 +9,7 @@ export class LobbyDTO {
   public key: string;
   public users: LobbyUserDTO[];
   public options: GameOptionsDTO;
+  public inGame: boolean;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -18,5 +19,6 @@ export class LobbyDTO {
     this.key = "";
     this.users = [];
     this.options = new GameOptionsDTO();
+    this.inGame = false;
   }
 }

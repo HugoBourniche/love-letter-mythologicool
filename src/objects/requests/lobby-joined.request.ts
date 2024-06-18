@@ -1,18 +1,18 @@
-import { UserDto } from "../dtos/users/user.dto";
+import { UserDTO } from "../dtos/users/user.dto";
 
 export class LobbyJoinedRequest {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  private user: UserDto;
+  private user: UserDTO;
   private lobbyKey: string;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor(user: UserDto, lobbyKey: string) {
+  constructor(user: UserDTO, lobbyKey: string) {
     this.user = user;
     this.lobbyKey = lobbyKey;
   }

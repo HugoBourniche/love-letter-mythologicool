@@ -9,6 +9,7 @@ export class LobbyData {
   private _key: string;
   private _users: LobbyUserData[];
   private _options: GameOptionsData;
+  private _isInGame: boolean;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -18,6 +19,7 @@ export class LobbyData {
     this._key = "";
     this._users = [];
     this._options = new GameOptionsData();
+    this._isInGame = false;
   }
 
   // *****************************************************************************************************************
@@ -66,5 +68,13 @@ export class LobbyData {
 
   set options(value: GameOptionsData) {
     this._options = value;
+  }
+
+  get isInGame(): boolean {
+    return this._isInGame;
+  }
+
+  set isInGame(value: boolean) {
+    this._isInGame = value;
   }
 }

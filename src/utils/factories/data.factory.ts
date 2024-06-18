@@ -2,6 +2,7 @@ import { LobbyData } from "../../objects/data/lobby.data";
 import { LobbyUserData } from "../../objects/data/users/lobby-user.data";
 import { GameOptionsData } from "../../objects/data/game-options/game-options.data";
 import { GameOptionRangeData } from "../../objects/data/game-options/game-option-range.data";
+import {MainSceneData} from "../../objects/data/main-scene.data";
 
 export class DataFactory {
   public static defaultLobbyData(): LobbyData {
@@ -35,5 +36,9 @@ export class DataFactory {
     lobbyData.options = gameOption;
 
     return lobbyData;
+  }
+
+  public static defaultMainSceneData(): MainSceneData {
+    return new MainSceneData("TEST-KEYS", "Theo");
   }
 }

@@ -10,10 +10,17 @@
 }
 
 body {
-    background: linear-gradient(#9AD7EA, #094464) no-repeat;
-    background-color: #094464;
+    background-color: black;
 }
 
 h2 {
     font-family: 'sugar', serif;
+}
+
+#app {
+    text-align: center;
+}
+
+#app canvas {
+    border: 3px green solid;
 }

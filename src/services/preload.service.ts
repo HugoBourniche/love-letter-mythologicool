@@ -48,44 +48,48 @@ export class PreloadService {
 
   public loadLoveLetterClassicCards() {
     this.context.load.image(
+      "loveletter_classic_dos",
+      "images/cards/card_loveletter_classic_dos_2.png"
+    );
+    this.context.load.image(
       "loveletter_classic_0_spy",
-      "images/cards/card_loveletter_classic_0_espionne.jpg"
+      "images/cards/card_loveletter_classic_0_espionne.png"
     );
     this.context.load.image(
       "loveletter_classic_1_guard",
-      "images/cards/card_loveletter_classic_1_garde.jpg"
+      "images/cards/card_loveletter_classic_1_garde.png"
     );
     this.context.load.image(
       "loveletter_classic_2_priest",
-      "images/cards/card_loveletter_classic_2_pretre.jpg"
+      "images/cards/card_loveletter_classic_2_pretre.png"
     );
     this.context.load.image(
       "loveletter_classic_3_baron",
-      "images/cards/card_loveletter_classic_3_baron.jpg"
+      "images/cards/card_loveletter_classic_3_baron.png"
     );
     this.context.load.image(
       "loveletter_classic_4_handmaid",
-      "images/cards/card_loveletter_classic_4_servante.jpg"
+      "images/cards/card_loveletter_classic_4_servante.png"
     );
     this.context.load.image(
       "loveletter_classic_5_prince",
-      "images/cards/card_loveletter_classic_5_prince.jpg"
+      "images/cards/card_loveletter_classic_5_prince.png"
     );
     this.context.load.image(
       "loveletter_classic_6_chancellor",
-      "images/cards/card_loveletter_classic_6_chancelier.jpg"
+      "images/cards/card_loveletter_classic_6_chancelier.png"
     );
     this.context.load.image(
       "loveletter_classic_7_king",
-      "images/cards/card_loveletter_classic_7_roi.jpg"
+      "images/cards/card_loveletter_classic_7_roi.png"
     );
     this.context.load.image(
       "loveletter_classic_8_countess",
-      "images/cards/card_loveletter_classic_8_comtesse.jpg"
+      "images/cards/card_loveletter_classic_8_comtesse.png"
     );
     this.context.load.image(
       "loveletter_classic_9_princess",
-      "images/cards/card_loveletter_classic_9_princess.jpg"
+      "images/cards/card_loveletter_classic_9_princesse.png"
     );
   }
 }

@@ -4,9 +4,10 @@ import { LobbyJoinedRequest } from "../objects/requests/lobby-joined.request";
 import { LobbyJoinedResponse } from "../objects/responses/lobby-joined.response";
 import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";
 import { DataToDtoConverter } from "../utils/converters/data-to-dto.converter";
-import { UserDto } from "../objects/dtos/users/user.dto";
+import { UserDTO } from "../objects/dtos/users/user.dto";
 import { GameOptionsData } from "../objects/data/game-options/game-options.data";
 import { ApplyGameOptionsRequest } from "../objects/requests/apply-game-options.request";
+import { LobbyUserReadyRequest } from "../objects/requests/lobby-user-ready.request";
 
 export class LobbyService {
   // *****************************************************************************************************************
@@ -25,7 +26,7 @@ export class LobbyService {
 
   public async createLobby(username: string): Promise<LobbyCreationResponse> {
     console.log("LobbyService:createLobby(" + username + ")");
-    const user = new UserDto();
+    const user = new UserDTO();
     user.name = username;
     const requestBody = new LobbyCreationRequest(user);
     const response = await fetch("http://localhost:9143/lobby/create", {
@@ -40,6 +41,7 @@ export class LobbyService {
     if (!response.ok) {
       throw new Error("Can't create a room");
     }
+
     return (await response.json()) as LobbyCreationResponse;
   }
 
@@ -51,7 +53,7 @@ export class LobbyService {
         lobbyKey +
         ")"
     );
-    const user = new UserDto();
+    const user = new UserDTO();
     user.name = username;
     const requestBody = new LobbyJoinedRequest(user, lobbyKey);
     const response = await fetch("http://localhost:9143/lobby/join", {
@@ -68,6 +70,31 @@ export class LobbyService {
     }
 
     return (await response.json()) as LobbyJoinedResponse;
+  }
+
+  public async switchUserReady(key: string, userName: string) {
+    console.log(
+      "LobbyService:switchUserReady(lobbyKey=" +
+        key +
+        ", userName=" +
+        userName +
+        ")"
+    );
+    const request = new LobbyUserReadyRequest(userName, key);
+    const response = await fetch("http://localhost:9143/lobby/ready", {
+      method: "POST",
+      body: JSON.stringify(request),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Can't update a room");
+    }
+
+    return (await response.json()) as LobbyUpdateResponse;
   }
 
   public async updateLobby(lobbyKey: string) {

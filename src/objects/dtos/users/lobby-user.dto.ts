@@ -1,6 +1,6 @@
-import { UserDto } from "./user.dto";
+import { UserDTO } from "./user.dto";
 
-export class LobbyUserDTO extends UserDto {
+export class LobbyUserDTO extends UserDTO {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

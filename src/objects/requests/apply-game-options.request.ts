@@ -1,4 +1,4 @@
-import { GameOptionsDTO } from "../dtos/game-options/game-options.dto";
+import { GameOptionsDTO } from "../dtos/game/options/game-options.dto";
 
 export class ApplyGameOptionsRequest {
   // *****************************************************************************************************************

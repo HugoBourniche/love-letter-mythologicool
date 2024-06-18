@@ -35,3 +35,12 @@ export const DEFAULT_STYLE_WHITE = {
   fontSize: DEFAULT_FONT_SIZE,
   fill: "#ffffff",
 } as Phaser.Types.GameObjects.Text.TextStyle;
+
+export const TIME_5S = 5000;
+export const TIME_3S = 3000;
+export const TIME_1000MS = 1000;
+export const TIME_500MS = 500;
+export const TIME_50MS = 50;
+
+export const LOBBY_RATE = TIME_5S;
+export const GAME_RATE = TIME_3S;

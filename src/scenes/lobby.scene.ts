@@ -4,7 +4,7 @@ import { LobbyData } from "../objects/data/lobby.data";
 import { LabelledButtonField } from "../gameobjects/forms/buttons/labelled-button.field";
 import { LobbyUserData } from "../objects/data/users/lobby-user.data";
 import { SimpleLabelField } from "../gameobjects/forms/simple-label.field";
-import { DEFAULT_FONT_SIZE } from "../cst";
+import { DEFAULT_FONT_SIZE, LOBBY_RATE } from "../cst";
 import { LobbyUserField } from "../gameobjects/forms/lobby-user.field";
 import { LobbyService } from "../services/lobby.service";
 import { PartScenePositionsEnum } from "../utils/factories/part-scene-positions.enum";
@@ -16,8 +16,9 @@ import { StoneLabelledButtonField } from "../gameobjects/forms/buttons/stone-lab
 import { MainSceneData } from "../objects/data/main-scene.data";
 import { GameManagerService } from "../services/game-manager.service";
 import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";
+import { BaseCustomScene } from "./base-custom.scene";
 
-export default class LobbyScene extends Phaser.Scene {
+export default class LobbyScene extends BaseCustomScene {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
@@ -38,7 +39,6 @@ export default class LobbyScene extends Phaser.Scene {
 
   // Utils
   private _currentUser: LobbyUserData;
-  private timeStamp = 0;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -109,10 +109,9 @@ export default class LobbyScene extends Phaser.Scene {
   update(time: number, delta: number) {
     super.update(time, delta);
 
-    const timeSpent = time - this.timeStamp;
-    if (timeSpent >= 5000) {
-      // Every 5s
-      this.timeStamp = time;
+    const timeSpent = time - this._timeStamp;
+    if (timeSpent >= LOBBY_RATE) {
+      this._timeStamp = time;
       this._lobbyService
         .updateLobby(this._lobbyData.key)
         .then((updatedLobbyData) =>

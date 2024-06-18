@@ -2,7 +2,7 @@ import { LobbyData } from "../../objects/data/lobby.data";
 import { LobbyUserData } from "../../objects/data/users/lobby-user.data";
 import { GameOptionsData } from "../../objects/data/game-options/game-options.data";
 import { GameOptionRangeData } from "../../objects/data/game-options/game-option-range.data";
-import {MainSceneData} from "../../objects/data/main-scene.data";
+import { MainSceneData } from "../../objects/data/main-scene.data";
 
 export class DataFactory {
   public static defaultLobbyData(): LobbyData {

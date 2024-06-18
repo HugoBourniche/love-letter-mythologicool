@@ -2,24 +2,39 @@ import Phaser from "phaser";
 import { DealerService } from "../services/dealer.service";
 import { ZoneService } from "../services/zone.service";
 import { PreloadService } from "../services/preload.service";
-import Zone from "../objects/zone";
 import { ServicesFactory } from "../utils/factories/services.factory";
-import { MainSceneData } from "../objects/data/main-scene.data";
 import { GameManagerService } from "../services/game-manager.service";
-import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-letter-game-manager.data";
 import { LoveLetterPlayerData } from "../objects/data/game/love-letter-player.data";
 import { LoveLetterGameStatusResponse } from "../objects/responses/love-letter-game-status.response";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
-import {DataFactory} from "../utils/factories/data.factory";
+import { DataFactory } from "../utils/factories/data.factory";
+import Zone from "../objects/zone";
+import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-letter-game-manager.data";
+import { MainSceneData } from "../objects/data/main-scene.data";
+import { PlayerGameObject } from "../objects/player.game-object";
+import { GAME_RATE } from "../cst";
+import { BaseCustomScene } from "./base-custom.scene";
 
-export default class MainScene extends Phaser.Scene {
-  private text: Phaser.GameObjects.Text | undefined;
-  private zone: Zone | undefined;
+export default class MainScene extends BaseCustomScene {
+  // *****************************************************************************************************************
+  // ATTRIBUTES
+  // *****************************************************************************************************************
 
+  // Services
   private dealerService: DealerService;
   private zoneService: ZoneService;
   private preloadService: PreloadService;
   private _gameManagerService: GameManagerService;
+
+  // Game Objects
+  private text: Phaser.GameObjects.Text | undefined;
+  private zone: Zone | undefined;
+  private _playersObjects: PlayerGameObject[];
+
+  // Data Objects
+  private _mainSceneData?: MainSceneData;
+  private _gameManager?: LoveLetterGameManagerData;
+  private _currentPlayer?: LoveLetterPlayerData;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -31,6 +46,8 @@ export default class MainScene extends Phaser.Scene {
     this.zoneService = new ZoneService();
     this.preloadService = ServicesFactory.Preload(this);
     this._gameManagerService = ServicesFactory.GameManager();
+
+    this._playersObjects = [];
   }
 
   // *****************************************************************************************************************
@@ -38,19 +55,14 @@ export default class MainScene extends Phaser.Scene {
   // *****************************************************************************************************************
 
   init(mainSceneData: MainSceneData) {
-    console.log(mainSceneData);
-    if (mainSceneData.lobbyKey === undefined || mainSceneData.currentUserName === undefined) {
+    if (
+      mainSceneData.lobbyKey === undefined ||
+      mainSceneData.currentUserName === undefined
+    ) {
       console.log("Use default data");
       mainSceneData = DataFactory.defaultMainSceneData();
     }
-    this._gameManagerService
-      .gameStatus(mainSceneData.lobbyKey, mainSceneData.currentUserName)
-      .then((response: LoveLetterGameStatusResponse) =>
-        this.onGameStatus(
-          DtoToDataConverter.loveLetterGameManager(response.gameManagerDTO),
-          DtoToDataConverter.loveLetterPlayer(response.playerDTO)
-        )
-      );
+    this._mainSceneData = mainSceneData;
   }
 
   preload() {
@@ -126,7 +138,13 @@ export default class MainScene extends Phaser.Scene {
     );
   }
 
-  update(time: number, delta: number) {}
+  update(time: number, delta: number) {
+    const timeSpent = time - this._timeStamp;
+    if (timeSpent >= GAME_RATE) {
+      this._timeStamp = time;
+      this.updateGameStatus();
+    }
+  }
 
   // *****************************************************************************************************************
   // PRIVATE METHODS
@@ -142,13 +160,39 @@ export default class MainScene extends Phaser.Scene {
     gameObject.y = dragY;
   }
 
+  private updateGameStatus() {
+    if (this._mainSceneData == null) {
+      throw Error("No main scene data");
+    }
+    this._gameManagerService
+      .gameStatus(
+        this._mainSceneData.lobbyKey,
+        this._mainSceneData.currentUserName
+      )
+      .then((response: LoveLetterGameStatusResponse) =>
+        this.onGameStatus(
+          DtoToDataConverter.loveLetterGameManager(response.gameManagerDTO),
+          DtoToDataConverter.loveLetterPlayer(response.playerDTO)
+        )
+      );
+  }
+
   // EVENTS
 
   private onGameStatus(
     gameManager: LoveLetterGameManagerData,
     player: LoveLetterPlayerData
   ) {
-    console.log(gameManager);
-    console.log(player);
+    this._gameManager = gameManager;
+    this._currentPlayer = player;
+    if (this._playersObjects.length == 0) {
+      this.createPlayersObject(gameManager.players);
+    }
+  }
+
+  private createPlayersObject(players: LoveLetterPlayerData[]) {
+    for (const player of players) {
+      this._playersObjects.push(new PlayerGameObject(this, 0, 0, player.user));
+    }
   }
 }

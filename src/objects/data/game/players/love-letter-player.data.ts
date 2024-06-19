@@ -1,42 +1,51 @@
-import { SimpleLabelField } from "../gameobjects/forms/simple-label.field";
-import { Scene } from "phaser";
-import { DEFAULT_STYLE_WHITE } from "../cst";
-import { UserData } from "./data/users/user.data";
+import { CardData } from "../cards/card.data";
+import { APlayerData } from "./a-player-data";
 
-export class PlayerGameObject {
+export class LoveLetterPlayerData extends APlayerData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  private _context: Scene;
-  // Values
-  private _user: UserData;
-
-  // Game objects
-  private text: SimpleLabelField;
+  private _hand: CardData[];
+  private _position: number;
+  private _nbFavorPeace: number;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor(
-    context: Scene,
-    positionX: number,
-    positionY: number,
-    user: UserData
-  ) {
-    this._context = context;
-    this._user = user;
-    this.text = new SimpleLabelField(
-      context,
-      positionX,
-      positionY,
-      user.name,
-      DEFAULT_STYLE_WHITE
-    );
+  constructor() {
+    super();
+    this._hand = [];
+    this._position = -1;
+    this._nbFavorPeace = 0;
   }
 
   // *****************************************************************************************************************
-  // PUBLIC METHODS
+  // GETTER / SETTER
   // *****************************************************************************************************************
+
+  get hand(): CardData[] {
+    return this._hand;
+  }
+
+  set hand(value: CardData[]) {
+    this._hand = value;
+  }
+
+  get position(): number {
+    return this._position;
+  }
+
+  set position(value: number) {
+    this._position = value;
+  }
+
+  get nbFavorPeace(): number {
+    return this._nbFavorPeace;
+  }
+
+  set nbFavorPeace(value: number) {
+    this._nbFavorPeace = value;
+  }
 }

@@ -1,5 +1,5 @@
 import { CardData } from "../cards/card.data";
-import { LoveLetterPlayerData } from "../love-letter-player.data";
+import { LoveLetterPlayerData } from "../players/love-letter-player.data";
 import { GameManagerData } from "./game-manager.data";
 
 export class LoveLetterGameManagerData extends GameManagerData<LoveLetterPlayerData> {

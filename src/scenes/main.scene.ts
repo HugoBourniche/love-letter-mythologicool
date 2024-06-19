@@ -4,16 +4,16 @@ import { ZoneService } from "../services/zone.service";
 import { PreloadService } from "../services/preload.service";
 import { ServicesFactory } from "../utils/factories/services.factory";
 import { GameManagerService } from "../services/game-manager.service";
-import { LoveLetterPlayerData } from "../objects/data/game/love-letter-player.data";
+import { LoveLetterPlayerData } from "../objects/data/game/players/love-letter-player.data";
 import { LoveLetterGameStatusResponse } from "../objects/responses/love-letter-game-status.response";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 import { DataFactory } from "../utils/factories/data.factory";
 import Zone from "../objects/zone";
 import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-letter-game-manager.data";
 import { MainSceneData } from "../objects/data/main-scene.data";
-import { PlayerGameObject } from "../objects/player.game-object";
 import { GAME_RATE } from "../cst";
 import { BaseCustomScene } from "./base-custom.scene";
+import {LoveLetterPlayersGame} from "../gameobjects/players/love-letter-players.game";
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -29,12 +29,12 @@ export default class MainScene extends BaseCustomScene {
   // Game Objects
   private text: Phaser.GameObjects.Text | undefined;
   private zone: Zone | undefined;
-  private _playersObjects: PlayerGameObject[];
+  private _playersObjects?: LoveLetterPlayersGame;
 
   // Data Objects
   private _mainSceneData?: MainSceneData;
-  private _gameManager?: LoveLetterGameManagerData;
-  private _currentPlayer?: LoveLetterPlayerData;
+  private _gameManagerData?: LoveLetterGameManagerData;
+  private _currentPlayerData?: LoveLetterPlayerData;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -46,8 +46,6 @@ export default class MainScene extends BaseCustomScene {
     this.zoneService = new ZoneService();
     this.preloadService = ServicesFactory.Preload(this);
     this._gameManagerService = ServicesFactory.GameManager();
-
-    this._playersObjects = [];
   }
 
   // *****************************************************************************************************************
@@ -70,6 +68,7 @@ export default class MainScene extends BaseCustomScene {
   }
 
   create() {
+    this.updateGameStatus(); // Used in update
     const self = this;
     this.text = this.add
       .text(75, 350, ["DEAL CARDS"])
@@ -142,7 +141,7 @@ export default class MainScene extends BaseCustomScene {
     const timeSpent = time - this._timeStamp;
     if (timeSpent >= GAME_RATE) {
       this._timeStamp = time;
-      this.updateGameStatus();
+      // this.updateGameStatus(); // TODO Update
     }
   }
 
@@ -183,16 +182,17 @@ export default class MainScene extends BaseCustomScene {
     gameManager: LoveLetterGameManagerData,
     player: LoveLetterPlayerData
   ) {
-    this._gameManager = gameManager;
-    this._currentPlayer = player;
-    if (this._playersObjects.length == 0) {
+    this._gameManagerData = gameManager;
+    this._currentPlayerData = player;
+    if (this._playersObjects == null) {
       this.createPlayersObject(gameManager.players);
     }
   }
 
   private createPlayersObject(players: LoveLetterPlayerData[]) {
-    for (const player of players) {
-      this._playersObjects.push(new PlayerGameObject(this, 0, 0, player.user));
+    if (this._currentPlayerData == null) {
+      return;
     }
+    this._playersObjects = new LoveLetterPlayersGame(this, this.game.config.width as number, this.game.config.height as number, players, this._currentPlayerData);
   }
 }

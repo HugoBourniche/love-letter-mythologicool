@@ -11,7 +11,7 @@ import { LoveLetterCardDTO } from "../../objects/dtos/game/cards/love-letter-car
 import { LoveLetterCardData } from "../../objects/data/game/cards/love-letter-card.data";
 import { LoverLetterGameManagerDTO } from "../../objects/dtos/game/managers/lover-letter-game-manager.dto";
 import { LoveLetterPlayerDTO } from "../../objects/dtos/game/players/love-letter-player.dto";
-import { LoveLetterPlayerData } from "../../objects/data/game/love-letter-player.data";
+import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
 import { UserDTO } from "../../objects/dtos/users/user.dto";
 import { UserData } from "../../objects/data/users/user.data";
 

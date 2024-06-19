@@ -5,6 +5,7 @@ export abstract class SimpleField {
   // ATTRIBUTES
   // *****************************************************************************************************************
 
+  // INPUTS
   protected _context: Scene;
   protected _positionX: number;
   protected _positionY: number;

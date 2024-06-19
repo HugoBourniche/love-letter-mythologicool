@@ -8,12 +8,16 @@ export class SelectorField extends SimpleInteractiveField {
   // ATTRIBUTES
   // *****************************************************************************************************************
 
+  // INPUT
+  private readonly _values: string[];
+
+  // OBJECTS
   private _label: SimpleLabelField;
   private _arrowLeft: SimpleButtonField;
   private _value: SimpleLabelField;
   private _arrowRight: SimpleButtonField;
 
-  private readonly _values: string[];
+  // VARIABLES
   private _listIndex: number;
 
   // *****************************************************************************************************************

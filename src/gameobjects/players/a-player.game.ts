@@ -1,51 +1,42 @@
-import { CardData } from "./cards/card.data";
-import { APlayerData } from "./players/a-player-data";
+import { SimpleLabelField } from "../forms/simple-label.field";
+import { Scene } from "phaser";
+import { DEFAULT_STYLE_WHITE } from "../../cst";
+import {APlayerData} from "../../objects/data/game/players/a-player-data";
 
-export class LoveLetterPlayerData extends APlayerData {
+export abstract class APlayerGame<P extends APlayerData> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  private _hand: CardData[];
-  private _position: number;
-  private _nbFavorPeace: number;
+  // INPUT
+  private _context: Scene;
+  private _player: P;
+
+  // OBJECTS
+  private text: SimpleLabelField;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor() {
-    super();
-    this._hand = [];
-    this._position = -1;
-    this._nbFavorPeace = 0;
+  constructor(
+    context: Scene,
+    positionX: number,
+    positionY: number,
+    player: P
+  ) {
+    this._context = context;
+    this._player = player;
+    this.text = new SimpleLabelField(
+      context,
+      positionX,
+      positionY,
+      player.user.name,
+      DEFAULT_STYLE_WHITE
+    );
   }
 
   // *****************************************************************************************************************
-  // GETTER / SETTER
+  // PUBLIC METHODS
   // *****************************************************************************************************************
-
-  get hand(): CardData[] {
-    return this._hand;
-  }
-
-  set hand(value: CardData[]) {
-    this._hand = value;
-  }
-
-  get position(): number {
-    return this._position;
-  }
-
-  set position(value: number) {
-    this._position = value;
-  }
-
-  get nbFavorPeace(): number {
-    return this._nbFavorPeace;
-  }
-
-  set nbFavorPeace(value: number) {
-    this._nbFavorPeace = value;
-  }
 }

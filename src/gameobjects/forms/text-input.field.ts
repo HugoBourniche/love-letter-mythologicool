@@ -21,6 +21,11 @@ export class TextInputField extends SimpleField {
   // ATTRIBUTES
   // *****************************************************************************************************************
 
+  // INPUTS
+  private _placeholder: string;
+  private _maxLength: number;
+  private _style: Phaser.Types.GameObjects.Text.TextStyle;
+
   // OBJECTS
   private _textObject: Text;
   private _imageFrame?: Image;
@@ -28,12 +33,9 @@ export class TextInputField extends SimpleField {
   private _cursor?: Text;
   private _tween?: Tween;
 
-  // CUSTOM VALUES
+  // VARIABLES
   private _value: string;
-  private _placeholder: string;
   private _isFocus: boolean;
-  private _maxLength: number;
-  private _style: Phaser.Types.GameObjects.Text.TextStyle;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -51,8 +53,8 @@ export class TextInputField extends SimpleField {
     this._placeholder = placeholder;
     this._value = "";
     this._style = style;
-    this._isFocus = false;
     this._maxLength = maxLength;
+    this._isFocus = false;
 
     // INIT OBJECTS
 

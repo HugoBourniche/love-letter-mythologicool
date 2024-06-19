@@ -7,12 +7,12 @@ export class SimpleButtonField extends SimpleInteractiveField {
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  // OBJECTS
-  protected _image: Image;
-
-  // CUSTOM VALUES
+  // INPUTS
   protected _imageRef: string;
   protected _action: () => void;
+
+  // OBJECTS
+  protected _image: Image;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR

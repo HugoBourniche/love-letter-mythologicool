@@ -8,8 +8,11 @@ export class LabelledButtonField extends SimpleButtonField {
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  private _textObject: Text;
+  // INPUTS
   private _label: string;
+
+  // OBJECTS
+  private _textObject: Text;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR

@@ -1,6 +1,6 @@
-import { CardData } from "./card.data";
+import { ACardData } from "./a-card.data";
 
-export class LoveLetterCardData extends CardData {
+export class LoveLetterCardData extends ACardData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

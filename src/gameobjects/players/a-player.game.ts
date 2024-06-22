@@ -2,18 +2,18 @@ import { SimpleLabelField } from "../forms/simple-label.field";
 import { Scene } from "phaser";
 import { DEFAULT_STYLE_WHITE } from "../../cst";
 import {APlayerData} from "../../objects/data/game/players/a-player-data";
+import {SimpleField} from "../forms/simple.field";
 
-export abstract class APlayerGame<P extends APlayerData> {
+export abstract class APlayerGame<P extends APlayerData> extends SimpleField {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUT
-  private _context: Scene;
-  private _player: P;
+  protected _player: P;
 
   // OBJECTS
-  private text: SimpleLabelField;
+  protected _text: SimpleLabelField;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -25,11 +25,11 @@ export abstract class APlayerGame<P extends APlayerData> {
     positionY: number,
     player: P
   ) {
-    this._context = context;
+    super(context, positionX, positionY);
     this._player = player;
-    this.text = new SimpleLabelField(
+    this._text = new SimpleLabelField(
       context,
-      positionX,
+      positionX - player.user.name.length * (player.user.name.length > 5 ? 25 : 32),
       positionY,
       player.user.name,
       DEFAULT_STYLE_WHITE
@@ -37,6 +37,10 @@ export abstract class APlayerGame<P extends APlayerData> {
   }
 
   // *****************************************************************************************************************
-  // PUBLIC METHODS
+  // OVERRIDE METHODS
   // *****************************************************************************************************************
+
+  public override clear() {
+    this._text.clear();
+  }
 }

@@ -1,12 +1,12 @@
-import { CardData } from "../cards/card.data";
 import { APlayerData } from "./a-player-data";
+import {LoveLetterCardData} from "../cards/love-letter-card.data";
 
 export class LoveLetterPlayerData extends APlayerData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  private _hand: CardData[];
+  private _hand: LoveLetterCardData[];
   private _position: number;
   private _nbFavorPeace: number;
 
@@ -25,11 +25,11 @@ export class LoveLetterPlayerData extends APlayerData {
   // GETTER / SETTER
   // *****************************************************************************************************************
 
-  get hand(): CardData[] {
+  get hand(): LoveLetterCardData[] {
     return this._hand;
   }
 
-  set hand(value: CardData[]) {
+  set hand(value: LoveLetterCardData[]) {
     this._hand = value;
   }
 

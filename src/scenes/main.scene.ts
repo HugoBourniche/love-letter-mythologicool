@@ -8,7 +8,6 @@ import { LoveLetterPlayerData } from "../objects/data/game/players/love-letter-p
 import { LoveLetterGameStatusResponse } from "../objects/responses/love-letter-game-status.response";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 import { DataFactory } from "../utils/factories/data.factory";
-import Zone from "../objects/zone";
 import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-letter-game-manager.data";
 import { MainSceneData } from "../objects/data/main-scene.data";
 import { GAME_RATE } from "../cst";
@@ -27,8 +26,6 @@ export default class MainScene extends BaseCustomScene {
   private _gameManagerService: GameManagerService;
 
   // Game Objects
-  private text: Phaser.GameObjects.Text | undefined;
-  private zone: Zone | undefined;
   private _playersObjects?: LoveLetterPlayersGame;
 
   // Data Objects
@@ -69,19 +66,6 @@ export default class MainScene extends BaseCustomScene {
   create() {
     this.updateGameStatus(); // Used in update
     const self = this;
-    this.text = this.add
-      .text(75, 350, ["DEAL CARDS"])
-      .setFontSize(18)
-      .setFontFamily("Trebuchet MS")
-      .setColor("#00ffff")
-      .setInteractive();
-    this.text.on("pointerover", function () {
-      self.text?.setColor("#ff69b4");
-    });
-    this.text.on("pointerout", function () {
-      self.text?.setColor("#00ffff");
-    });
-
     this.input.on(
       "drag",
       (
@@ -91,10 +75,6 @@ export default class MainScene extends BaseCustomScene {
         dragY: number
       ) => this.handleDrag(pointer, gameObject, dragX, dragY)
     );
-
-    this.zone = new Zone(this);
-    this.zone.renderZone();
-    this.zone.renderOutline();
 
     this.input.on(
       "dragstart",

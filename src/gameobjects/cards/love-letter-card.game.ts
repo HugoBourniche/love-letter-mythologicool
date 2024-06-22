@@ -1,7 +1,7 @@
-import {LoveLetterPlayerData} from "../../objects/data/game/players/love-letter-player.data";
-import {APlayerGame} from "./a-player.game";
+import {ACardGame} from "./a-card.game";
+import {LoveLetterCardData} from "../../objects/data/game/cards/love-letter-card.data";
 
-export class LoveLetterPlayerGame extends APlayerGame<LoveLetterPlayerData> {
+export class LoveLetterCardGame extends ACardGame<LoveLetterCardData>{
 
     // *****************************************************************************************************************
     // ATTRIBUTES
@@ -11,8 +11,7 @@ export class LoveLetterPlayerGame extends APlayerGame<LoveLetterPlayerData> {
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-
-    constructor(context: Phaser.Scene, positionX: number, positionY: number, player: LoveLetterPlayerData) {
-        super(context, positionX, positionY, player);
+    constructor(context: Phaser.Scene, positionX: number, positionY: number, card: LoveLetterCardData, scale = 0.1) {
+        super(context, positionX, positionY, card, scale);
     }
 }

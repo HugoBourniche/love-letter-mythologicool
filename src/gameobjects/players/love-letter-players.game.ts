@@ -21,6 +21,7 @@ export class LoveLetterPlayersGame extends APlayersGame<LoveLetterPlayerData, Lo
     // *****************************************************************************************************************
 
     protected override initPlayersOnCanvas(): void {
+        this._currentPlayerObject = new LoveLetterPlayerGame(this._context, this._width / 6, (this._height / 6) * 5, this._currentPlayer);
         const nbPlayers = this._players.length;
         const range = this._width / nbPlayers;
         for(let i = 0; i < this._players.length; i++) {

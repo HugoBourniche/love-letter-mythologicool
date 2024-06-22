@@ -16,6 +16,7 @@ export abstract class APlayersGame<P extends APlayerData, G extends APlayerGame<
 
     // OBJECTS
     protected _playersObject: G[];
+    protected _currentPlayerObject?: G;
 
 
     // *****************************************************************************************************************

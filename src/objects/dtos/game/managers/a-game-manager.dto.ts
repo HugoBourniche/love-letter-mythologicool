@@ -1,17 +1,18 @@
 import { APlayerDTO } from "../players/a-player.dto";
 
-export abstract class AGameManagerDTO<T extends APlayerDTO> {
+export abstract class AGameManagerDTO<P extends APlayerDTO> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public players: T[];
+  public currentPlayer?: P;
+  public otherPlayers: P[];
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
   protected constructor() {
-    this.players = [];
+    this.otherPlayers = [];
   }
 }

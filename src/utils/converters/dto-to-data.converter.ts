@@ -82,7 +82,10 @@ export class DtoToDataConverter {
     gameManagerDTO: LoverLetterGameManagerDTO
   ): LoveLetterGameManagerData {
     const gameManager = new LoveLetterGameManagerData();
-    gameManager.players = this.loveLetterPlayers(gameManagerDTO.players);
+    if (gameManagerDTO.currentPlayer) {
+      gameManager.currentPlayer = this.loveLetterPlayer(gameManagerDTO.currentPlayer);
+    }
+    gameManager.players = this.loveLetterPlayers(gameManagerDTO.otherPlayers);
     gameManager.playerTurn = gameManagerDTO.playerTurn;
     gameManager.cardPile = this.loveLetterCards(gameManagerDTO.cardPile);
     gameManager.discardPile = this.loveLetterCards(gameManagerDTO.discardPile);

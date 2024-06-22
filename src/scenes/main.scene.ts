@@ -34,7 +34,6 @@ export default class MainScene extends BaseCustomScene {
   // Data Objects
   private _mainSceneData?: MainSceneData;
   private _gameManagerData?: LoveLetterGameManagerData;
-  private _currentPlayerData?: LoveLetterPlayerData;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -171,7 +170,6 @@ export default class MainScene extends BaseCustomScene {
       .then((response: LoveLetterGameStatusResponse) =>
         this.onGameStatus(
           DtoToDataConverter.loveLetterGameManager(response.gameManagerDTO),
-          DtoToDataConverter.loveLetterPlayer(response.playerDTO)
         )
       );
   }
@@ -180,19 +178,17 @@ export default class MainScene extends BaseCustomScene {
 
   private onGameStatus(
     gameManager: LoveLetterGameManagerData,
-    player: LoveLetterPlayerData
   ) {
     this._gameManagerData = gameManager;
-    this._currentPlayerData = player;
     if (this._playersObjects == null) {
       this.createPlayersObject(gameManager.players);
     }
   }
 
   private createPlayersObject(players: LoveLetterPlayerData[]) {
-    if (this._currentPlayerData == null) {
+    if (this._gameManagerData?.currentPlayer == null) {
       return;
     }
-    this._playersObjects = new LoveLetterPlayersGame(this, this.game.config.width as number, this.game.config.height as number, players, this._currentPlayerData);
+    this._playersObjects = new LoveLetterPlayersGame(this, this.game.config.width as number, this.game.config.height as number, players, this._gameManagerData?.currentPlayer);
   }
 }

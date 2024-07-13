@@ -117,12 +117,18 @@ export default class MainScene extends BaseCustomScene {
     );
   }
 
+  // UPDATE
+
   update(time: number, delta: number) {
-    const timeSpent = time - this._timeStamp;
-    if (timeSpent >= GAME_RATE) {
-      this._timeStamp = time;
-      // this.updateGameStatus(); // TODO Update
-    }
+    super.update(time, delta);
+  }
+
+  onUpdate(): void {
+    // this.updateGameStatus(); // TODO Update
+  }
+
+  get updateRate(): number {
+    return GAME_RATE;
   }
 
   // *****************************************************************************************************************

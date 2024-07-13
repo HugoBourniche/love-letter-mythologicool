@@ -18,7 +18,7 @@ export abstract class ACardGame<C extends ACardData> extends SimpleField {
     // CONSTRUCTOR
     // *****************************************************************************************************************
 
-    constructor(context: Phaser.Scene, positionX: number, positionY: number, card: C, scale = 0.1) {
+    protected constructor(context: Phaser.Scene, positionX: number, positionY: number, card: C, scale = 0.1) {
         super(context, positionX, positionY);
         this._card = card;
         this._image = context.add.image(positionX + (10 * scale), positionY, card.spriteId);

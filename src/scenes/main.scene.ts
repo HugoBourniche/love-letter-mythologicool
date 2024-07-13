@@ -22,7 +22,7 @@ export default class MainScene extends BaseCustomScene {
   // Services
   private dealerService: DealerService;
   private zoneService: ZoneService;
-  private preloadService: PreloadService;
+  private _preloadService: PreloadService;
   private _gameManagerService: GameManagerService;
 
   // Game Objects
@@ -40,7 +40,7 @@ export default class MainScene extends BaseCustomScene {
     super("main-scene");
     this.dealerService = new DealerService(this);
     this.zoneService = new ZoneService();
-    this.preloadService = ServicesFactory.Preload(this);
+    this._preloadService = ServicesFactory.Preload(this);
     this._gameManagerService = ServicesFactory.GameManager();
   }
 
@@ -60,7 +60,8 @@ export default class MainScene extends BaseCustomScene {
   }
 
   preload() {
-    this.preloadService.loadBaseImages();
+    this._preloadService.loadBaseImages();
+    this._preloadService.loadLoveLetterClassicPresetImages();
   }
 
   create() {

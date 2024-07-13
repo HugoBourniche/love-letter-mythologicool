@@ -1,5 +1,5 @@
 import { GameOptionsData } from "../../objects/data/game-options/game-options.data";
-import { BoxSizes } from "../../gameobjects/BoxSizes";
+import { BoxSizes } from "../../gameobjects/box-sizes";
 import { PartSceneFactory } from "../../utils/factories/part-scene.factory";
 import { PartScenePositionsEnum } from "../../utils/factories/part-scene-positions.enum";
 import { SimpleLabelField } from "../../gameobjects/forms/simple-label.field";

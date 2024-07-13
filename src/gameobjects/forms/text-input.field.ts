@@ -75,7 +75,7 @@ export class TextInputField extends SimpleField {
     if (this._value == this._placeholder) {
       return "";
     }
-    return this._value;
+    return this._value.trim();
   }
 
   public update(): void {

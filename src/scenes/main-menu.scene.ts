@@ -89,14 +89,7 @@ export default class MainMenuScene extends Phaser.Scene {
   // Button events
 
   private createLobby() {
-    if (this._nameInputField == null) {
-      console.error("_inputField is null");
-      return;
-    } else if (
-      this._nameInputField.value() == "" ||
-      this._nameInputField.value() == null
-    ) {
-      console.error("name is null");
+    if (!this.isValidNameInputField() || this._nameInputField == null) {
       return;
     }
     this._lobbyService
@@ -112,23 +105,12 @@ export default class MainMenuScene extends Phaser.Scene {
 
   private joinLobby() {
     console.log("Join lobby");
-    if (this._keyInputField == null) {
-      console.error("_keyInputField is null");
-      return;
-    } else if (
-      this._keyInputField.value() == "" ||
-      this._keyInputField.value() == null
+
+    if (
+      !this.areValidFields() ||
+      this._nameInputField == null ||
+      this._keyInputField == null
     ) {
-      console.error("Key is null");
-    }
-    if (this._nameInputField == null) {
-      console.error("_inputField is null");
-      return;
-    } else if (
-      this._nameInputField.value() == "" ||
-      this._nameInputField.value() == null
-    ) {
-      console.error("name is null");
       return;
     }
 
@@ -145,5 +127,43 @@ export default class MainMenuScene extends Phaser.Scene {
   private onLobbyCreatedOrJoined(lobbyData: LobbyData, username: string) {
     console.log("Key: " + lobbyData.key);
     this.scene.start("lobby-scene", new LobbySceneData(lobbyData, username));
+  }
+
+  // *****************************************************************************************************************
+  // UTILS METHODS
+  // *****************************************************************************************************************
+
+  private areValidFields(): boolean {
+    return this.isValidKeyInputField() && this.isValidNameInputField();
+  }
+
+  private isValidKeyInputField(): boolean {
+    let isValid = true;
+    if (this._keyInputField == null) {
+      console.error("_keyInputField is null");
+      isValid = false;
+    } else if (
+      this._keyInputField.value() == "" ||
+      this._keyInputField.value() == null
+    ) {
+      console.error("Key is null");
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  private isValidNameInputField(): boolean {
+    let isValid = true;
+    if (this._nameInputField == null) {
+      console.error("_inputField is null");
+      isValid = false;
+    } else if (
+      this._nameInputField.value() == "" ||
+      this._nameInputField.value() == null
+    ) {
+      console.error("name is null");
+      isValid = false;
+    }
+    return isValid;
   }
 }

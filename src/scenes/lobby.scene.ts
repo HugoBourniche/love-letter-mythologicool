@@ -77,13 +77,12 @@ export default class LobbyScene extends BaseCustomScene {
   }
 
   preload() {
-    console.log("Preload lobby scene");
     this._preloadService.loadMainMenuImages();
+    this._preloadService.loadLoveLetterClassicPresetImages();
     this._gameOptionsPanel.preload();
   }
 
   create() {
-    console.log("Create lobby scene");
     this._startButton = new StoneLabelledButtonField(
       this,
       400,

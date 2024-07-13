@@ -39,7 +39,6 @@ export class PreloadService {
     this.context.load.image("cardFront2", "images/cards/card_2_front.png");
     this.context.load.image("cardFront3", "images/cards/card_3_front.png");
     this.context.load.image("cardFront4", "images/cards/card_4_front.png");
-    this.loadLoveLetterClassicPresetImages();
   }
 
   public loadLoveLetterClassicPresetImages() {

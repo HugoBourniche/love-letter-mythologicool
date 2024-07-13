@@ -42,11 +42,10 @@ export default class MainMenuScene extends Phaser.Scene {
 
   preload() {
     this._preloadService.loadMainMenuImages();
+    this._preloadService.loadLoveLetterClassicPresetImages();
   }
 
   create() {
-    console.log("Create main menu");
-
     this.input.keyboard?.createCursorKeys();
 
     // Initiate form and input field

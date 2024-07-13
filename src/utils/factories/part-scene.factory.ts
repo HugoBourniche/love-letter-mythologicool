@@ -1,4 +1,4 @@
-import { BoxSizes } from "../../gameobjects/BoxSizes";
+import { BoxSizes } from "../../gameobjects/box-sizes";
 import { PartScenePositionsEnum } from "./part-scene-positions.enum";
 
 export class PartSceneFactory {

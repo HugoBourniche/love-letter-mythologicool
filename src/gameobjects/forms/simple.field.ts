@@ -1,12 +1,11 @@
-import { Scene } from "phaser";
+import { SceneObject } from "../scene-object";
 
-export abstract class SimpleField {
+export abstract class SimpleField extends SceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
-  protected _context: Scene;
   protected _positionX: number;
   protected _positionY: number;
 
@@ -19,7 +18,7 @@ export abstract class SimpleField {
     positionX: number,
     positionY: number
   ) {
-    this._context = context;
+    super(context);
     this._positionX = positionX;
     this._positionY = positionY;
   }

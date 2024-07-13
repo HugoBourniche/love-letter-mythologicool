@@ -1,5 +1,5 @@
 import { APlayerData } from "./a-player-data";
-import {LoveLetterCardData} from "../cards/love-letter-card.data";
+import { LoveLetterCardData } from "../cards/love-letter-card.data";
 
 export class LoveLetterPlayerData extends APlayerData {
   // *****************************************************************************************************************

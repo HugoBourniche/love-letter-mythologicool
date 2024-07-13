@@ -1,4 +1,4 @@
-import {LoverLetterGameManagerDTO} from "../dtos/game/managers/lover-letter-game-manager.dto";
+import { LoverLetterGameManagerDTO } from "../dtos/game/managers/lover-letter-game-manager.dto";
 
 export class LoveLetterGameStatusResponse {
   // *****************************************************************************************************************
@@ -11,9 +11,7 @@ export class LoveLetterGameStatusResponse {
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor(
-    gameManagerDTO: LoverLetterGameManagerDTO,
-  ) {
+  constructor(gameManagerDTO: LoverLetterGameManagerDTO) {
     this._gameManagerDTO = gameManagerDTO;
   }
 
@@ -24,5 +22,4 @@ export class LoveLetterGameStatusResponse {
   get gameManagerDTO(): LoverLetterGameManagerDTO {
     return this._gameManagerDTO;
   }
-
 }

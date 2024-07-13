@@ -105,18 +105,22 @@ export default class LobbyScene extends BaseCustomScene {
     this._gameOptionsPanel.create();
   }
 
+  // UPDATE
+
   update(time: number, delta: number) {
     super.update(time, delta);
+  }
 
-    const timeSpent = time - this._timeStamp;
-    if (timeSpent >= LOBBY_RATE) {
-      this._timeStamp = time;
-      this._lobbyService
-        .updateLobby(this._lobbyData.key)
-        .then((updatedLobbyData) =>
-          this.onUpdateLobby(DtoToDataConverter.lobby(updatedLobbyData.lobby))
-        );
-    }
+  onUpdate(): void {
+    this._lobbyService
+      .updateLobby(this._lobbyData.key)
+      .then((updatedLobbyData) =>
+        this.onUpdateLobby(DtoToDataConverter.lobby(updatedLobbyData.lobby))
+      );
+  }
+
+  get updateRate(): number {
+    return LOBBY_RATE;
   }
 
   // *****************************************************************************************************************

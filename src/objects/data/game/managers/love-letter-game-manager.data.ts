@@ -1,6 +1,6 @@
-import { ACardData } from "../cards/a-card.data";
 import { LoveLetterPlayerData } from "../players/love-letter-player.data";
 import { GameManagerData } from "./game-manager.data";
+import { LoveLetterCardData } from "../cards/love-letter-card.data";
 
 export class LoveLetterGameManagerData extends GameManagerData<LoveLetterPlayerData> {
   // *****************************************************************************************************************
@@ -8,9 +8,9 @@ export class LoveLetterGameManagerData extends GameManagerData<LoveLetterPlayerD
   // *****************************************************************************************************************
 
   private _playerTurn: number;
-  private _cardPile: ACardData[];
-  private _discardPile: ACardData[];
-  private _asidePile: ACardData[];
+  private _cardPile: LoveLetterCardData[];
+  private _discardPile: LoveLetterCardData[];
+  private _asidePile: LoveLetterCardData[];
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -35,27 +35,27 @@ export class LoveLetterGameManagerData extends GameManagerData<LoveLetterPlayerD
     this._playerTurn = value;
   }
 
-  get cardPile(): ACardData[] {
+  get cardPile(): LoveLetterCardData[] {
     return this._cardPile;
   }
 
-  set cardPile(value: ACardData[]) {
+  set cardPile(value: LoveLetterCardData[]) {
     this._cardPile = value;
   }
 
-  get discardPile(): ACardData[] {
+  get discardPile(): LoveLetterCardData[] {
     return this._discardPile;
   }
 
-  set discardPile(value: ACardData[]) {
+  set discardPile(value: LoveLetterCardData[]) {
     this._discardPile = value;
   }
 
-  get asidePile(): ACardData[] {
+  get asidePile(): LoveLetterCardData[] {
     return this._asidePile;
   }
 
-  set asidePile(value: ACardData[]) {
+  set asidePile(value: LoveLetterCardData[]) {
     this._asidePile = value;
   }
 }

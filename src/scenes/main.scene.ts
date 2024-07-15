@@ -13,6 +13,8 @@ import { MainSceneData } from "../objects/data/main-scene.data";
 import { GAME_RATE } from "../cst";
 import { BaseCustomScene } from "./base-custom.scene";
 import { LoveLetterPlayersGame } from "../gameobjects/players/love-letter-players.game";
+import { LoveLetterCardStackGame } from "../gameobjects/stack/love-letter-card-stack.game";
+import { LoveLetterCardData } from "../objects/data/game/cards/love-letter-card.data";
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -27,6 +29,8 @@ export default class MainScene extends BaseCustomScene {
 
   // Game Objects
   private _playersObjects?: LoveLetterPlayersGame;
+  private _cardStackPileObjects?: LoveLetterCardStackGame;
+  private _cardStackDiscardObjects?: LoveLetterCardStackGame;
 
   // Data Objects
   private _mainSceneData?: MainSceneData;
@@ -168,6 +172,37 @@ export default class MainScene extends BaseCustomScene {
     if (this._playersObjects == null) {
       this.createPlayersObject(gameManager.players);
     }
+    if (this._cardStackPileObjects == null) {
+      this._cardStackPileObjects = this.createStacksObject(
+        gameManager.cardPile,
+        750,
+        500,
+        "Card Pile"
+      );
+    }
+    if (this._cardStackDiscardObjects == null) {
+      this._cardStackDiscardObjects = this.createStacksObject(
+        gameManager.discardPile,
+        1000,
+        500,
+        "Discard Pile"
+      );
+    }
+  }
+
+  private createStacksObject(
+    _cardStack: LoveLetterCardData[],
+    positionX: number,
+    positionY: number,
+    label: string
+  ): LoveLetterCardStackGame {
+    return new LoveLetterCardStackGame(
+      this,
+      positionX,
+      positionY,
+      label,
+      _cardStack
+    );
   }
 
   private createPlayersObject(players: LoveLetterPlayerData[]) {

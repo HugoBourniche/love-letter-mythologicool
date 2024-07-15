@@ -24,8 +24,12 @@ export class LoveLetterCurrentPlayerGame extends LoveLetterPlayerGame {
   }
 
   // *****************************************************************************************************************
-  // PRIVATE METHODS
+  // OVERRIDE METHODS
   // *****************************************************************************************************************
+
+  public override clear() {
+    super.clear();
+  }
 
   protected override initCards() {
     for (let i = 0; i < this._player.hand.length; i++) {
@@ -42,10 +46,6 @@ export class LoveLetterCurrentPlayerGame extends LoveLetterPlayerGame {
   }
 
   // *****************************************************************************************************************
-  // OVERRIDE METHODS
+  // PRIVATE METHODS
   // *****************************************************************************************************************
-
-  public override clear() {
-    super.clear();
-  }
 }

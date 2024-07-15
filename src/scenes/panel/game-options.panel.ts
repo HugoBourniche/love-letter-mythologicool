@@ -17,15 +17,19 @@ export class GameOptionsPanel {
   // Services
   private lobbyService: LobbyService;
 
+  // INPUTS
   private _context: Phaser.Scene;
+
+  // OBJECTS
   private _box?: BoxSizes;
   private _gameOptions?: GameOptionsData;
-  private _lobbyKey?: string;
-  private _isUserOwner?: boolean;
-
   private _title?: SimpleLabelField;
   private _playerMax?: SelectorField;
   private _applyButton?: StoneLabelledButtonField;
+
+  // VARIABLES
+  private _lobbyKey?: string;
+  private _isUserOwner?: boolean;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR

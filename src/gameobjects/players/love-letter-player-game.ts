@@ -16,7 +16,7 @@ export abstract class LoveLetterPlayerGame extends APlayerGame<LoveLetterPlayerD
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor(
+  protected constructor(
     context: Phaser.Scene,
     positionX: number,
     positionY: number,
@@ -28,7 +28,7 @@ export abstract class LoveLetterPlayerGame extends APlayerGame<LoveLetterPlayerD
   }
 
   // *****************************************************************************************************************
-  // PRIVATE METHODS
+  // ABSTRACT METHODS
   // *****************************************************************************************************************
 
   protected abstract initCards(): void;

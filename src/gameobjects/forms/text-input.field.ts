@@ -94,7 +94,11 @@ export class TextInputField extends SimpleField {
     }
   }
 
-  public clear(): void {
+  // *****************************************************************************************************************
+  // OVERRIDE METHODS
+  // *****************************************************************************************************************
+
+  public override clear(): void {
     this._textObject.removedFromScene();
     this._imageFrame?.removedFromScene();
     this._rectangleFrame?.removedFromScene();

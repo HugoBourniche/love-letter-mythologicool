@@ -19,7 +19,12 @@ export abstract class APlayerGame<P extends APlayerData> extends SimpleField {
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor(context: Scene, positionX: number, positionY: number, player: P) {
+  protected constructor(
+    context: Scene,
+    positionX: number,
+    positionY: number,
+    player: P
+  ) {
     super(context, positionX, positionY);
     this._player = player;
     this._text = new SimpleLabelField(

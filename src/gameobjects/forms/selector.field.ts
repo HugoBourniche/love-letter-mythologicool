@@ -76,29 +76,13 @@ export class SelectorField extends SimpleInteractiveField {
     return this._values[this._listIndex];
   }
 
-  override clear(): void {
-    this._label.clear();
-    this._arrowRight.clear();
-    this._arrowLeft.clear();
-    this._value.clear();
-  }
-
   refresh(value: string | number): void {
     this._listIndex = this._values.indexOf(value.toString());
     this._value.updateValue(this.value());
   }
 
-  override disable(): void {
-    this._arrowRight.disable();
-    this._arrowLeft.disable();
-  }
-
-  override enable(): void {
-    this._arrowRight.enable();
-    this._arrowLeft.enable();
-  }
-
   // Events
+
   onClickLeft() {
     this._listIndex = this._listIndex - 1;
     if (this._listIndex < 0) {
@@ -110,6 +94,27 @@ export class SelectorField extends SimpleInteractiveField {
   onClickRight() {
     this._listIndex = (this._listIndex + 1) % this._values.length;
     this._value.updateValue(this.value());
+  }
+
+  // *****************************************************************************************************************
+  // OVERRIDE  METHODS
+  // *****************************************************************************************************************
+
+  public override clear(): void {
+    this._label.clear();
+    this._arrowRight.clear();
+    this._arrowLeft.clear();
+    this._value.clear();
+  }
+
+  public override disable(): void {
+    this._arrowRight.disable();
+    this._arrowLeft.disable();
+  }
+
+  public override enable(): void {
+    this._arrowRight.enable();
+    this._arrowLeft.enable();
   }
 
   // *****************************************************************************************************************

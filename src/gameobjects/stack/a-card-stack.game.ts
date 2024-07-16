@@ -68,7 +68,11 @@ export abstract class ACardStackGame<
     if (this._topCardObject == null || this._labelObject == null) {
       return;
     }
-    this._labelObject.moveXPosition(-(this._topCardObject.getImageWidth()*0.40));
-    this._labelObject.moveYPosition(-(this._topCardObject.getImageHeight()*0.60));
+
+    const xOffset = this._topCardObject.getImageWidth()/2;
+    const yOffset = this._topCardObject.getImageHeight()/2 + this._labelObject.getHeight();
+
+    this._labelObject.moveXPosition(-xOffset);
+    this._labelObject.moveYPosition(-yOffset);
   }
 }

@@ -42,6 +42,14 @@ export class SimpleLabelField extends SimpleField {
   // PUBLIC METHODS
   // *****************************************************************************************************************
 
+  public getWidth(): number {
+    return this._text.width;
+  }
+
+  public getHeight(): number {
+    return this._text.height;
+  }
+
   public updateValue(value: string) {
     this._label = value;
     this._text.text = value;

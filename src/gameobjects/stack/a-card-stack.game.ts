@@ -21,7 +21,7 @@ export abstract class ACardStackGame<
   protected _labelObject?: SimpleLabelField;
 
   // VARIABLES
-  protected showCount = true;
+  protected _showCount = true;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -38,7 +38,7 @@ export abstract class ACardStackGame<
     super(context, positionX, positionY);
     this._label = label;
     this._cardStack = cardStack;
-    this.showCount = showCount;
+    this._showCount = showCount;
     this.initCanvas();
   }
 
@@ -60,7 +60,7 @@ export abstract class ACardStackGame<
   // *****************************************************************************************************************
 
   protected initCanvas() {
-    const labelWithCount = this._label + "(" + this._cardStack.length + ")";
+    const labelWithCount = this._label + (this._showCount ? "(" + this._cardStack.length + ")" : "");
     this._labelObject = new SimpleLabelField(
       this._context,
       this._positionX,

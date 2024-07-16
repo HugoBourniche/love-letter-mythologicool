@@ -31,6 +31,14 @@ export class SimpleLabelField extends SimpleField {
   }
 
   // *****************************************************************************************************************
+  // OVERRIDE METHODS
+  // *****************************************************************************************************************
+
+  public override clear() {
+    this._text.removedFromScene();
+  }
+
+  // *****************************************************************************************************************
   // PUBLIC METHODS
   // *****************************************************************************************************************
 
@@ -39,7 +47,11 @@ export class SimpleLabelField extends SimpleField {
     this._text.text = value;
   }
 
-  public override clear() {
-    this._text.removedFromScene();
+  public moveXPosition(offset: number) {
+    this._text.setX(this._text.x + offset);
+  }
+
+  public moveYPosition(offset: number) {
+    this._text.setY(this._text.y + offset);
   }
 }

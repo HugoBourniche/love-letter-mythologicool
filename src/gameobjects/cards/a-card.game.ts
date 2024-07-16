@@ -41,4 +41,16 @@ export abstract class ACardGame<C extends ACardData> extends SimpleField {
   public override clear() {
     this._image.removedFromScene();
   }
+
+  // *****************************************************************************************************************
+  // PUBLIC METHODS
+  // *****************************************************************************************************************
+
+  public getImageHeight(): number {
+    return this._image.height * this._image.scaleY;
+  }
+
+  public getImageWidth(): number {
+    return this._image.width * this._image.scaleX;
+  }
 }

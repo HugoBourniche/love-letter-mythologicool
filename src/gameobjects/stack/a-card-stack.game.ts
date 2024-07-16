@@ -20,6 +20,9 @@ export abstract class ACardStackGame<
   protected _topCardObject?: CG;
   protected _labelObject?: SimpleLabelField;
 
+  // VARIABLES
+  protected showCount = true;
+
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
@@ -29,11 +32,13 @@ export abstract class ACardStackGame<
     positionX: number,
     positionY: number,
     label: string,
-    cardStack: C[]
+    cardStack: C[],
+    showCount: boolean
   ) {
     super(context, positionX, positionY);
     this._label = label;
     this._cardStack = cardStack;
+    this.showCount = showCount;
     this.initCanvas();
   }
 
@@ -55,11 +60,12 @@ export abstract class ACardStackGame<
   // *****************************************************************************************************************
 
   protected initCanvas() {
+    const labelWithCount = this._label + "(" + this._cardStack.length + ")";
     this._labelObject = new SimpleLabelField(
       this._context,
       this._positionX,
       this._positionY,
-      this._label,
+      labelWithCount,
       DEFAULT_STYLE_WHITE
     );
   }
@@ -69,8 +75,9 @@ export abstract class ACardStackGame<
       return;
     }
 
-    const xOffset = this._topCardObject.getImageWidth()/2;
-    const yOffset = this._topCardObject.getImageHeight()/2 + this._labelObject.getHeight();
+    const xOffset = this._topCardObject.getImageWidth() / 2;
+    const yOffset =
+      this._topCardObject.getImageHeight() / 2 + this._labelObject.getHeight();
 
     this._labelObject.moveXPosition(-xOffset);
     this._labelObject.moveYPosition(-yOffset);

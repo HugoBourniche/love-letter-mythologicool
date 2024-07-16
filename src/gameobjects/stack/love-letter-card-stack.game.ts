@@ -19,9 +19,10 @@ export class LoveLetterCardStackGame extends ACardStackGame<
     positionX: number,
     positionY: number,
     label: string,
-    cardStack: LoveLetterCardData[]
+    cardStack: LoveLetterCardData[],
+    showCount = true
   ) {
-    super(context, positionX, positionY, label, cardStack);
+    super(context, positionX, positionY, label, cardStack, showCount);
   }
 
   // *****************************************************************************************************************

@@ -31,6 +31,7 @@ export default class MainScene extends BaseCustomScene {
   private _playersObjects?: LoveLetterPlayersGame;
   private _cardStackPileObjects?: LoveLetterCardStackGame;
   private _cardStackDiscardObjects?: LoveLetterCardStackGame;
+  private _cardStackAsideObjects?: LoveLetterCardStackGame;
 
   // Data Objects
   private _mainSceneData?: MainSceneData;
@@ -176,16 +177,24 @@ export default class MainScene extends BaseCustomScene {
       this._cardStackPileObjects = this.createStacksObject(
         gameManager.cardPile,
         750,
-        500,
-        "Card Pile"
+        450,
+        "Pile"
       );
     }
     if (this._cardStackDiscardObjects == null) {
       this._cardStackDiscardObjects = this.createStacksObject(
         gameManager.discardPile,
-        1000,
-        500,
-        "Discard Pile"
+        950,
+        450,
+        "Discard"
+      );
+    }
+    if (this._cardStackAsideObjects == null) {
+      this._cardStackAsideObjects = this.createStacksObject(
+        gameManager.asidePile,
+        1150,
+        450,
+        "Aside"
       );
     }
   }
@@ -201,7 +210,8 @@ export default class MainScene extends BaseCustomScene {
       positionX,
       positionY,
       label,
-      _cardStack
+      _cardStack,
+      _cardStack.length != 1
     );
   }
 

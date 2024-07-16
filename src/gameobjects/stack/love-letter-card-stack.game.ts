@@ -32,6 +32,7 @@ export class LoveLetterCardStackGame extends ACardStackGame<
     super.initCanvas();
     if (this._cardStack.length > 0) {
       this.drawCard();
+      this.adjustLabelPositionWithCard();
     }
   }
 

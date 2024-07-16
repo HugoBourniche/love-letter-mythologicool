@@ -63,4 +63,12 @@ export abstract class ACardStackGame<
       DEFAULT_STYLE_WHITE
     );
   }
+
+  protected adjustLabelPositionWithCard() {
+    if (this._topCardObject == null || this._labelObject == null) {
+      return;
+    }
+    this._labelObject.moveXPosition(-(this._topCardObject.getImageWidth()*0.40));
+    this._labelObject.moveYPosition(-(this._topCardObject.getImageHeight()*0.60));
+  }
 }

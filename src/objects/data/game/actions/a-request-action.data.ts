@@ -1,51 +1,37 @@
-import { APlayerData } from "../players/a-player-data";
-import { ARequestActionData } from "../actions/a-request-action.data";
-
-export abstract class GameManagerData<
-  P extends APlayerData,
-  A extends ARequestActionData
-> {
+export abstract class ARequestActionData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  private _currentPlayer?: P;
-  private _players: P[];
-  private _requestedAction?: A;
+  private _playerName: string;
+  private _action: string;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
   protected constructor() {
-    this._players = [];
+    this._playerName = "";
+    this._action = "";
   }
 
   // *****************************************************************************************************************
   // GETTER / SETTER
   // *****************************************************************************************************************
 
-  get currentPlayer(): P | undefined {
-    return this._currentPlayer;
+  get playerName(): string {
+    return this._playerName;
   }
 
-  set currentPlayer(value: P | undefined) {
-    this._currentPlayer = value;
+  set playerName(value: string) {
+    this._playerName = value;
   }
 
-  get players(): P[] {
-    return this._players;
+  get action(): string {
+    return this._action;
   }
 
-  set players(value: P[]) {
-    this._players = value;
-  }
-
-  get requestedAction(): A | undefined {
-    return this._requestedAction;
-  }
-
-  set requestedAction(value: A | undefined) {
-    this._requestedAction = value;
+  set action(value: string) {
+    this._action = value;
   }
 }

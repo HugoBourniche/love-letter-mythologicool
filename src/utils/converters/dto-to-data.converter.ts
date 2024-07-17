@@ -14,6 +14,8 @@ import { LoveLetterPlayerDTO } from "../../objects/dtos/game/players/love-letter
 import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
 import { UserDTO } from "../../objects/dtos/users/user.dto";
 import { UserData } from "../../objects/data/users/user.data";
+import { LoveLetterRequestedActionDTO } from "../../objects/dtos/game/actions/loveletter-requested-action.dto";
+import { LoveLetterRequestActionData } from "../../objects/data/game/actions/love-letter-request-action.data";
 
 export class DtoToDataConverter {
   // *****************************************************************************************************************
@@ -88,6 +90,11 @@ export class DtoToDataConverter {
       );
     }
     gameManager.players = this.loveLetterPlayers(gameManagerDTO.otherPlayers);
+    if (gameManagerDTO.requestedAction) {
+      gameManager.requestedAction = this.loveLetterRequestedAction(
+        gameManagerDTO.requestedAction
+      );
+    }
     gameManager.playerTurn = gameManagerDTO.playerTurn;
     gameManager.cardPile = this.loveLetterCards(gameManagerDTO.cardPile);
     gameManager.discardPile = this.loveLetterCards(gameManagerDTO.discardPile);
@@ -142,5 +149,18 @@ export class DtoToDataConverter {
     card.name = cardDTO.name;
     card.value = cardDTO.value;
     return card;
+  }
+
+  // *****************************************************************************************************************
+  // REQUESTED ACTION CONVERTERS
+  // *****************************************************************************************************************
+
+  public static loveLetterRequestedAction(
+    requestedActionDTO: LoveLetterRequestedActionDTO
+  ): LoveLetterRequestActionData {
+    const requestAction = new LoveLetterRequestActionData();
+    requestAction.playerName = requestedActionDTO.playerName;
+    requestAction.action = requestedActionDTO.action;
+    return requestAction;
   }
 }

@@ -15,6 +15,7 @@ import { BaseCustomScene } from "./base-custom.scene";
 import { LoveLetterPlayersGame } from "../gameobjects/players/love-letter-players.game";
 import { LoveLetterCardStackGame } from "../gameobjects/stack/love-letter-card-stack.game";
 import { LoveLetterCardData } from "../objects/data/game/cards/love-letter-card.data";
+import { SimpleLabelField } from "../gameobjects/forms/simple-label.field";
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -32,6 +33,7 @@ export default class MainScene extends BaseCustomScene {
   private _cardStackPileObjects?: LoveLetterCardStackGame;
   private _cardStackDiscardObjects?: LoveLetterCardStackGame;
   private _cardStackAsideObjects?: LoveLetterCardStackGame;
+  private _requestedActions?: SimpleLabelField;
 
   // Data Objects
   private _mainSceneData?: MainSceneData;

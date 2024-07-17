@@ -1,22 +1,15 @@
-import { APlayerDTO } from "../players/a-player.dto";
-import { ARequestedActionDTO } from "../actions/a-requested-action.dto";
+import { ARequestActionData } from "./a-request-action.data";
 
-export abstract class AGameManagerDTO<
-  P extends APlayerDTO,
-  A extends ARequestedActionDTO
-> {
+export class LoveLetterRequestActionData extends ARequestActionData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  public currentPlayer?: P;
-  public otherPlayers: P[];
-  public requestedAction?: A;
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  protected constructor() {
-    this.otherPlayers = [];
+  constructor() {
+    super();
   }
 }

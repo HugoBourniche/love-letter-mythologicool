@@ -60,7 +60,8 @@ export abstract class ACardStackGame<
   // *****************************************************************************************************************
 
   protected initCanvas() {
-    const labelWithCount = this._label + (this._showCount ? "(" + this._cardStack.length + ")" : "");
+    const labelWithCount =
+      this._label + (this._showCount ? "(" + this._cardStack.length + ")" : "");
     this._labelObject = new SimpleLabelField(
       this._context,
       this._positionX,

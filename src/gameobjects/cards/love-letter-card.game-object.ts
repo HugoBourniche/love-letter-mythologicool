@@ -1,7 +1,7 @@
-import { ACardObject } from "./a-card.object";
+import { ACardGameObject } from "./a-card.game-object";
 import { LoveLetterCardData } from "../../objects/data/game/cards/love-letter-card.data";
 
-export class LoveLetterCardObject extends ACardObject<LoveLetterCardData> {
+export class LoveLetterCardGameObject extends ACardGameObject<LoveLetterCardData> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

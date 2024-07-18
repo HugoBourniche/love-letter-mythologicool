@@ -1,9 +1,9 @@
 import { GameOptionsData } from "../../objects/data/game-options/game-options.data";
 import { ScenePartPanelPositionsEnum } from "../../utils/Factories/scene-part-panel-positions.enum";
-import { SimpleLabelObject } from "../../gameobjects/simple-label.object";
+import { SimpleLabelGameObject } from "../../gameobjects/simple-label.game-object";
 import { DEFAULT_STYLE_WHITE } from "../../cst";
-import { SelectorObject } from "../../gameobjects/forms/selector.object";
-import { StoneLabelledButtonObject } from "../../gameobjects/forms/buttons/stone-labelled-button.object";
+import { SelectorGameObject } from "../../gameobjects/forms/selector.game-object";
+import { StoneLabelledButtonGameObject } from "../../gameobjects/forms/buttons/stone-labelled-button.game-object";
 import { LobbyService } from "../../services/lobby.service";
 import { ServicesFactory } from "../../utils/factories/services.factory";
 import { AScenePart } from "./a.scene-part";
@@ -20,9 +20,9 @@ export class GameOptionsScenePart extends AScenePart {
 
   // OBJECTS
   private _gameOptions?: GameOptionsData;
-  private _title?: SimpleLabelObject;
-  private _playerMax?: SelectorObject;
-  private _applyButton?: StoneLabelledButtonObject;
+  private _title?: SimpleLabelGameObject;
+  private _playerMax?: SelectorGameObject;
+  private _applyButton?: StoneLabelledButtonGameObject;
 
   // VARIABLES
   private _lobbyKey?: string;
@@ -53,7 +53,8 @@ export class GameOptionsScenePart extends AScenePart {
     this._gameOptions = gameOptions;
   }
 
-  public preload() {}
+  public preload() {
+  }
 
   public create() {
     if (this._box == null || this._gameOptions == null) {
@@ -66,14 +67,14 @@ export class GameOptionsScenePart extends AScenePart {
       this._box.height,
       0x222222
     );
-    this._title = new SimpleLabelObject(
+    this._title = new SimpleLabelGameObject(
       this._context,
       this._box.x(50),
       this._box.y(20),
       "Game Options",
       DEFAULT_STYLE_WHITE
     );
-    this._playerMax = new SelectorObject(
+    this._playerMax = new SelectorGameObject(
       this._context,
       this._box.x(100),
       this._box.y(60),
@@ -81,7 +82,7 @@ export class GameOptionsScenePart extends AScenePart {
       this._gameOptions.ranges.nbPlayersChoices,
       DEFAULT_STYLE_WHITE
     );
-    this._applyButton = new StoneLabelledButtonObject(
+    this._applyButton = new StoneLabelledButtonGameObject(
       this._context,
       this._box.midWidth,
       this._box.y(150),

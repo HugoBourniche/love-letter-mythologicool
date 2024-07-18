@@ -12,10 +12,10 @@ import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-le
 import { MainSceneData } from "../objects/data/main-scene.data";
 import { GAME_RATE } from "../cst";
 import { BaseCustomScene } from "./base-custom.scene";
-import { LoveLetterPlayersContainerObject } from "../gameobjects/players/love-letter-players-container.object";
+import { LoveLetterPlayersContainerGameObject } from "../gameobjects/players/love-letter-players-container.game-object";
 import { LoveLetterCardData } from "../objects/data/game/cards/love-letter-card.data";
-import { LoveLetterCardStacksContainerObject } from "../gameobjects/stack/love-letter-card-stacks-container.object";
-import { LoveLetterRequestedActionObject } from "../gameobjects/actions/love-letter-requested-action.object";
+import { LoveLetterCardStacksContainerGameObject } from "../gameobjects/stack/love-letter-card-stacks-container.game-object";
+import { LoveLetterRequestedActionGameObject } from "../gameobjects/actions/love-letter-requested-action.game-object";
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -29,9 +29,9 @@ export default class MainScene extends BaseCustomScene {
   private _gameManagerService: GameManagerService;
 
   // Game Objects
-  private _playersContainerObject?: LoveLetterPlayersContainerObject;
-  private _cardStacksContainerObject?: LoveLetterCardStacksContainerObject;
-  private _requestedActionsObject?: LoveLetterRequestedActionObject;
+  private _playersContainerObject?: LoveLetterPlayersContainerGameObject;
+  private _cardStacksContainerObject?: LoveLetterCardStacksContainerGameObject;
+  private _requestedActionsObject?: LoveLetterRequestedActionGameObject;
 
   // Data Objects
   private _mainSceneData?: MainSceneData;
@@ -185,7 +185,7 @@ export default class MainScene extends BaseCustomScene {
       gameManager.requestedAction &&
       gameManager.currentPlayer
     ) {
-      this._requestedActionsObject = new LoveLetterRequestedActionObject(
+      this._requestedActionsObject = new LoveLetterRequestedActionGameObject(
         this,
         700,
         300,
@@ -199,7 +199,7 @@ export default class MainScene extends BaseCustomScene {
     if (this._gameManagerData?.currentPlayer == null) {
       return;
     }
-    this._playersContainerObject = new LoveLetterPlayersContainerObject(
+    this._playersContainerObject = new LoveLetterPlayersContainerGameObject(
       this,
       this.game.config.width as number,
       this.game.config.height as number,
@@ -213,7 +213,7 @@ export default class MainScene extends BaseCustomScene {
     cardStackDiscard: LoveLetterCardData[],
     cardStackAside: LoveLetterCardData[]
   ) {
-    this._cardStacksContainerObject = new LoveLetterCardStacksContainerObject(
+    this._cardStacksContainerObject = new LoveLetterCardStacksContainerGameObject(
       this,
       660,
       500,

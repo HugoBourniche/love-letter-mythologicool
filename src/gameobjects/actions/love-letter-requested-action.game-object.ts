@@ -1,65 +1,57 @@
-import { SimpleLabelObject } from "../simple-label.object";
-import { ARequestedActionData } from "../../objects/data/game/actions/a-requested-action.data";
-import { PositionedSceneObject } from "../positioned-scene.object";
+import { ARequestedActionGameObject } from "./a-requested-action.game-object";
+import { LoveLetterRequestedActionData } from "../../objects/data/game/actions/love-letter-requested-action.data";
 import Phaser from "phaser";
-import { DEFAULT_STYLE_WHITE } from "../../cst";
+import { RequestActionEnum } from "../../objects/data/game/actions/request-action.enum";
 
-export abstract class ARequestedActionObject<
-  A extends ARequestedActionData
-> extends PositionedSceneObject {
+export class LoveLetterRequestedActionGameObject extends ARequestedActionGameObject<LoveLetterRequestedActionData> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
-  protected _requestedAction: A;
+  private readonly _currentPlayerName: string;
+
   // OBJECTS
-  protected _labelObject?: SimpleLabelObject;
   // VARIABLES
-  protected _label: string;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  protected constructor(
+  constructor(
     context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    requestedAction: A
+    requestedAction: LoveLetterRequestedActionData,
+    currentPlayerName: string
   ) {
-    super(context, positionX, positionY);
-    this._requestedAction = requestedAction;
-    this._label = "";
+    super(context, positionX, positionY, requestedAction);
+    this._currentPlayerName = currentPlayerName;
+    this.create();
   }
 
   // *****************************************************************************************************************
   // PHASER LIFE CYCLE
   // *****************************************************************************************************************
 
-  create() {
-    this._label = this.buildRequestedActionLabel();
-    this._labelObject = new SimpleLabelObject(
-      this._context,
-      this._positionX,
-      this._positionY,
-      this._label,
-      DEFAULT_STYLE_WHITE
-    );
+  public override create() {
+    super.create();
   }
-
-  update(requestedAction: A) {
-    this._requestedAction = requestedAction;
-    this._label = this.buildRequestedActionLabel();
-    this._labelObject?.updateValue(this._label);
-  }
-
   // *****************************************************************************************************************
   // OVERRIDE METHODS
   // *****************************************************************************************************************
 
-  public override clear(): void {
-    this._labelObject?.clear();
+  protected override buildRequestedActionLabel() {
+    const playerTurnName = this._requestedAction.playerName;
+    if (this._currentPlayerName === playerTurnName) {
+      switch (this._requestedAction.action) {
+        case RequestActionEnum.DRAW:
+          return "Draw a card";
+        default:
+          break;
+      }
+    }
+    return "This is " + playerTurnName + "'s turn";
   }
 
   // *****************************************************************************************************************
@@ -69,6 +61,4 @@ export abstract class ARequestedActionObject<
   // *****************************************************************************************************************
   // PRIVATE METHODS
   // *****************************************************************************************************************
-
-  protected abstract buildRequestedActionLabel(): string;
 }

@@ -1,31 +1,35 @@
-import { SceneObject } from "./scene.object";
+import { SimpleLabelGameObject } from "../simple-label.game-object";
+import { LobbyUserData } from "../../objects/data/users/lobby-user.data";
+import { DEFAULT_STYLE } from "../../cst";
 
-export abstract class PositionedSceneObject extends SceneObject {
+export class LobbyUserLabelGameObject extends SimpleLabelGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
-  protected _positionX: number;
-  protected _positionY: number;
+  private user: LobbyUserData;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  protected constructor(
+  constructor(
     context: Phaser.Scene,
     positionX: number,
-    positionY: number
+    positionY: number,
+    user: LobbyUserData,
+    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
   ) {
-    super(context);
-    this._positionX = positionX;
-    this._positionY = positionY;
+    super(context, positionX, positionY, user.name, style);
+    this.user = user;
   }
 
   // *****************************************************************************************************************
-  // ABSTRACT METHODS
+  // PUBLIC METHODS
   // *****************************************************************************************************************
 
-  public abstract clear(): void;
+  public clear(): void {
+    super.clear();
+  }
 }

@@ -1,9 +1,9 @@
 import { DEFAULT_STYLE } from "../../cst";
-import { SimpleLabelObject } from "../simple-label.object";
-import { SimpleButtonObject } from "./buttons/simple-button.object";
-import { SimpleInteractiveObject } from "./simple-interactive.object";
+import { SimpleLabelGameObject } from "../simple-label.game-object";
+import { SimpleButtonGameObject } from "./buttons/simple-button.game-object";
+import { SimpleInteractiveGameObject } from "./simple-interactive.game-object";
 
-export class SelectorObject extends SimpleInteractiveObject {
+export class SelectorGameObject extends SimpleInteractiveGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
@@ -12,10 +12,10 @@ export class SelectorObject extends SimpleInteractiveObject {
   private readonly _values: string[];
 
   // OBJECTS
-  private _label: SimpleLabelObject;
-  private _arrowLeft: SimpleButtonObject;
-  private _value: SimpleLabelObject;
-  private _arrowRight: SimpleButtonObject;
+  private _label: SimpleLabelGameObject;
+  private _arrowLeft: SimpleButtonGameObject;
+  private _value: SimpleLabelGameObject;
+  private _arrowRight: SimpleButtonGameObject;
 
   // VARIABLES
   private _listIndex: number;
@@ -38,28 +38,28 @@ export class SelectorObject extends SimpleInteractiveObject {
     this._listIndex = 0;
 
     const origin = label.length * 16;
-    this._label = new SimpleLabelObject(
+    this._label = new SimpleLabelGameObject(
       context,
       positionX,
       positionY,
       label,
       style
     );
-    this._arrowLeft = new SimpleButtonObject(
+    this._arrowLeft = new SimpleButtonGameObject(
       context,
       positionX + origin,
       positionY + 9,
       "",
       () => this.onClickLeft()
     );
-    this._value = new SimpleLabelObject(
+    this._value = new SimpleLabelGameObject(
       context,
       positionX + origin + 25,
       positionY,
       this._values[this._listIndex],
       style
     );
-    this._arrowRight = new SimpleButtonObject(
+    this._arrowRight = new SimpleButtonGameObject(
       context,
       positionX + origin + 60,
       positionY + 9,

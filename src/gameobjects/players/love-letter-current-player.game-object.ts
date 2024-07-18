@@ -1,64 +1,51 @@
-import { Scene } from "phaser";
-import Image = Phaser.GameObjects.Image;
-import { SimpleInteractiveObject } from "../simple-interactive.object";
+import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
+import { LoveLetterCardGameObject } from "../cards/love-letter-card.game-object";
+import { LoveLetterPlayerGameObject } from "./love-letter-player.game-object";
 
-export class SimpleButtonObject extends SimpleInteractiveObject {
+export class LoveLetterCurrentPlayerGameObject extends LoveLetterPlayerGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
-  protected _imageRef: string;
-  protected _action: () => void;
-
   // OBJECTS
-  protected _image: Image;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
   constructor(
-    context: Scene,
+    context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    imagePrefix: string,
-    action: () => void
+    player: LoveLetterPlayerData
   ) {
-    super(context, positionX, positionY);
-    this._action = action;
-    this._imageRef = imagePrefix + "button";
-    this._image = context.add.image(positionX, positionY, this._imageRef);
-    this._image.setInteractive();
-
-    this.enableAnimation();
+    super(context, positionX, positionY, player);
   }
 
   // *****************************************************************************************************************
-  // PUBLIC METHOD
+  // OVERRIDE METHODS
   // *****************************************************************************************************************
 
   public override clear() {
-    this._image.removedFromScene();
+    super.clear();
   }
 
-  public override disable(): void {
-    this._image.disableInteractive();
-  }
-
-  public override enable(): void {
-    this._image.setInteractive();
+  protected override initCards() {
+    for (let i = 0; i < this._player.hand.length; i++) {
+      const cardData = this._player.hand[i];
+      const cardObject = new LoveLetterCardGameObject(
+        this._context,
+        this._positionX + 80 + 200 * i,
+        this._positionY,
+        cardData,
+        0.18
+      );
+      this._cardObjects.push(cardObject);
+    }
   }
 
   // *****************************************************************************************************************
-  // PRIVATE METHOD
+  // PRIVATE METHODS
   // *****************************************************************************************************************
-
-  private enableAnimation(): void {
-    this._image.on("pointerup", () => this._action());
-    this._image.on("pointerover", () =>
-      this._image.setTexture(this._imageRef + "Hover")
-    );
-    this._image.on("pointerout", () => this._image.setTexture(this._imageRef));
-  }
 }

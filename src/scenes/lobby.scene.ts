@@ -1,18 +1,18 @@
 import { PreloadService } from "../services/preload.service";
 import { ServicesFactory } from "../utils/factories/services.factory";
 import { LobbyData } from "../objects/data/lobby.data";
-import { LabelledButtonObject } from "../gameobjects/forms/buttons/labelled-button.object";
+import { LabelledButtonGameObject } from "../gameobjects/forms/buttons/labelled-button.game-object";
 import { LobbyUserData } from "../objects/data/users/lobby-user.data";
-import { SimpleLabelObject } from "../gameobjects/simple-label.object";
+import { SimpleLabelGameObject } from "../gameobjects/simple-label.game-object";
 import { DEFAULT_FONT_SIZE, LOBBY_RATE } from "../cst";
-import { LobbyUserLabelObject } from "../gameobjects/forms/lobby-user-label.object";
+import { LobbyUserLabelGameObject } from "../gameobjects/forms/lobby-user-label.game-object";
 import { LobbyService } from "../services/lobby.service";
 import { ScenePartPanelPositionsEnum } from "../utils/Factories/scene-part-panel-positions.enum";
 import { DataFactory } from "../utils/factories/data.factory";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 import { GameOptionsScenePart } from "./panel/game-options.scene-part";
 import { LobbySceneData } from "../objects/data/lobby-scene.data";
-import { StoneLabelledButtonObject } from "../gameobjects/forms/buttons/stone-labelled-button.object";
+import { StoneLabelledButtonGameObject } from "../gameobjects/forms/buttons/stone-labelled-button.game-object";
 import { MainSceneData } from "../objects/data/main-scene.data";
 import { GameManagerService } from "../services/game-manager.service";
 import { LobbyUpdateResponse } from "../objects/responses/lobby-update.response";
@@ -32,10 +32,10 @@ export default class LobbyScene extends BaseCustomScene {
   private _gameOptionsPanel: GameOptionsScenePart;
 
   // Objects
-  private _startButton?: LabelledButtonObject;
-  private _lobbyKeyLabel?: SimpleLabelObject;
+  private _startButton?: LabelledButtonGameObject;
+  private _lobbyKeyLabel?: SimpleLabelGameObject;
   private _lobbyData: LobbyData;
-  private _playerLabels: LobbyUserLabelObject[];
+  private _playerLabels: LobbyUserLabelGameObject[];
 
   // Utils
   private _currentUser: LobbyUserData;
@@ -83,7 +83,7 @@ export default class LobbyScene extends BaseCustomScene {
   }
 
   create() {
-    this._startButton = new StoneLabelledButtonObject(
+    this._startButton = new StoneLabelledButtonGameObject(
       this,
       400,
       50,
@@ -94,7 +94,7 @@ export default class LobbyScene extends BaseCustomScene {
         : "Not ready",
       () => (this._currentUser.isOwner ? this.startGame() : this.isReady())
     );
-    this._lobbyKeyLabel = new SimpleLabelObject(
+    this._lobbyKeyLabel = new SimpleLabelGameObject(
       this,
       24,
       40,
@@ -184,7 +184,7 @@ export default class LobbyScene extends BaseCustomScene {
     for (let i = 0; i < this._lobbyData.users.length; i++) {
       const user = this._lobbyData.users[i];
       this._playerLabels.push(
-        new LobbyUserLabelObject(this, 50, 150 + i * 50, user, {
+        new LobbyUserLabelGameObject(this, 50, 150 + i * 50, user, {
           color: "#ffffff",
           fontSize: DEFAULT_FONT_SIZE,
         })

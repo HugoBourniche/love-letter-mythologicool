@@ -1,38 +1,43 @@
-import { Scene } from "phaser";
-import { DEFAULT_STYLE } from "../../../cst";
-import { LabelledButtonField } from "./labelled-button.field";
+import { PositionedSceneObject } from "../positioned-scene.object";
 
-export class StoneLabelledButtonField extends LabelledButtonField {
+export abstract class SimpleInteractiveObject extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
+
+  // VARIABLES
+  protected _isDisabled = false;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor(
-    context: Scene,
+  protected constructor(
+    context: Phaser.Scene,
     positionX: number,
-    positionY: number,
-    label: string,
-    action: () => void,
-    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
+    positionY: number
   ) {
-    super(context, positionX, positionY, label, action, "stone_", style);
-
-    this._image.setScale(1.2, 0.6);
+    super(context, positionX, positionY);
   }
 
   // *****************************************************************************************************************
-  // PUBLIC METHOD
+  // ABSTRACT METHODS
   // *****************************************************************************************************************
 
-  public clear() {
-    super.clear();
+  public abstract enable(): void;
+  public abstract disable(): void;
+
+  // *****************************************************************************************************************
+  // PUBLIC METHODS
+  // *****************************************************************************************************************
+
+  public setDisable(value?: boolean) {
+    if (value) {
+      this._isDisabled = true;
+      this.disable();
+    } else {
+      this._isDisabled = false;
+      this.enable();
+    }
   }
-
-  // *****************************************************************************************************************
-  // PRIVATE METHOD
-  // *****************************************************************************************************************
 }

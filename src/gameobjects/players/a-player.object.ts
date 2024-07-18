@@ -1,25 +1,21 @@
+import { SimpleLabelObject } from "../simple-label.object";
 import { Scene } from "phaser";
+import { DEFAULT_STYLE_WHITE } from "../../cst";
 import { APlayerData } from "../../objects/data/game/players/a-player-data";
-import { APlayerGame } from "./a-player.game";
-import { SceneObject } from "../scene.object";
+import { PositionedSceneObject } from "../positioned-scene.object";
 
-export abstract class APlayersContainerGame<
-  P extends APlayerData,
-  G extends APlayerGame<P>
-> extends SceneObject {
+export abstract class APlayerObject<
+  P extends APlayerData
+> extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  // INPUTS
-  protected _width: number;
-  protected _height: number;
-  protected _players: P[];
-  protected _currentPlayer: P;
+  // INPUT
+  protected _player: P;
 
   // OBJECTS
-  protected _playersObject: G[];
-  protected _currentPlayerObject?: G;
+  protected _text: SimpleLabelObject;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -27,23 +23,27 @@ export abstract class APlayersContainerGame<
 
   protected constructor(
     context: Scene,
-    width: number,
-    height: number,
-    players: P[],
-    currentPlayer: P
+    positionX: number,
+    positionY: number,
+    player: P
   ) {
-    super(context);
-    this._width = width;
-    this._height = height;
-    this._players = players;
-    this._playersObject = [];
-    this._currentPlayer = currentPlayer;
-    this.initPlayersOnCanvas();
+    super(context, positionX, positionY);
+    this._player = player;
+    this._text = new SimpleLabelObject(
+      context,
+      positionX -
+        player.user.name.length * (player.user.name.length > 5 ? 25 : 32),
+      positionY,
+      player.user.name,
+      DEFAULT_STYLE_WHITE
+    );
   }
 
   // *****************************************************************************************************************
-  // ABSTRACT METHODS
+  // OVERRIDE METHODS
   // *****************************************************************************************************************
 
-  protected abstract initPlayersOnCanvas(): void;
+  public override clear() {
+    this._text.clear();
+  }
 }

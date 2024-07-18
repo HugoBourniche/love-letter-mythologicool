@@ -1,13 +1,13 @@
 import Phaser from "phaser";
 import { PreloadService } from "../services/preload.service";
-import { TextInputField } from "../gameobjects/forms/text-input.field";
+import { TextInputFieldObject } from "../gameobjects/forms/text-input-field.object";
 import { ServicesFactory } from "../utils/factories/services.factory";
 import { LobbyService } from "../services/lobby.service";
-import { LabelledButtonField } from "../gameobjects/forms/buttons/labelled-button.field";
+import { LabelledButtonObject } from "../gameobjects/forms/buttons/labelled-button.object";
 import { LobbyData } from "../objects/data/lobby.data";
 import { LobbyCreationResponse } from "../objects/responses/lobby-creation.response";
 import { LobbyJoinedResponse } from "../objects/responses/lobby-joined.response";
-import { StoneLabelledButtonField } from "../gameobjects/forms/buttons/stone-labelled-button.field";
+import { StoneLabelledButtonObject } from "../gameobjects/forms/buttons/stone-labelled-button.object";
 import { LobbySceneData } from "../objects/data/lobby-scene.data";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 
@@ -21,10 +21,10 @@ export default class MainMenuScene extends Phaser.Scene {
   private _lobbyService: LobbyService;
 
   // Objects
-  private _nameInputField?: TextInputField;
-  private _keyInputField?: TextInputField;
-  private _joinButton?: LabelledButtonField;
-  private _createButton?: LabelledButtonField;
+  private _nameInputField?: TextInputFieldObject;
+  private _keyInputField?: TextInputFieldObject;
+  private _joinButton?: LabelledButtonObject;
+  private _createButton?: LabelledButtonObject;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -49,26 +49,26 @@ export default class MainMenuScene extends Phaser.Scene {
     this.input.keyboard?.createCursorKeys();
 
     // Initiate form and input field
-    this._nameInputField = new TextInputField(
+    this._nameInputField = new TextInputFieldObject(
       this,
       550,
       200,
       "Enter your name..."
     );
-    this._createButton = new StoneLabelledButtonField(
+    this._createButton = new StoneLabelledButtonObject(
       this,
       550,
       300,
       "Create lobby",
       () => this.createLobby()
     );
-    this._keyInputField = new TextInputField(
+    this._keyInputField = new TextInputFieldObject(
       this,
       550,
       400,
       "Enter the lobby key..."
     );
-    this._joinButton = new StoneLabelledButtonField(
+    this._joinButton = new StoneLabelledButtonObject(
       this,
       550,
       500,

@@ -1,8 +1,8 @@
-import { SimpleLabelField } from "./simple-label.field";
+import { SimpleLabelObject } from "../simple-label.object";
 import { LobbyUserData } from "../../objects/data/users/lobby-user.data";
 import { DEFAULT_STYLE } from "../../cst";
 
-export class LobbyUserField extends SimpleLabelField {
+export class LobbyUserLabelObject extends SimpleLabelObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

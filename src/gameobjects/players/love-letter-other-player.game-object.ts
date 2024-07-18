@@ -1,38 +1,50 @@
-import { Scene } from "phaser";
-import { DEFAULT_STYLE } from "../../../cst";
-import { LabelledButtonObject } from "./labelled-button.object";
+import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
+import { LoveLetterCardGameObject } from "../cards/love-letter-card.game-object";
+import { LoveLetterPlayerGameObject } from "./love-letter-player.game-object";
 
-export class StoneLabelledButtonObject extends LabelledButtonObject {
+export class LoveLetterOtherPlayerGameObject extends LoveLetterPlayerGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
+
+  // INPUTS
+  // OBJECTS
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
   constructor(
-    context: Scene,
+    context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    label: string,
-    action: () => void,
-    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
+    player: LoveLetterPlayerData
   ) {
-    super(context, positionX, positionY, label, action, "stone_", style);
-
-    this._image.setScale(1.2, 0.6);
+    super(context, positionX, positionY, player);
   }
 
   // *****************************************************************************************************************
-  // PUBLIC METHOD
+  // OVERRIDE METHODS
   // *****************************************************************************************************************
 
-  public clear() {
+  public override clear() {
     super.clear();
   }
 
+  protected override initCards() {
+    for (let i = 0; i < this._player.hand.length; i++) {
+      const cardData = this._player.hand[i];
+      const cardObject = new LoveLetterCardGameObject(
+        this._context,
+        this._positionX + 40 * i,
+        this._positionY,
+        cardData
+      );
+      this._cardObjects.push(cardObject);
+    }
+  }
+
   // *****************************************************************************************************************
-  // PRIVATE METHOD
+  // PRIVATE METHODS
   // *****************************************************************************************************************
 }

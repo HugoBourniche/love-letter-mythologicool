@@ -1,12 +1,19 @@
-import { PositionedSceneObject } from "../positioned-scene.object";
+import { ACardData } from "../../objects/data/game/cards/a-card.data";
+import Image = Phaser.GameObjects.Image;
+import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 
-export abstract class SimpleInteractiveObject extends PositionedSceneObject {
+export abstract class ACardGameObject<
+  C extends ACardData
+> extends PositionedSceneGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  // VARIABLES
-  protected _isDisabled = false;
+  // INPUTS
+  private _card: C;
+
+  // OBJECTS
+  private _image: Image;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -15,29 +22,37 @@ export abstract class SimpleInteractiveObject extends PositionedSceneObject {
   protected constructor(
     context: Phaser.Scene,
     positionX: number,
-    positionY: number
+    positionY: number,
+    card: C,
+    scale = 0.1
   ) {
     super(context, positionX, positionY);
+    this._card = card;
+    this._image = context.add.image(
+      positionX + 10 * scale,
+      positionY,
+      card.spriteId
+    );
+    this._image.setScale(scale, scale);
   }
 
   // *****************************************************************************************************************
-  // ABSTRACT METHODS
+  // OVERRIDES METHODS
   // *****************************************************************************************************************
 
-  public abstract enable(): void;
-  public abstract disable(): void;
+  public override clear() {
+    this._image.removedFromScene();
+  }
 
   // *****************************************************************************************************************
   // PUBLIC METHODS
   // *****************************************************************************************************************
 
-  public setDisable(value?: boolean) {
-    if (value) {
-      this._isDisabled = true;
-      this.disable();
-    } else {
-      this._isDisabled = false;
-      this.enable();
-    }
+  public getImageHeight(): number {
+    return this._image.height * this._image.scaleY;
+  }
+
+  public getImageWidth(): number {
+    return this._image.width * this._image.scaleX;
   }
 }

@@ -1,18 +1,18 @@
-import Text = Phaser.GameObjects.Text;
 import { Scene } from "phaser";
-import { SimpleButtonObject } from "./simple-button.object";
-import { DEFAULT_STYLE } from "../../../cst";
+import Image = Phaser.GameObjects.Image;
+import { SimpleInteractiveGameObject } from "../simple-interactive.game-object";
 
-export class LabelledButtonObject extends SimpleButtonObject {
+export class SimpleButtonGameObject extends SimpleInteractiveGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
-  private _label: string;
+  protected _imageRef: string;
+  protected _action: () => void;
 
   // OBJECTS
-  private _textObject: Text;
+  protected _image: Image;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -22,37 +22,43 @@ export class LabelledButtonObject extends SimpleButtonObject {
     context: Scene,
     positionX: number,
     positionY: number,
-    label: string,
-    action: () => void,
-    buttonStyle: string,
-    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
+    imagePrefix: string,
+    action: () => void
   ) {
-    super(context, positionX, positionY, buttonStyle, action);
-    this._label = label;
-    this._textObject = context.add.text(
-      positionX - 7 * label.length,
-      positionY - 10,
-      label,
-      style
-    );
+    super(context, positionX, positionY);
+    this._action = action;
+    this._imageRef = imagePrefix + "button";
+    this._image = context.add.image(positionX, positionY, this._imageRef);
+    this._image.setInteractive();
+
+    this.enableAnimation();
   }
 
   // *****************************************************************************************************************
   // PUBLIC METHOD
   // *****************************************************************************************************************
 
-  public clear() {
-    super.clear();
-    this._textObject.removedFromScene();
+  public override clear() {
+    this._image.removedFromScene();
   }
 
-  public refreshLabel(value: string) {
-    this._label = value;
-    this._textObject.text = value;
-    this._textObject.x = this._positionX - 7 * value.length;
+  public override disable(): void {
+    this._image.disableInteractive();
+  }
+
+  public override enable(): void {
+    this._image.setInteractive();
   }
 
   // *****************************************************************************************************************
   // PRIVATE METHOD
   // *****************************************************************************************************************
+
+  private enableAnimation(): void {
+    this._image.on("pointerup", () => this._action());
+    this._image.on("pointerover", () =>
+      this._image.setTexture(this._imageRef + "Hover")
+    );
+    this._image.on("pointerout", () => this._image.setTexture(this._imageRef));
+  }
 }

@@ -1,12 +1,12 @@
 import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
-import { APlayersContainerObject } from "./a-players-container.object";
-import { LoveLetterOtherPlayerObject } from "./love-letter-other-player.object";
-import { LoveLetterCurrentPlayerObject } from "./love-letter-current-player.object";
-import { LoveLetterPlayerObject } from "./love-letter-player-object";
+import { APlayersContainerGameObject } from "./a-players-container.game-object";
+import { LoveLetterOtherPlayerGameObject } from "./love-letter-other-player.game-object";
+import { LoveLetterCurrentPlayerGameObject } from "./love-letter-current-player.game-object";
+import { LoveLetterPlayerGameObject } from "./love-letter-player.game-object";
 
-export class LoveLetterPlayersContainerObject extends APlayersContainerObject<
+export class LoveLetterPlayersContainerGameObject extends APlayersContainerGameObject<
   LoveLetterPlayerData,
-  LoveLetterPlayerObject
+  LoveLetterPlayerGameObject
 > {
   // *****************************************************************************************************************
   // ATTRIBUTES
@@ -31,7 +31,7 @@ export class LoveLetterPlayersContainerObject extends APlayersContainerObject<
   // *****************************************************************************************************************
 
   protected override initPlayersOnCanvas(): void {
-    this._currentPlayerObject = new LoveLetterCurrentPlayerObject(
+    this._currentPlayerObject = new LoveLetterCurrentPlayerGameObject(
       this._context,
       this._width / 6,
       (this._height / 6) * 4,
@@ -41,7 +41,7 @@ export class LoveLetterPlayersContainerObject extends APlayersContainerObject<
     const range = this._width / nbPlayers;
     for (let i = 0; i < this._players.length; i++) {
       this._playersObject.push(
-        new LoveLetterOtherPlayerObject(
+        new LoveLetterOtherPlayerGameObject(
           this._context,
           i * range + range / 2,
           this._height / 6,

@@ -1,9 +1,9 @@
-import { LoveLetterCardStackObject } from "./love-letter-card-stack.object";
-import { PositionedSceneObject } from "../positioned-scene.object";
+import { LoveLetterCardStackGameObject } from "./love-letter-card-stack.game-object";
+import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 import { LoveLetterCardData } from "../../objects/data/game/cards/love-letter-card.data";
 import Phaser from "phaser";
 
-export class LoveLetterCardStacksContainerObject extends PositionedSceneObject {
+export class LoveLetterCardStacksContainerGameObject extends PositionedSceneGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
@@ -14,9 +14,9 @@ export class LoveLetterCardStacksContainerObject extends PositionedSceneObject {
   private _cardStackAside: LoveLetterCardData[];
   private _paddingX: number;
   // OBJECTS
-  private _cardStackPileObjects?: LoveLetterCardStackObject;
-  private _cardStackDiscardObjects?: LoveLetterCardStackObject;
-  private _cardStackAsideObjects?: LoveLetterCardStackObject;
+  private _cardStackPileObjects?: LoveLetterCardStackGameObject;
+  private _cardStackDiscardObjects?: LoveLetterCardStackGameObject;
+  private _cardStackAsideObjects?: LoveLetterCardStackGameObject;
   // VARIABLES
 
   // *****************************************************************************************************************
@@ -87,8 +87,8 @@ export class LoveLetterCardStacksContainerObject extends PositionedSceneObject {
     positionX: number,
     positionY: number,
     label: string
-  ): LoveLetterCardStackObject {
-    return new LoveLetterCardStackObject(
+  ): LoveLetterCardStackGameObject {
+    return new LoveLetterCardStackGameObject(
       this._context,
       positionX,
       positionY,

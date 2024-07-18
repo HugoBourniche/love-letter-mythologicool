@@ -1,10 +1,10 @@
-import { ACardStackObject } from "./a-card-stack.object";
+import { ACardStackGameObject } from "./a-card-stack.game-object";
 import { LoveLetterCardData } from "../../objects/data/game/cards/love-letter-card.data";
-import { LoveLetterCardObject } from "../cards/love-letter-card.object";
+import { LoveLetterCardGameObject } from "../cards/love-letter-card.game-object";
 
-export class LoveLetterCardStackObject extends ACardStackObject<
+export class LoveLetterCardStackGameObject extends ACardStackGameObject<
   LoveLetterCardData,
-  LoveLetterCardObject
+  LoveLetterCardGameObject
 > {
   // *****************************************************************************************************************
   // ATTRIBUTES
@@ -63,7 +63,7 @@ export class LoveLetterCardStackObject extends ACardStackObject<
 
   private drawCard(): void {
     const lastCard = this._cardStack[this._cardStack.length - 1];
-    this._topCardObject = new LoveLetterCardObject(
+    this._topCardObject = new LoveLetterCardGameObject(
       this._context,
       this._positionX,
       this._positionY,

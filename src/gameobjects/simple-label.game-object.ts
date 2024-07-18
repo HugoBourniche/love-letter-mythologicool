@@ -1,14 +1,18 @@
-import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
-import { LoveLetterCardObject } from "../cards/love-letter-card.object";
-import { LoveLetterPlayerObject } from "./love-letter-player-object";
+import { PositionedSceneGameObject } from "./positioned-scene.game-object";
+import Text = Phaser.GameObjects.Text;
+import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
+import { DEFAULT_STYLE } from "../cst";
 
-export class LoveLetterCurrentPlayerObject extends LoveLetterPlayerObject {
+export class SimpleLabelGameObject extends PositionedSceneGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  // INPUTS
+  // INPUT
+  protected _label: string;
+
   // OBJECTS
+  protected _text: Text;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -18,9 +22,12 @@ export class LoveLetterCurrentPlayerObject extends LoveLetterPlayerObject {
     context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    player: LoveLetterPlayerData
+    label: string,
+    style: TextStyle = DEFAULT_STYLE
   ) {
-    super(context, positionX, positionY, player);
+    super(context, positionX, positionY);
+    this._label = label;
+    this._text = context.add.text(positionX, positionY, this._label, style);
   }
 
   // *****************************************************************************************************************
@@ -28,24 +35,31 @@ export class LoveLetterCurrentPlayerObject extends LoveLetterPlayerObject {
   // *****************************************************************************************************************
 
   public override clear() {
-    super.clear();
-  }
-
-  protected override initCards() {
-    for (let i = 0; i < this._player.hand.length; i++) {
-      const cardData = this._player.hand[i];
-      const cardObject = new LoveLetterCardObject(
-        this._context,
-        this._positionX + 80 + 200 * i,
-        this._positionY,
-        cardData,
-        0.18
-      );
-      this._cardObjects.push(cardObject);
-    }
+    this._text.removedFromScene();
   }
 
   // *****************************************************************************************************************
-  // PRIVATE METHODS
+  // PUBLIC METHODS
   // *****************************************************************************************************************
+
+  public getWidth(): number {
+    return this._text.width;
+  }
+
+  public getHeight(): number {
+    return this._text.height;
+  }
+
+  public updateValue(value: string) {
+    this._label = value;
+    this._text.text = value;
+  }
+
+  public moveXPosition(offset: number) {
+    this._text.setX(this._text.x + offset);
+  }
+
+  public moveYPosition(offset: number) {
+    this._text.setY(this._text.y + offset);
+  }
 }

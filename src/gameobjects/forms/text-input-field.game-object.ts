@@ -5,7 +5,7 @@ import Image = Phaser.GameObjects.Image;
 import Graphics = Phaser.GameObjects.Graphics;
 import Tween = Phaser.Tweens.Tween;
 import GameObject = Phaser.GameObjects.GameObject;
-import { PositionedSceneObject } from "../positioned-scene.object";
+import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 import { DEFAULT_STYLE } from "../../cst";
 
 /**
@@ -16,7 +16,7 @@ import { DEFAULT_STYLE } from "../../cst";
  * Test
  * https://raw.githack.com/ErlendKK/Input-form-with-Phaser-3.5-No-DOM-Elements-/main/index.html
  */
-export class TextInputFieldObject extends PositionedSceneObject {
+export class TextInputFieldGameObject extends PositionedSceneGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

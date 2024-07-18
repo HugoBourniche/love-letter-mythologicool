@@ -1,46 +1,38 @@
-import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
-import { APlayerObject } from "./a-player.object";
-import { LoveLetterCardObject } from "../cards/love-letter-card.object";
+import { Scene } from "phaser";
+import { DEFAULT_STYLE } from "../../../cst";
+import { LabelledButtonGameObject } from "./labelled-button.game-object";
 
-export abstract class LoveLetterPlayerObject extends APlayerObject<LoveLetterPlayerData> {
+export class StoneLabelledButtonGameObject extends LabelledButtonGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
-
-  // INPUTS
-
-  // OBJECTS
-  protected _cardObjects: LoveLetterCardObject[];
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  protected constructor(
-    context: Phaser.Scene,
+  constructor(
+    context: Scene,
     positionX: number,
     positionY: number,
-    player: LoveLetterPlayerData
+    label: string,
+    action: () => void,
+    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
   ) {
-    super(context, positionX, positionY, player);
-    this._cardObjects = [];
-    this.initCards();
+    super(context, positionX, positionY, label, action, "stone_", style);
+
+    this._image.setScale(1.2, 0.6);
   }
 
   // *****************************************************************************************************************
-  // ABSTRACT METHODS
+  // PUBLIC METHOD
   // *****************************************************************************************************************
 
-  protected abstract initCards(): void;
-
-  // *****************************************************************************************************************
-  // OVERRIDE METHODS
-  // *****************************************************************************************************************
-
-  public override clear() {
+  public clear() {
     super.clear();
-    for (const cardObject of this._cardObjects) {
-      cardObject.clear();
-    }
   }
+
+  // *****************************************************************************************************************
+  // PRIVATE METHOD
+  // *****************************************************************************************************************
 }

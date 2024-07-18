@@ -1,57 +1,65 @@
-import { ARequestedActionObject } from "./a-requested-action.object";
-import { LoveLetterRequestedActionData } from "../../objects/data/game/actions/love-letter-requested-action.data";
+import { SimpleLabelGameObject } from "../simple-label.game-object";
+import { ARequestedActionData } from "../../objects/data/game/actions/a-requested-action.data";
+import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 import Phaser from "phaser";
-import { RequestActionEnum } from "../../objects/data/game/actions/request-action.enum";
+import { DEFAULT_STYLE_WHITE } from "../../cst";
 
-export class LoveLetterRequestedActionObject extends ARequestedActionObject<LoveLetterRequestedActionData> {
+export abstract class ARequestedActionGameObject<
+  A extends ARequestedActionData
+> extends PositionedSceneGameObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
-  private readonly _currentPlayerName: string;
-
+  protected _requestedAction: A;
   // OBJECTS
+  protected _labelObject?: SimpleLabelGameObject;
   // VARIABLES
+  protected _label: string;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
-  constructor(
+  protected constructor(
     context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    requestedAction: LoveLetterRequestedActionData,
-    currentPlayerName: string
+    requestedAction: A
   ) {
-    super(context, positionX, positionY, requestedAction);
-    this._currentPlayerName = currentPlayerName;
-    this.create();
+    super(context, positionX, positionY);
+    this._requestedAction = requestedAction;
+    this._label = "";
   }
 
   // *****************************************************************************************************************
   // PHASER LIFE CYCLE
   // *****************************************************************************************************************
 
-  public override create() {
-    super.create();
+  create() {
+    this._label = this.buildRequestedActionLabel();
+    this._labelObject = new SimpleLabelGameObject(
+      this._context,
+      this._positionX,
+      this._positionY,
+      this._label,
+      DEFAULT_STYLE_WHITE
+    );
   }
+
+  update(requestedAction: A) {
+    this._requestedAction = requestedAction;
+    this._label = this.buildRequestedActionLabel();
+    this._labelObject?.updateValue(this._label);
+  }
+
   // *****************************************************************************************************************
   // OVERRIDE METHODS
   // *****************************************************************************************************************
 
-  protected override buildRequestedActionLabel() {
-    const playerTurnName = this._requestedAction.playerName;
-    if (this._currentPlayerName === playerTurnName) {
-      switch (this._requestedAction.action) {
-        case RequestActionEnum.DRAW:
-          return "Draw a card";
-        default:
-          break;
-      }
-    }
-    return "This is " + playerTurnName + "'s turn";
+  public override clear(): void {
+    this._labelObject?.clear();
   }
 
   // *****************************************************************************************************************
@@ -61,4 +69,6 @@ export class LoveLetterRequestedActionObject extends ARequestedActionObject<Love
   // *****************************************************************************************************************
   // PRIVATE METHODS
   // *****************************************************************************************************************
+
+  protected abstract buildRequestedActionLabel(): string;
 }

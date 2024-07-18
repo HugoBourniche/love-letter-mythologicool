@@ -1,19 +1,16 @@
-import { ACardData } from "../../objects/data/game/cards/a-card.data";
-import Image = Phaser.GameObjects.Image;
-import { PositionedSceneObject } from "../positioned-scene.object";
+import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
+import { APlayerObject } from "./a-player.object";
+import { LoveLetterCardObject } from "../cards/love-letter-card.object";
 
-export abstract class ACardGame<
-  C extends ACardData
-> extends PositionedSceneObject {
+export abstract class LoveLetterPlayerObject extends APlayerObject<LoveLetterPlayerData> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
-  private _card: C;
 
   // OBJECTS
-  private _image: Image;
+  protected _cardObjects: LoveLetterCardObject[];
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -23,36 +20,27 @@ export abstract class ACardGame<
     context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    card: C,
-    scale = 0.1
+    player: LoveLetterPlayerData
   ) {
-    super(context, positionX, positionY);
-    this._card = card;
-    this._image = context.add.image(
-      positionX + 10 * scale,
-      positionY,
-      card.spriteId
-    );
-    this._image.setScale(scale, scale);
+    super(context, positionX, positionY, player);
+    this._cardObjects = [];
+    this.initCards();
   }
 
   // *****************************************************************************************************************
-  // OVERRIDES METHODS
+  // ABSTRACT METHODS
+  // *****************************************************************************************************************
+
+  protected abstract initCards(): void;
+
+  // *****************************************************************************************************************
+  // OVERRIDE METHODS
   // *****************************************************************************************************************
 
   public override clear() {
-    this._image.removedFromScene();
-  }
-
-  // *****************************************************************************************************************
-  // PUBLIC METHODS
-  // *****************************************************************************************************************
-
-  public getImageHeight(): number {
-    return this._image.height * this._image.scaleY;
-  }
-
-  public getImageWidth(): number {
-    return this._image.width * this._image.scaleX;
+    super.clear();
+    for (const cardObject of this._cardObjects) {
+      cardObject.clear();
+    }
   }
 }

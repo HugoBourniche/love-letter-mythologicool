@@ -1,12 +1,12 @@
 import { PositionedSceneObject } from "../positioned-scene.object";
 import { ACardData } from "../../objects/data/game/cards/a-card.data";
-import { ACardGame } from "../cards/a-card.game";
-import { SimpleLabelField } from "../forms/simple-label.field";
+import { ACardObject } from "../cards/a-card.object";
+import { SimpleLabelObject } from "../simple-label.object";
 import { DEFAULT_STYLE_WHITE } from "../../cst";
 
-export abstract class ACardStackGame<
+export abstract class ACardStackObject<
   C extends ACardData,
-  CG extends ACardGame<C>
+  CG extends ACardObject<C>
 > extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
@@ -18,7 +18,7 @@ export abstract class ACardStackGame<
 
   // OBJECTS
   protected _topCardObject?: CG;
-  protected _labelObject?: SimpleLabelField;
+  protected _labelObject?: SimpleLabelObject;
 
   // VARIABLES
   protected _showCount = true;
@@ -62,7 +62,7 @@ export abstract class ACardStackGame<
   protected initCanvas() {
     const labelWithCount =
       this._label + (this._showCount ? "(" + this._cardStack.length + ")" : "");
-    this._labelObject = new SimpleLabelField(
+    this._labelObject = new SimpleLabelObject(
       this._context,
       this._positionX,
       this._positionY,

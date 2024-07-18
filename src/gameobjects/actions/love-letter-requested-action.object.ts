@@ -1,14 +1,18 @@
-import { ACardStackGame } from "./a-card-stack.game";
-import { LoveLetterCardData } from "../../objects/data/game/cards/love-letter-card.data";
-import { LoveLetterCardGame } from "../cards/love-letter-card.game";
+import { ARequestedActionObject } from "./a-requested-action.object";
+import { LoveLetterRequestedActionData } from "../../objects/data/game/actions/love-letter-requested-action.data";
+import Phaser from "phaser";
+import { RequestActionEnum } from "../../objects/data/game/actions/request-action.enum";
 
-export class LoveLetterCardStackGame extends ACardStackGame<
-  LoveLetterCardData,
-  LoveLetterCardGame
-> {
+export class LoveLetterRequestedActionObject extends ARequestedActionObject<LoveLetterRequestedActionData> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
+
+  // INPUTS
+  private readonly _currentPlayerName: string;
+
+  // OBJECTS
+  // VARIABLES
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -18,56 +22,43 @@ export class LoveLetterCardStackGame extends ACardStackGame<
     context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    label: string,
-    cardStack: LoveLetterCardData[],
-    showCount = true
+    requestedAction: LoveLetterRequestedActionData,
+    currentPlayerName: string
   ) {
-    super(context, positionX, positionY, label, cardStack, showCount);
+    super(context, positionX, positionY, requestedAction);
+    this._currentPlayerName = currentPlayerName;
+    this.create();
   }
 
+  // *****************************************************************************************************************
+  // PHASER LIFE CYCLE
+  // *****************************************************************************************************************
+
+  public override create() {
+    super.create();
+  }
   // *****************************************************************************************************************
   // OVERRIDE METHODS
   // *****************************************************************************************************************
 
-  protected override initCanvas(): void {
-    super.initCanvas();
-    if (this._cardStack.length > 0) {
-      this.drawCard();
-      this.adjustLabelPositionWithCard();
+  protected override buildRequestedActionLabel() {
+    const playerTurnName = this._requestedAction.playerName;
+    if (this._currentPlayerName === playerTurnName) {
+      switch (this._requestedAction.action) {
+        case RequestActionEnum.DRAW:
+          return "Draw a card";
+        default:
+          break;
+      }
     }
+    return "This is " + playerTurnName + "'s turn";
   }
 
   // *****************************************************************************************************************
   // PUBLIC METHODS
   // *****************************************************************************************************************
 
-  public stackWidth(): number {
-    return this._topCardObject
-      ? this._topCardObject.getImageWidth()
-      : this._labelObject
-      ? this._labelObject.getWidth()
-      : 0;
-  }
-
-  public stackHeight(): number {
-    return this._topCardObject
-      ? this._topCardObject.getImageHeight()
-      : this._labelObject
-      ? this._labelObject.getHeight()
-      : 0;
-  }
-
   // *****************************************************************************************************************
   // PRIVATE METHODS
   // *****************************************************************************************************************
-
-  private drawCard(): void {
-    const lastCard = this._cardStack[this._cardStack.length - 1];
-    this._topCardObject = new LoveLetterCardGame(
-      this._context,
-      this._positionX,
-      this._positionY,
-      lastCard
-    );
-  }
 }

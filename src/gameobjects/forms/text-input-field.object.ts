@@ -16,7 +16,7 @@ import { DEFAULT_STYLE } from "../../cst";
  * Test
  * https://raw.githack.com/ErlendKK/Input-form-with-Phaser-3.5-No-DOM-Elements-/main/index.html
  */
-export class TextInputField extends PositionedSceneObject {
+export class TextInputFieldObject extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

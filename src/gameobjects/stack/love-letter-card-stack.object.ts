@@ -1,18 +1,14 @@
-import { ARequestedActionGame } from "./a-requested-action.game";
-import { LoveLetterRequestedActionData } from "../../objects/data/game/actions/love-letter-requested-action.data";
-import Phaser from "phaser";
-import { RequestActionEnum } from "../../objects/data/game/actions/request-action.enum";
+import { ACardStackObject } from "./a-card-stack.object";
+import { LoveLetterCardData } from "../../objects/data/game/cards/love-letter-card.data";
+import { LoveLetterCardObject } from "../cards/love-letter-card.object";
 
-export class LoveLetterRequestedActionGame extends ARequestedActionGame<LoveLetterRequestedActionData> {
+export class LoveLetterCardStackObject extends ACardStackObject<
+  LoveLetterCardData,
+  LoveLetterCardObject
+> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
-
-  // INPUTS
-  private readonly _currentPlayerName: string;
-
-  // OBJECTS
-  // VARIABLES
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -22,43 +18,56 @@ export class LoveLetterRequestedActionGame extends ARequestedActionGame<LoveLett
     context: Phaser.Scene,
     positionX: number,
     positionY: number,
-    requestedAction: LoveLetterRequestedActionData,
-    currentPlayerName: string
+    label: string,
+    cardStack: LoveLetterCardData[],
+    showCount = true
   ) {
-    super(context, positionX, positionY, requestedAction);
-    this._currentPlayerName = currentPlayerName;
-    this.create();
+    super(context, positionX, positionY, label, cardStack, showCount);
   }
 
-  // *****************************************************************************************************************
-  // PHASER LIFE CYCLE
-  // *****************************************************************************************************************
-
-  public override create() {
-    super.create();
-  }
   // *****************************************************************************************************************
   // OVERRIDE METHODS
   // *****************************************************************************************************************
 
-  protected override buildRequestedActionLabel() {
-    const playerTurnName = this._requestedAction.playerName;
-    if (this._currentPlayerName === playerTurnName) {
-      switch (this._requestedAction.action) {
-        case RequestActionEnum.DRAW:
-          return "Draw a card";
-        default:
-          break;
-      }
+  protected override initCanvas(): void {
+    super.initCanvas();
+    if (this._cardStack.length > 0) {
+      this.drawCard();
+      this.adjustLabelPositionWithCard();
     }
-    return "This is " + playerTurnName + "'s turn";
   }
 
   // *****************************************************************************************************************
   // PUBLIC METHODS
   // *****************************************************************************************************************
 
+  public stackWidth(): number {
+    return this._topCardObject
+      ? this._topCardObject.getImageWidth()
+      : this._labelObject
+      ? this._labelObject.getWidth()
+      : 0;
+  }
+
+  public stackHeight(): number {
+    return this._topCardObject
+      ? this._topCardObject.getImageHeight()
+      : this._labelObject
+      ? this._labelObject.getHeight()
+      : 0;
+  }
+
   // *****************************************************************************************************************
   // PRIVATE METHODS
   // *****************************************************************************************************************
+
+  private drawCard(): void {
+    const lastCard = this._cardStack[this._cardStack.length - 1];
+    this._topCardObject = new LoveLetterCardObject(
+      this._context,
+      this._positionX,
+      this._positionY,
+      lastCard
+    );
+  }
 }

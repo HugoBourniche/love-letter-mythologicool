@@ -1,51 +1,58 @@
-import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
-import { LoveLetterCardGame } from "../cards/love-letter-card.game";
-import { LoveLetterPlayerGame } from "./love-letter-player-game";
+import Text = Phaser.GameObjects.Text;
+import { Scene } from "phaser";
+import { SimpleButtonObject } from "./simple-button.object";
+import { DEFAULT_STYLE } from "../../../cst";
 
-export class LoveLetterCurrentPlayerGame extends LoveLetterPlayerGame {
+export class LabelledButtonObject extends SimpleButtonObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   // INPUTS
+  private _label: string;
+
   // OBJECTS
+  private _textObject: Text;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
   constructor(
-    context: Phaser.Scene,
+    context: Scene,
     positionX: number,
     positionY: number,
-    player: LoveLetterPlayerData
+    label: string,
+    action: () => void,
+    buttonStyle: string,
+    style: Phaser.Types.GameObjects.Text.TextStyle = DEFAULT_STYLE
   ) {
-    super(context, positionX, positionY, player);
+    super(context, positionX, positionY, buttonStyle, action);
+    this._label = label;
+    this._textObject = context.add.text(
+      positionX - 7 * label.length,
+      positionY - 10,
+      label,
+      style
+    );
   }
 
   // *****************************************************************************************************************
-  // OVERRIDE METHODS
+  // PUBLIC METHOD
   // *****************************************************************************************************************
 
-  public override clear() {
+  public clear() {
     super.clear();
+    this._textObject.removedFromScene();
   }
 
-  protected override initCards() {
-    for (let i = 0; i < this._player.hand.length; i++) {
-      const cardData = this._player.hand[i];
-      const cardObject = new LoveLetterCardGame(
-        this._context,
-        this._positionX + 80 + 200 * i,
-        this._positionY,
-        cardData,
-        0.18
-      );
-      this._cardObjects.push(cardObject);
-    }
+  public refreshLabel(value: string) {
+    this._label = value;
+    this._textObject.text = value;
+    this._textObject.x = this._positionX - 7 * value.length;
   }
 
   // *****************************************************************************************************************
-  // PRIVATE METHODS
+  // PRIVATE METHOD
   // *****************************************************************************************************************
 }

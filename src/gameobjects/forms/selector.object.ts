@@ -1,9 +1,9 @@
 import { DEFAULT_STYLE } from "../../cst";
-import { SimpleLabelField } from "./simple-label.field";
-import { SimpleButtonField } from "./buttons/simple-button.field";
-import { SimpleInteractiveField } from "./simple-interactive.field";
+import { SimpleLabelObject } from "../simple-label.object";
+import { SimpleButtonObject } from "./buttons/simple-button.object";
+import { SimpleInteractiveObject } from "./simple-interactive.object";
 
-export class SelectorField extends SimpleInteractiveField {
+export class SelectorObject extends SimpleInteractiveObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
@@ -12,10 +12,10 @@ export class SelectorField extends SimpleInteractiveField {
   private readonly _values: string[];
 
   // OBJECTS
-  private _label: SimpleLabelField;
-  private _arrowLeft: SimpleButtonField;
-  private _value: SimpleLabelField;
-  private _arrowRight: SimpleButtonField;
+  private _label: SimpleLabelObject;
+  private _arrowLeft: SimpleButtonObject;
+  private _value: SimpleLabelObject;
+  private _arrowRight: SimpleButtonObject;
 
   // VARIABLES
   private _listIndex: number;
@@ -38,28 +38,28 @@ export class SelectorField extends SimpleInteractiveField {
     this._listIndex = 0;
 
     const origin = label.length * 16;
-    this._label = new SimpleLabelField(
+    this._label = new SimpleLabelObject(
       context,
       positionX,
       positionY,
       label,
       style
     );
-    this._arrowLeft = new SimpleButtonField(
+    this._arrowLeft = new SimpleButtonObject(
       context,
       positionX + origin,
       positionY + 9,
       "",
       () => this.onClickLeft()
     );
-    this._value = new SimpleLabelField(
+    this._value = new SimpleLabelObject(
       context,
       positionX + origin + 25,
       positionY,
       this._values[this._listIndex],
       style
     );
-    this._arrowRight = new SimpleButtonField(
+    this._arrowRight = new SimpleButtonObject(
       context,
       positionX + origin + 60,
       positionY + 9,

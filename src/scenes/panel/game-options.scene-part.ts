@@ -1,9 +1,9 @@
 import { GameOptionsData } from "../../objects/data/game-options/game-options.data";
 import { ScenePartPanelPositionsEnum } from "../../utils/Factories/scene-part-panel-positions.enum";
-import { SimpleLabelField } from "../../gameobjects/forms/simple-label.field";
+import { SimpleLabelObject } from "../../gameobjects/simple-label.object";
 import { DEFAULT_STYLE_WHITE } from "../../cst";
-import { SelectorField } from "../../gameobjects/forms/selector.field";
-import { StoneLabelledButtonField } from "../../gameobjects/forms/buttons/stone-labelled-button.field";
+import { SelectorObject } from "../../gameobjects/forms/selector.object";
+import { StoneLabelledButtonObject } from "../../gameobjects/forms/buttons/stone-labelled-button.object";
 import { LobbyService } from "../../services/lobby.service";
 import { ServicesFactory } from "../../utils/factories/services.factory";
 import { AScenePart } from "./a.scene-part";
@@ -20,9 +20,9 @@ export class GameOptionsScenePart extends AScenePart {
 
   // OBJECTS
   private _gameOptions?: GameOptionsData;
-  private _title?: SimpleLabelField;
-  private _playerMax?: SelectorField;
-  private _applyButton?: StoneLabelledButtonField;
+  private _title?: SimpleLabelObject;
+  private _playerMax?: SelectorObject;
+  private _applyButton?: StoneLabelledButtonObject;
 
   // VARIABLES
   private _lobbyKey?: string;
@@ -66,14 +66,14 @@ export class GameOptionsScenePart extends AScenePart {
       this._box.height,
       0x222222
     );
-    this._title = new SimpleLabelField(
+    this._title = new SimpleLabelObject(
       this._context,
       this._box.x(50),
       this._box.y(20),
       "Game Options",
       DEFAULT_STYLE_WHITE
     );
-    this._playerMax = new SelectorField(
+    this._playerMax = new SelectorObject(
       this._context,
       this._box.x(100),
       this._box.y(60),
@@ -81,7 +81,7 @@ export class GameOptionsScenePart extends AScenePart {
       this._gameOptions.ranges.nbPlayersChoices,
       DEFAULT_STYLE_WHITE
     );
-    this._applyButton = new StoneLabelledButtonField(
+    this._applyButton = new StoneLabelledButtonObject(
       this._context,
       this._box.midWidth,
       this._box.y(150),

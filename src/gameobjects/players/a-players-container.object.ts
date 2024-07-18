@@ -1,21 +1,25 @@
-import { SimpleLabelField } from "../forms/simple-label.field";
 import { Scene } from "phaser";
-import { DEFAULT_STYLE_WHITE } from "../../cst";
 import { APlayerData } from "../../objects/data/game/players/a-player-data";
-import { PositionedSceneObject } from "../positioned-scene.object";
+import { APlayerObject } from "./a-player.object";
+import { SceneObject } from "../scene.object";
 
-export abstract class APlayerGame<
-  P extends APlayerData
-> extends PositionedSceneObject {
+export abstract class APlayersContainerObject<
+  P extends APlayerData,
+  G extends APlayerObject<P>
+> extends SceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  // INPUT
-  protected _player: P;
+  // INPUTS
+  protected _width: number;
+  protected _height: number;
+  protected _players: P[];
+  protected _currentPlayer: P;
 
   // OBJECTS
-  protected _text: SimpleLabelField;
+  protected _playersObject: G[];
+  protected _currentPlayerObject?: G;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -23,27 +27,23 @@ export abstract class APlayerGame<
 
   protected constructor(
     context: Scene,
-    positionX: number,
-    positionY: number,
-    player: P
+    width: number,
+    height: number,
+    players: P[],
+    currentPlayer: P
   ) {
-    super(context, positionX, positionY);
-    this._player = player;
-    this._text = new SimpleLabelField(
-      context,
-      positionX -
-        player.user.name.length * (player.user.name.length > 5 ? 25 : 32),
-      positionY,
-      player.user.name,
-      DEFAULT_STYLE_WHITE
-    );
+    super(context);
+    this._width = width;
+    this._height = height;
+    this._players = players;
+    this._playersObject = [];
+    this._currentPlayer = currentPlayer;
+    this.initPlayersOnCanvas();
   }
 
   // *****************************************************************************************************************
-  // OVERRIDE METHODS
+  // ABSTRACT METHODS
   // *****************************************************************************************************************
 
-  public override clear() {
-    this._text.clear();
-  }
+  protected abstract initPlayersOnCanvas(): void;
 }

@@ -1,10 +1,10 @@
-import { SimpleLabelField } from "../forms/simple-label.field";
+import { SimpleLabelObject } from "../simple-label.object";
 import { ARequestedActionData } from "../../objects/data/game/actions/a-requested-action.data";
 import { PositionedSceneObject } from "../positioned-scene.object";
 import Phaser from "phaser";
 import { DEFAULT_STYLE_WHITE } from "../../cst";
 
-export abstract class ARequestedActionGame<
+export abstract class ARequestedActionObject<
   A extends ARequestedActionData
 > extends PositionedSceneObject {
   // *****************************************************************************************************************
@@ -14,7 +14,7 @@ export abstract class ARequestedActionGame<
   // INPUTS
   protected _requestedAction: A;
   // OBJECTS
-  protected _labelObject?: SimpleLabelField;
+  protected _labelObject?: SimpleLabelObject;
   // VARIABLES
   protected _label: string;
 
@@ -39,7 +39,7 @@ export abstract class ARequestedActionGame<
 
   create() {
     this._label = this.buildRequestedActionLabel();
-    this._labelObject = new SimpleLabelField(
+    this._labelObject = new SimpleLabelObject(
       this._context,
       this._positionX,
       this._positionY,

@@ -1,9 +1,9 @@
-import { PositionedSceneObject } from "../positioned-scene.object";
+import { PositionedSceneObject } from "./positioned-scene.object";
 import Text = Phaser.GameObjects.Text;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import { DEFAULT_STYLE } from "../../cst";
+import { DEFAULT_STYLE } from "../cst";
 
-export class SimpleLabelField extends PositionedSceneObject {
+export class SimpleLabelObject extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

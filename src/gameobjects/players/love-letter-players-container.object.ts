@@ -1,12 +1,12 @@
 import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
-import { APlayersContainerGame } from "./a-players-container.game";
-import { LoveLetterOtherPlayerGame } from "./love-letter-other-player.game";
-import { LoveLetterCurrentPlayerGame } from "./love-letter-current-player.game";
-import { LoveLetterPlayerGame } from "./love-letter-player-game";
+import { APlayersContainerObject } from "./a-players-container.object";
+import { LoveLetterOtherPlayerObject } from "./love-letter-other-player.object";
+import { LoveLetterCurrentPlayerObject } from "./love-letter-current-player.object";
+import { LoveLetterPlayerObject } from "./love-letter-player-object";
 
-export class LoveLetterPlayersContainerGame extends APlayersContainerGame<
+export class LoveLetterPlayersContainerObject extends APlayersContainerObject<
   LoveLetterPlayerData,
-  LoveLetterPlayerGame
+  LoveLetterPlayerObject
 > {
   // *****************************************************************************************************************
   // ATTRIBUTES
@@ -31,7 +31,7 @@ export class LoveLetterPlayersContainerGame extends APlayersContainerGame<
   // *****************************************************************************************************************
 
   protected override initPlayersOnCanvas(): void {
-    this._currentPlayerObject = new LoveLetterCurrentPlayerGame(
+    this._currentPlayerObject = new LoveLetterCurrentPlayerObject(
       this._context,
       this._width / 6,
       (this._height / 6) * 4,
@@ -41,7 +41,7 @@ export class LoveLetterPlayersContainerGame extends APlayersContainerGame<
     const range = this._width / nbPlayers;
     for (let i = 0; i < this._players.length; i++) {
       this._playersObject.push(
-        new LoveLetterOtherPlayerGame(
+        new LoveLetterOtherPlayerObject(
           this._context,
           i * range + range / 2,
           this._height / 6,

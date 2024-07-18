@@ -1,9 +1,9 @@
 import { Scene } from "phaser";
 import { APlayerData } from "../../objects/data/game/players/a-player-data";
 import { APlayerGame } from "./a-player.game";
-import { SceneObject } from "../scene-object";
+import { SceneObject } from "../scene.object";
 
-export abstract class APlayersGame<
+export abstract class APlayersContainerGame<
   P extends APlayerData,
   G extends APlayerGame<P>
 > extends SceneObject {

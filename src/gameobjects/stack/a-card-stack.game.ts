@@ -1,4 +1,4 @@
-import { SimpleField } from "../forms/simple.field";
+import { PositionedSceneObject } from "../positioned-scene.object";
 import { ACardData } from "../../objects/data/game/cards/a-card.data";
 import { ACardGame } from "../cards/a-card.game";
 import { SimpleLabelField } from "../forms/simple-label.field";
@@ -7,7 +7,7 @@ import { DEFAULT_STYLE_WHITE } from "../../cst";
 export abstract class ACardStackGame<
   C extends ACardData,
   CG extends ACardGame<C>
-> extends SimpleField {
+> extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

@@ -1,10 +1,10 @@
 import { LoveLetterPlayerData } from "../../objects/data/game/players/love-letter-player.data";
-import { APlayersGame } from "./a-players.game";
+import { APlayersContainerGame } from "./a-players-container.game";
 import { LoveLetterOtherPlayerGame } from "./love-letter-other-player.game";
 import { LoveLetterCurrentPlayerGame } from "./love-letter-current-player.game";
 import { LoveLetterPlayerGame } from "./love-letter-player-game";
 
-export class LoveLetterPlayersGame extends APlayersGame<
+export class LoveLetterPlayersContainerGame extends APlayersContainerGame<
   LoveLetterPlayerData,
   LoveLetterPlayerGame
 > {
@@ -27,7 +27,7 @@ export class LoveLetterPlayersGame extends APlayersGame<
   }
 
   // *****************************************************************************************************************
-  // IMPLEMENTATIONS
+  // OVERRIDE METHODS
   // *****************************************************************************************************************
 
   protected override initPlayersOnCanvas(): void {

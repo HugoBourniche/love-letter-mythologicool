@@ -2,9 +2,11 @@ import { SimpleLabelField } from "../forms/simple-label.field";
 import { Scene } from "phaser";
 import { DEFAULT_STYLE_WHITE } from "../../cst";
 import { APlayerData } from "../../objects/data/game/players/a-player-data";
-import { SimpleField } from "../forms/simple.field";
+import { PositionedSceneObject } from "../positioned-scene.object";
 
-export abstract class APlayerGame<P extends APlayerData> extends SimpleField {
+export abstract class APlayerGame<
+  P extends APlayerData
+> extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

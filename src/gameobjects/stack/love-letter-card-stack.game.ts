@@ -38,6 +38,18 @@ export class LoveLetterCardStackGame extends ACardStackGame<
   }
 
   // *****************************************************************************************************************
+  // PUBLIC METHODS
+  // *****************************************************************************************************************
+
+  public stackWidth(): number {
+    return this._topCardObject ? this._topCardObject.getImageWidth() : this._labelObject ? this._labelObject.getWidth() : 0;
+  }
+
+  public stackHeight(): number {
+    return this._topCardObject ? this._topCardObject.getImageHeight() : this._labelObject ? this._labelObject.getHeight() : 0;
+  }
+
+  // *****************************************************************************************************************
   // PRIVATE METHODS
   // *****************************************************************************************************************
 

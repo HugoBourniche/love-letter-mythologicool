@@ -1,6 +1,6 @@
-import { SimpleField } from "./simple.field";
+import { PositionedSceneObject } from "../positioned-scene.object";
 
-export abstract class SimpleInteractiveField extends SimpleField {
+export abstract class SimpleInteractiveField extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

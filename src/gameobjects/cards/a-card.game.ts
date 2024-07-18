@@ -1,8 +1,10 @@
 import { ACardData } from "../../objects/data/game/cards/a-card.data";
 import Image = Phaser.GameObjects.Image;
-import { SimpleField } from "../forms/simple.field";
+import { PositionedSceneObject } from "../positioned-scene.object";
 
-export abstract class ACardGame<C extends ACardData> extends SimpleField {
+export abstract class ACardGame<
+  C extends ACardData
+> extends PositionedSceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

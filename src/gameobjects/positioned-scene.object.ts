@@ -1,6 +1,6 @@
-import { SceneObject } from "../scene-object";
+import { SceneObject } from "./scene.object";
 
-export abstract class SimpleField extends SceneObject {
+export abstract class PositionedSceneObject extends SceneObject {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

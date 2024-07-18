@@ -2,7 +2,7 @@ import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 import { ACardData } from "../../objects/data/game/cards/a-card.data";
 import { ACardGameObject } from "../cards/a-card.game-object";
 import { SimpleLabelGameObject } from "../simple-label.game-object";
-import { DEFAULT_STYLE_WHITE } from "../../cst";
+import { DEFAULT_STYLE_WHITE } from "../../utils/constants/cst";
 
 export abstract class ACardStackGameObject<
   C extends ACardData,
@@ -72,15 +72,17 @@ export abstract class ACardStackGameObject<
   }
 
   protected adjustLabelPositionWithCard() {
-    if (this._topCardObject == null || this._labelObject == null) {
-      return;
+    let xOffset = 0;
+    let yOffset = 0;
+    if (this._topCardObject != null) {
+      xOffset += this._topCardObject.getImageWidth() / 2;
+      yOffset += this._topCardObject.getImageHeight() / 2;
     }
 
-    const xOffset = this._topCardObject.getImageWidth() / 2;
-    const yOffset =
-      this._topCardObject.getImageHeight() / 2 + this._labelObject.getHeight();
-
-    this._labelObject.moveXPosition(-xOffset);
-    this._labelObject.moveYPosition(-yOffset);
+    if (this._labelObject != null) {
+      yOffset += this._labelObject.getHeight();
+      this._labelObject.moveXPosition(-xOffset);
+      this._labelObject.moveYPosition(-yOffset);
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { SimpleLabelGameObject } from "../simple-label.game-object";
 import { LobbyUserData } from "../../objects/data/users/lobby-user.data";
-import { DEFAULT_STYLE } from "../../cst";
+import { DEFAULT_STYLE } from "../../utils/constants/cst";
 
 export class LobbyUserLabelGameObject extends SimpleLabelGameObject {
   // *****************************************************************************************************************

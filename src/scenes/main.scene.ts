@@ -4,18 +4,22 @@ import { ZoneService } from "../services/zone.service";
 import { PreloadService } from "../services/preload.service";
 import { ServicesFactory } from "../utils/factories/services.factory";
 import { GameManagerService } from "../services/game-manager.service";
-import { LoveLetterPlayerData } from "../objects/data/game/players/love-letter-player.data";
 import { LoveLetterGameStatusResponse } from "../objects/responses/love-letter-game-status.response";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
 import { DataFactory } from "../utils/factories/data.factory";
 import { LoveLetterGameManagerData } from "../objects/data/game/managers/love-letter-game-manager.data";
 import { MainSceneData } from "../objects/data/main-scene.data";
-import { GAME_RATE } from "../cst";
+import { GAME_RATE } from "../utils/constants/cst";
 import { BaseCustomScene } from "./base-custom.scene";
 import { LoveLetterPlayersContainerGameObject } from "../gameobjects/players/love-letter-players-container.game-object";
-import { LoveLetterCardData } from "../objects/data/game/cards/love-letter-card.data";
 import { LoveLetterCardStacksContainerGameObject } from "../gameobjects/stack/love-letter-card-stacks-container.game-object";
 import { LoveLetterRequestedActionGameObject } from "../gameobjects/actions/love-letter-requested-action.game-object";
+import {
+  GAME_OBJECT_POSITION_X_CARD_STACKS_CONTAINER,
+  GAME_OBJECT_POSITION_X_REQUESTED_ACTION,
+  GAME_OBJECT_POSITION_Y_CARD_STACKS_CONTAINER,
+  GAME_OBJECT_POSITION_Y_REQUESTED_ACTION,
+} from "../utils/constants/positions.cst";
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -71,55 +75,6 @@ export default class MainScene extends BaseCustomScene {
 
   create() {
     this.updateGameStatus(); // Used in update
-    const self = this;
-    this.input.on(
-      "drag",
-      (
-        pointer: Phaser.Input.Pointer,
-        gameObject: any,
-        dragX: number,
-        dragY: number
-      ) => this.handleDrag(pointer, gameObject, dragX, dragY)
-    );
-
-    this.input.on(
-      "dragstart",
-      function (pointer: Phaser.Input.Pointer, gameObject: any) {
-        gameObject.setTint(0xff69b4);
-        self.children.bringToTop(gameObject);
-      }
-    );
-
-    this.input.on(
-      "dragend",
-      function (
-        pointer: Phaser.Input.Pointer,
-        gameObject: any,
-        dropped: boolean
-      ) {
-        // Drop not in zone
-        gameObject.setTint();
-        if (!dropped) {
-          gameObject.x = gameObject.input.dragStartX;
-          gameObject.y = gameObject.input.dragStartY;
-        }
-      }
-    );
-
-    this.input.on(
-      "drop",
-      function (
-        pointer: Phaser.Input.Pointer,
-        gameObject: Phaser.GameObjects.Image,
-        dropZone: Phaser.GameObjects.Zone
-      ) {
-        // Drop in zone
-        dropZone.data.values.cards++;
-        gameObject.x = dropZone.x - 350 + dropZone.data.values.cards * 50;
-        gameObject.y = dropZone.y;
-        gameObject.disableInteractive();
-      }
-    );
   }
 
   // UPDATE
@@ -139,16 +94,6 @@ export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
   // PRIVATE METHODS
   // *****************************************************************************************************************
-
-  private handleDrag(
-    pointer: Phaser.Input.Pointer,
-    gameObject: any,
-    dragX: number,
-    dragY: number
-  ) {
-    gameObject.x = dragX;
-    gameObject.y = dragY;
-  }
 
   private updateGameStatus() {
     if (this._mainSceneData == null) {
@@ -170,16 +115,32 @@ export default class MainScene extends BaseCustomScene {
 
   private onGameStatus(gameManager: LoveLetterGameManagerData) {
     this._gameManagerData = gameManager;
-    if (this._playersContainerObject == null) {
-      this.createPlayersContainerObject(gameManager.players);
+    if (!gameManager.currentPlayer) {
+      throw Error("Current player does not exists");
     }
-    if (this._cardStacksContainerObject == null) {
-      this.createCardStacksContainerObject(
-        gameManager.cardPile,
-        gameManager.discardPile,
-        gameManager.asidePile
+
+    if (this._playersContainerObject == null) {
+      this._playersContainerObject = new LoveLetterPlayersContainerGameObject(
+        this,
+        this.game.config.width as number,
+        this.game.config.height as number,
+        gameManager.players,
+        gameManager.currentPlayer
       );
     }
+
+    if (this._cardStacksContainerObject == null) {
+      this._cardStacksContainerObject =
+        new LoveLetterCardStacksContainerGameObject(
+          this,
+          GAME_OBJECT_POSITION_X_CARD_STACKS_CONTAINER,
+          GAME_OBJECT_POSITION_Y_CARD_STACKS_CONTAINER,
+          gameManager.cardPile,
+          gameManager.discardPile,
+          gameManager.asidePile
+        );
+    }
+
     if (
       this._requestedActionsObject == null &&
       gameManager.requestedAction &&
@@ -187,39 +148,11 @@ export default class MainScene extends BaseCustomScene {
     ) {
       this._requestedActionsObject = new LoveLetterRequestedActionGameObject(
         this,
-        700,
-        300,
+        GAME_OBJECT_POSITION_X_REQUESTED_ACTION,
+        GAME_OBJECT_POSITION_Y_REQUESTED_ACTION,
         gameManager.requestedAction,
         gameManager.currentPlayer.user.name
       );
     }
-  }
-
-  private createPlayersContainerObject(players: LoveLetterPlayerData[]) {
-    if (this._gameManagerData?.currentPlayer == null) {
-      return;
-    }
-    this._playersContainerObject = new LoveLetterPlayersContainerGameObject(
-      this,
-      this.game.config.width as number,
-      this.game.config.height as number,
-      players,
-      this._gameManagerData?.currentPlayer
-    );
-  }
-
-  private createCardStacksContainerObject(
-    cardStackPile: LoveLetterCardData[],
-    cardStackDiscard: LoveLetterCardData[],
-    cardStackAside: LoveLetterCardData[]
-  ) {
-    this._cardStacksContainerObject = new LoveLetterCardStacksContainerGameObject(
-      this,
-      660,
-      500,
-      cardStackPile,
-      cardStackDiscard,
-      cardStackAside
-    );
   }
 }

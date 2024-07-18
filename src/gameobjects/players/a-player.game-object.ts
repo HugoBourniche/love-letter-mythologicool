@@ -1,6 +1,6 @@
 import { SimpleLabelGameObject } from "../simple-label.game-object";
 import { Scene } from "phaser";
-import { DEFAULT_STYLE_WHITE } from "../../cst";
+import { DEFAULT_STYLE_WHITE } from "../../utils/constants/cst";
 import { APlayerData } from "../../objects/data/game/players/a-player-data";
 import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 

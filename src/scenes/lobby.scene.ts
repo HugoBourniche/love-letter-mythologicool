@@ -4,7 +4,7 @@ import { LobbyData } from "../objects/data/lobby.data";
 import { LabelledButtonGameObject } from "../gameobjects/forms/buttons/labelled-button.game-object";
 import { LobbyUserData } from "../objects/data/users/lobby-user.data";
 import { SimpleLabelGameObject } from "../gameobjects/simple-label.game-object";
-import { DEFAULT_FONT_SIZE, LOBBY_RATE } from "../cst";
+import { DEFAULT_FONT_SIZE, LOBBY_RATE } from "../utils/constants/cst";
 import { LobbyUserLabelGameObject } from "../gameobjects/forms/lobby-user-label.game-object";
 import { LobbyService } from "../services/lobby.service";
 import { ScenePartPanelPositionsEnum } from "../utils/Factories/scene-part-panel-positions.enum";

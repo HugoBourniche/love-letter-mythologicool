@@ -1,15 +1,14 @@
 import { GameOptionsData } from "../../objects/data/game-options/game-options.data";
-import { BoxSizes } from "../../gameobjects/box-sizes";
-import { PartSceneFactory } from "../../utils/factories/part-scene.factory";
-import { PartScenePositionsEnum } from "../../utils/factories/part-scene-positions.enum";
+import { ScenePartPanelPositionsEnum } from "../../utils/Factories/scene-part-panel-positions.enum";
 import { SimpleLabelField } from "../../gameobjects/forms/simple-label.field";
 import { DEFAULT_STYLE_WHITE } from "../../cst";
 import { SelectorField } from "../../gameobjects/forms/selector.field";
 import { StoneLabelledButtonField } from "../../gameobjects/forms/buttons/stone-labelled-button.field";
 import { LobbyService } from "../../services/lobby.service";
 import { ServicesFactory } from "../../utils/factories/services.factory";
+import { AScenePart } from "./a.scene-part";
 
-export class GameOptionsPanel {
+export class GameOptionsScenePart extends AScenePart {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
@@ -18,10 +17,8 @@ export class GameOptionsPanel {
   private lobbyService: LobbyService;
 
   // INPUTS
-  private _context: Phaser.Scene;
 
   // OBJECTS
-  private _box?: BoxSizes;
   private _gameOptions?: GameOptionsData;
   private _title?: SimpleLabelField;
   private _playerMax?: SelectorField;
@@ -36,7 +33,7 @@ export class GameOptionsPanel {
   // *****************************************************************************************************************
 
   constructor(context: Phaser.Scene) {
-    this._context = context;
+    super(context);
     this.lobbyService = ServicesFactory.Lobby();
   }
 
@@ -48,16 +45,12 @@ export class GameOptionsPanel {
     lobbyKey: string,
     isUserOwner: boolean,
     gameOptions: GameOptionsData,
-    position: PartScenePositionsEnum
+    position: ScenePartPanelPositionsEnum
   ) {
+    super.baseInit(position);
     this._lobbyKey = lobbyKey;
     this._isUserOwner = isUserOwner;
     this._gameOptions = gameOptions;
-    this._box = PartSceneFactory.computeBoxSizes(
-      position,
-      this._context.game.config.width as number,
-      this._context.game.config.height as number
-    );
   }
 
   public preload() {}

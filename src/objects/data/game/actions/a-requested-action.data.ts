@@ -1,51 +1,39 @@
-import { APlayerData } from "../players/a-player-data";
-import { ARequestedActionData } from "../actions/a-requested-action.data";
+import { RequestActionEnum } from "./request-action.enum";
 
-export abstract class GameManagerData<
-  P extends APlayerData,
-  A extends ARequestedActionData
-> {
+export abstract class ARequestedActionData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
-  private _currentPlayer?: P;
-  private _players: P[];
-  private _requestedAction?: A;
+  private _playerName: string;
+  private _action: RequestActionEnum;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
   // *****************************************************************************************************************
 
   protected constructor() {
-    this._players = [];
+    this._playerName = "";
+    this._action = RequestActionEnum.IDLE;
   }
 
   // *****************************************************************************************************************
   // GETTER / SETTER
   // *****************************************************************************************************************
 
-  get currentPlayer(): P | undefined {
-    return this._currentPlayer;
+  get playerName(): string {
+    return this._playerName;
   }
 
-  set currentPlayer(value: P | undefined) {
-    this._currentPlayer = value;
+  set playerName(value: string) {
+    this._playerName = value;
   }
 
-  get players(): P[] {
-    return this._players;
+  get action(): RequestActionEnum {
+    return this._action;
   }
 
-  set players(value: P[]) {
-    this._players = value;
-  }
-
-  get requestedAction(): A | undefined {
-    return this._requestedAction;
-  }
-
-  set requestedAction(value: A | undefined) {
-    this._requestedAction = value;
+  set action(value: RequestActionEnum) {
+    this._action = value;
   }
 }

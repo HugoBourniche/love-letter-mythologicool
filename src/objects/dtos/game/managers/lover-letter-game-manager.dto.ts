@@ -1,8 +1,12 @@
 import { AGameManagerDTO } from "./a-game-manager.dto";
 import { LoveLetterPlayerDTO } from "../players/love-letter-player.dto";
 import { LoveLetterCardDTO } from "../cards/love-letter-card.dto";
+import { LoveLetterRequestedActionDTO } from "../actions/loveletter-requested-action.dto";
 
-export class LoverLetterGameManagerDTO extends AGameManagerDTO<LoveLetterPlayerDTO> {
+export class LoverLetterGameManagerDTO extends AGameManagerDTO<
+  LoveLetterPlayerDTO,
+  LoveLetterRequestedActionDTO
+> {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

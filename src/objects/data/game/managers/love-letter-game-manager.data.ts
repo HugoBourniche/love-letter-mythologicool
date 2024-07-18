@@ -1,11 +1,11 @@
 import { LoveLetterPlayerData } from "../players/love-letter-player.data";
 import { GameManagerData } from "./game-manager.data";
 import { LoveLetterCardData } from "../cards/love-letter-card.data";
-import { LoveLetterRequestActionData } from "../actions/love-letter-request-action.data";
+import { LoveLetterRequestedActionData } from "../actions/love-letter-requested-action.data";
 
 export class LoveLetterGameManagerData extends GameManagerData<
   LoveLetterPlayerData,
-  LoveLetterRequestActionData
+  LoveLetterRequestedActionData
 > {
   // *****************************************************************************************************************
   // ATTRIBUTES

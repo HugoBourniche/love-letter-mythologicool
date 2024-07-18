@@ -15,7 +15,8 @@ import { LoveLetterPlayerData } from "../../objects/data/game/players/love-lette
 import { UserDTO } from "../../objects/dtos/users/user.dto";
 import { UserData } from "../../objects/data/users/user.data";
 import { LoveLetterRequestedActionDTO } from "../../objects/dtos/game/actions/loveletter-requested-action.dto";
-import { LoveLetterRequestActionData } from "../../objects/data/game/actions/love-letter-request-action.data";
+import { LoveLetterRequestedActionData } from "../../objects/data/game/actions/love-letter-requested-action.data";
+import { RequestActionEnum } from "../../objects/data/game/actions/request-action.enum";
 
 export class DtoToDataConverter {
   // *****************************************************************************************************************
@@ -157,10 +158,13 @@ export class DtoToDataConverter {
 
   public static loveLetterRequestedAction(
     requestedActionDTO: LoveLetterRequestedActionDTO
-  ): LoveLetterRequestActionData {
-    const requestAction = new LoveLetterRequestActionData();
+  ): LoveLetterRequestedActionData {
+    const requestAction = new LoveLetterRequestedActionData();
     requestAction.playerName = requestedActionDTO.playerName;
-    requestAction.action = requestedActionDTO.action;
+    requestAction.action =
+      RequestActionEnum[
+        requestedActionDTO.action as keyof typeof RequestActionEnum
+      ];
     return requestAction;
   }
 }

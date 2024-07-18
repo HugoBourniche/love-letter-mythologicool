@@ -14,8 +14,8 @@ import { GAME_RATE } from "../cst";
 import { BaseCustomScene } from "./base-custom.scene";
 import { LoveLetterPlayersContainerGame } from "../gameobjects/players/love-letter-players-container.game";
 import { LoveLetterCardData } from "../objects/data/game/cards/love-letter-card.data";
-import { SimpleLabelField } from "../gameobjects/forms/simple-label.field";
 import { LoveLetterCardStacksContainerGame } from "../gameobjects/stack/love-letter-card-stacks-container.game";
+import { LoveLetterRequestedActionGame } from "../gameobjects/actions/love-letter-requested-action.game";
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -31,7 +31,7 @@ export default class MainScene extends BaseCustomScene {
   // Game Objects
   private _playersContainerObject?: LoveLetterPlayersContainerGame;
   private _cardStacksContainerObject?: LoveLetterCardStacksContainerGame;
-  private _requestedActions?: SimpleLabelField;
+  private _requestedActionsObject?: LoveLetterRequestedActionGame;
 
   // Data Objects
   private _mainSceneData?: MainSceneData;
@@ -180,6 +180,32 @@ export default class MainScene extends BaseCustomScene {
         gameManager.asidePile
       );
     }
+    if (
+      this._requestedActionsObject == null &&
+      gameManager.requestedAction &&
+      gameManager.currentPlayer
+    ) {
+      this._requestedActionsObject = new LoveLetterRequestedActionGame(
+        this,
+        700,
+        300,
+        gameManager.requestedAction,
+        gameManager.currentPlayer.user.name
+      );
+    }
+  }
+
+  private createPlayersContainerObject(players: LoveLetterPlayerData[]) {
+    if (this._gameManagerData?.currentPlayer == null) {
+      return;
+    }
+    this._playersContainerObject = new LoveLetterPlayersContainerGame(
+      this,
+      this.game.config.width as number,
+      this.game.config.height as number,
+      players,
+      this._gameManagerData?.currentPlayer
+    );
   }
 
   private createCardStacksContainerObject(
@@ -194,19 +220,6 @@ export default class MainScene extends BaseCustomScene {
       cardStackPile,
       cardStackDiscard,
       cardStackAside
-    );
-  }
-
-  private createPlayersContainerObject(players: LoveLetterPlayerData[]) {
-    if (this._gameManagerData?.currentPlayer == null) {
-      return;
-    }
-    this._playersContainerObject = new LoveLetterPlayersContainerGame(
-      this,
-      this.game.config.width as number,
-      this.game.config.height as number,
-      players,
-      this._gameManagerData?.currentPlayer
     );
   }
 }

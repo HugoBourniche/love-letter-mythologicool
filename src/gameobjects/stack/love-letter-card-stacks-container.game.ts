@@ -46,7 +46,6 @@ export class LoveLetterCardStacksContainerGame extends PositionedSceneObject {
 
   create() {
     let previousObjectWidth = 0;
-    console.log("PILE: Position X = " + this._positionX + ", previous stack width = " + previousObjectWidth);
     this._cardStackPileObjects = this.createStacksObject(
       this._cardStackPile,
       this._positionX + previousObjectWidth,
@@ -54,7 +53,6 @@ export class LoveLetterCardStacksContainerGame extends PositionedSceneObject {
       "Pile"
     );
     previousObjectWidth = this._cardStackPileObjects.stackWidth();
-    console.log("DISCARD: Position X = " + this._positionX + ", previous stack width = " + previousObjectWidth + ", paddingX = " + this._paddingX);
     this._cardStackDiscardObjects = this.createStacksObject(
       this._cardStackDiscard,
       this._positionX + previousObjectWidth + this._paddingX,
@@ -62,7 +60,6 @@ export class LoveLetterCardStacksContainerGame extends PositionedSceneObject {
       "Discard"
     );
     previousObjectWidth += this._cardStackDiscardObjects.stackWidth();
-    console.log("ASIDE: Position X = " + this._positionX + ", previous stack width = " + previousObjectWidth + ", paddingX = " + this._paddingX * 2);
     this._cardStackAsideObjects = this.createStacksObject(
       this._cardStackAside,
       this._positionX + previousObjectWidth + this._paddingX * 2,

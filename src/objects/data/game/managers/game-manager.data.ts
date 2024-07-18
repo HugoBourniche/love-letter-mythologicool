@@ -1,9 +1,9 @@
 import { APlayerData } from "../players/a-player-data";
-import { ARequestActionData } from "../actions/a-request-action.data";
+import { ARequestedActionData } from "../actions/a-requested-action.data";
 
 export abstract class GameManagerData<
   P extends APlayerData,
-  A extends ARequestActionData
+  A extends ARequestedActionData
 > {
   // *****************************************************************************************************************
   // ATTRIBUTES

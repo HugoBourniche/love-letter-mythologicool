@@ -1,10 +1,12 @@
-export abstract class ARequestActionData {
+import { RequestActionEnum } from "./request-action.enum";
+
+export abstract class ARequestedActionData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
 
   private _playerName: string;
-  private _action: string;
+  private _action: RequestActionEnum;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -12,7 +14,7 @@ export abstract class ARequestActionData {
 
   protected constructor() {
     this._playerName = "";
-    this._action = "";
+    this._action = RequestActionEnum.IDLE;
   }
 
   // *****************************************************************************************************************
@@ -27,11 +29,11 @@ export abstract class ARequestActionData {
     this._playerName = value;
   }
 
-  get action(): string {
+  get action(): RequestActionEnum {
     return this._action;
   }
 
-  set action(value: string) {
+  set action(value: RequestActionEnum) {
     this._action = value;
   }
 }

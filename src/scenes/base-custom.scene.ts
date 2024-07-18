@@ -19,6 +19,10 @@ export abstract class BaseCustomScene extends Phaser.Scene {
     }
   }
 
+  // *****************************************************************************************************************
+  // ABSTRACT METHODS
+  // *****************************************************************************************************************
+
   abstract get updateRate(): number;
   abstract onUpdate(): void;
 }

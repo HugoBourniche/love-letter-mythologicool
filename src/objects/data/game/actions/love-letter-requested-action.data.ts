@@ -1,6 +1,6 @@
-import { ARequestActionData } from "./a-request-action.data";
+import { ARequestedActionData } from "./a-requested-action.data";
 
-export class LoveLetterRequestActionData extends ARequestActionData {
+export class LoveLetterRequestedActionData extends ARequestedActionData {
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************

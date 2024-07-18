@@ -1,4 +1,4 @@
-import { DEFAULT_STYLE } from "../../cst";
+import { DEFAULT_STYLE } from "../../utils/constants/cst";
 import { SimpleLabelGameObject } from "../simple-label.game-object";
 import { SimpleButtonGameObject } from "./buttons/simple-button.game-object";
 import { SimpleInteractiveGameObject } from "./simple-interactive.game-object";

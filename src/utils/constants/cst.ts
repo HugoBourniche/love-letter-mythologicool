@@ -1,8 +1,5 @@
 import Phaser from "phaser";
 
-export const SCREEN_WIDTH = 1280;
-export const SCREEN_HEIGHT = 720;
-
 export const CARD_LIST = [
   "loveletter_classic_0_spy",
   "loveletter_classic_0_spy",

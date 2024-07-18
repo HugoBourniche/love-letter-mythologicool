@@ -1,7 +1,7 @@
 import { CardService } from "./card.service";
 import Card from "../objects/card";
 import { randomInt } from "../utils/utils";
-import { CARD_LIST } from "../cst";
+import { CARD_LIST } from "../utils/constants/cst";
 
 export class DealerService {
   private context: Phaser.Scene;

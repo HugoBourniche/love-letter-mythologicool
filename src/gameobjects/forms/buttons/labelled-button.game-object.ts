@@ -1,7 +1,7 @@
 import Text = Phaser.GameObjects.Text;
 import { Scene } from "phaser";
 import { SimpleButtonGameObject } from "./simple-button.game-object";
-import { DEFAULT_STYLE } from "../../../cst";
+import { DEFAULT_STYLE } from "../../../utils/constants/cst";
 
 export class LabelledButtonGameObject extends SimpleButtonGameObject {
   // *****************************************************************************************************************

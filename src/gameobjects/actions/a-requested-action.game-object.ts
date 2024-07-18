@@ -2,7 +2,7 @@ import { SimpleLabelGameObject } from "../simple-label.game-object";
 import { ARequestedActionData } from "../../objects/data/game/actions/a-requested-action.data";
 import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 import Phaser from "phaser";
-import { DEFAULT_STYLE_WHITE } from "../../cst";
+import { DEFAULT_STYLE_WHITE } from "../../utils/constants/cst";
 
 export abstract class ARequestedActionGameObject<
   A extends ARequestedActionData

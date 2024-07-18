@@ -1,7 +1,7 @@
 import { GameOptionsData } from "../../objects/data/game-options/game-options.data";
 import { ScenePartPanelPositionsEnum } from "../../utils/Factories/scene-part-panel-positions.enum";
 import { SimpleLabelGameObject } from "../../gameobjects/simple-label.game-object";
-import { DEFAULT_STYLE_WHITE } from "../../cst";
+import { DEFAULT_STYLE_WHITE } from "../../utils/constants/cst";
 import { SelectorGameObject } from "../../gameobjects/forms/selector.game-object";
 import { StoneLabelledButtonGameObject } from "../../gameobjects/forms/buttons/stone-labelled-button.game-object";
 import { LobbyService } from "../../services/lobby.service";
@@ -53,8 +53,7 @@ export class GameOptionsScenePart extends AScenePart {
     this._gameOptions = gameOptions;
   }
 
-  public preload() {
-  }
+  public preload() {}
 
   public create() {
     if (this._box == null || this._gameOptions == null) {

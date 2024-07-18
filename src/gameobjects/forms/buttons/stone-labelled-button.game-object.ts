@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { DEFAULT_STYLE } from "../../../cst";
+import { DEFAULT_STYLE } from "../../../utils/constants/cst";
 import { LabelledButtonGameObject } from "./labelled-button.game-object";
 
 export class StoneLabelledButtonGameObject extends LabelledButtonGameObject {

@@ -6,7 +6,7 @@ import Graphics = Phaser.GameObjects.Graphics;
 import Tween = Phaser.Tweens.Tween;
 import GameObject = Phaser.GameObjects.GameObject;
 import { PositionedSceneGameObject } from "../positioned-scene.game-object";
-import { DEFAULT_STYLE } from "../../cst";
+import { DEFAULT_STYLE } from "../../utils/constants/cst";
 
 /**
  * Source

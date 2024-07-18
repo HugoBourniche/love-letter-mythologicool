@@ -1,7 +1,7 @@
 import { PositionedSceneGameObject } from "./positioned-scene.game-object";
 import Text = Phaser.GameObjects.Text;
 import TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
-import { DEFAULT_STYLE } from "../cst";
+import { DEFAULT_STYLE } from "../utils/constants/cst";
 
 export class SimpleLabelGameObject extends PositionedSceneGameObject {
   // *****************************************************************************************************************

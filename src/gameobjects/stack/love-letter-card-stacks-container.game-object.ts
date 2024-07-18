@@ -9,10 +9,7 @@ export class LoveLetterCardStacksContainerGameObject extends PositionedSceneGame
   // *****************************************************************************************************************
 
   // INPUTS
-  private _cardStackPile: LoveLetterCardData[];
-  private _cardStackDiscard: LoveLetterCardData[];
-  private _cardStackAside: LoveLetterCardData[];
-  private _paddingX: number;
+  private readonly _paddingX: number;
   // OBJECTS
   private _cardStackPileObjects?: LoveLetterCardStackGameObject;
   private _cardStackDiscardObjects?: LoveLetterCardStackGameObject;
@@ -33,35 +30,36 @@ export class LoveLetterCardStacksContainerGameObject extends PositionedSceneGame
     xPadding = 40
   ) {
     super(context, positionX, positionY);
-    this._cardStackPile = cardStackPile;
-    this._cardStackDiscard = cardStackDiscard;
-    this._cardStackAside = cardStackAside;
     this._paddingX = xPadding;
-    this.create();
+    this.create(cardStackPile, cardStackDiscard, cardStackAside);
   }
 
   // *****************************************************************************************************************
   // PHASER LIFE CYCLE
   // *****************************************************************************************************************
 
-  create() {
+  create(
+    cardStackPile: LoveLetterCardData[],
+    cardStackDiscard: LoveLetterCardData[],
+    cardStackAside: LoveLetterCardData[]
+  ) {
     let previousObjectWidth = 0;
     this._cardStackPileObjects = this.createStacksObject(
-      this._cardStackPile,
+      cardStackPile,
       this._positionX + previousObjectWidth,
       this._positionY,
       "Pile"
     );
     previousObjectWidth = this._cardStackPileObjects.stackWidth();
     this._cardStackDiscardObjects = this.createStacksObject(
-      this._cardStackDiscard,
+      cardStackDiscard,
       this._positionX + previousObjectWidth + this._paddingX,
       this._positionY,
       "Discard"
     );
     previousObjectWidth += this._cardStackDiscardObjects.stackWidth();
     this._cardStackAsideObjects = this.createStacksObject(
-      this._cardStackAside,
+      cardStackAside,
       this._positionX + previousObjectWidth + this._paddingX * 2,
       this._positionY,
       "Aside"

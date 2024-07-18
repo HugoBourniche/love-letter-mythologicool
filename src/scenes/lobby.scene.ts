@@ -7,10 +7,10 @@ import { SimpleLabelField } from "../gameobjects/forms/simple-label.field";
 import { DEFAULT_FONT_SIZE, LOBBY_RATE } from "../cst";
 import { LobbyUserField } from "../gameobjects/forms/lobby-user.field";
 import { LobbyService } from "../services/lobby.service";
-import { PartScenePositionsEnum } from "../utils/factories/part-scene-positions.enum";
+import { ScenePartPanelPositionsEnum } from "../utils/Factories/scene-part-panel-positions.enum";
 import { DataFactory } from "../utils/factories/data.factory";
 import { DtoToDataConverter } from "../utils/converters/dto-to-data.converter";
-import { GameOptionsPanel } from "./panel/game-options.panel";
+import { GameOptionsScenePart } from "./panel/game-options.scene-part";
 import { LobbySceneData } from "../objects/data/lobby-scene.data";
 import { StoneLabelledButtonField } from "../gameobjects/forms/buttons/stone-labelled-button.field";
 import { MainSceneData } from "../objects/data/main-scene.data";
@@ -29,7 +29,7 @@ export default class LobbyScene extends BaseCustomScene {
   private _gameManagerService: GameManagerService;
 
   // Scene panel
-  private _gameOptionsPanel: GameOptionsPanel;
+  private _gameOptionsPanel: GameOptionsScenePart;
 
   // Objects
   private _startButton?: LabelledButtonField;
@@ -49,7 +49,7 @@ export default class LobbyScene extends BaseCustomScene {
     this._preloadService = ServicesFactory.Preload(this);
     this._lobbyService = ServicesFactory.Lobby();
     this._gameManagerService = ServicesFactory.GameManager();
-    this._gameOptionsPanel = new GameOptionsPanel(this);
+    this._gameOptionsPanel = new GameOptionsScenePart(this);
     this._lobbyData = {} as LobbyData;
     this._playerLabels = [];
     this._currentUser = new LobbyUserData();
@@ -72,7 +72,7 @@ export default class LobbyScene extends BaseCustomScene {
       lobbyData.key,
       this._currentUser.isOwner,
       lobbyData.options,
-      PartScenePositionsEnum.MID_RIGHT
+      ScenePartPanelPositionsEnum.MID_RIGHT
     );
   }
 

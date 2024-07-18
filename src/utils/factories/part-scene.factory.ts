@@ -1,17 +1,17 @@
-import { BoxSizes } from "../../gameobjects/box-sizes";
-import { PartScenePositionsEnum } from "./part-scene-positions.enum";
+import { ScenePartPanel } from "../../gameobjects/scene-part.panel";
+import { ScenePartPanelPositionsEnum } from "./scene-part-panel-positions.enum";
 
 export class PartSceneFactory {
-  public static computeBoxSizes(
-    position: PartScenePositionsEnum,
+  public static computeScenePartPanelPositions(
+    position: ScenePartPanelPositionsEnum,
     width: number,
     height: number
-  ): BoxSizes {
+  ): ScenePartPanel {
     switch (position) {
-      case PartScenePositionsEnum.MID_RIGHT:
-        return new BoxSizes(width / 2, 0, width, height);
+      case ScenePartPanelPositionsEnum.MID_RIGHT:
+        return new ScenePartPanel(width / 2, 0, width, height);
       default:
-        return new BoxSizes(0, 0, width, height);
+        return new ScenePartPanel(0, 0, width, height);
     }
   }
 }

@@ -14,9 +14,12 @@ import { LoveLetterRequestedActionGameObject } from "../gameobjects/actions/love
 import {
   GAME_OBJECT_POSITION_X_CARD_STACKS_CONTAINER,
   GAME_OBJECT_POSITION_X_REQUESTED_ACTION,
+  GAME_OBJECT_POSITION_X_ROUND_NUMBER,
   GAME_OBJECT_POSITION_Y_CARD_STACKS_CONTAINER,
   GAME_OBJECT_POSITION_Y_REQUESTED_ACTION,
+  GAME_OBJECT_POSITION_Y_ROUND_NUMBER,
 } from "../utils/constants/positions.cst";
+import { RoundNumberLabelGameObject } from "../gameobjects/round-number-label.game-object";
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -31,6 +34,7 @@ export default class MainScene extends BaseCustomScene {
   private _playersContainerObject?: LoveLetterPlayersContainerGameObject;
   private _cardStacksContainerObject?: LoveLetterCardStacksContainerGameObject;
   private _requestedActionsObject?: LoveLetterRequestedActionGameObject;
+  private _roundNumberObject?: RoundNumberLabelGameObject;
 
   // Data Objects
   private _mainSceneData?: MainSceneData;
@@ -119,6 +123,15 @@ export default class MainScene extends BaseCustomScene {
         this.game.config.height as number,
         gameManager.players,
         gameManager.currentPlayer
+      );
+    }
+
+    if (this._roundNumberObject == null) {
+      this._roundNumberObject = new RoundNumberLabelGameObject(
+        this,
+        GAME_OBJECT_POSITION_X_ROUND_NUMBER,
+        GAME_OBJECT_POSITION_Y_ROUND_NUMBER,
+        gameManager.roundNumber
       );
     }
 

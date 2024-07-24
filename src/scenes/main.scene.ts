@@ -1,6 +1,3 @@
-import Phaser from "phaser";
-import { DealerService } from "../services/dealer.service";
-import { ZoneService } from "../services/zone.service";
 import { PreloadService } from "../services/preload.service";
 import { ServicesFactory } from "../utils/factories/services.factory";
 import { GameManagerService } from "../services/game-manager.service";
@@ -27,8 +24,6 @@ export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
 
   // Services
-  private dealerService: DealerService;
-  private zoneService: ZoneService;
   private _preloadService: PreloadService;
   private _gameManagerService: GameManagerService;
 
@@ -47,8 +42,6 @@ export default class MainScene extends BaseCustomScene {
 
   constructor() {
     super("main-scene");
-    this.dealerService = new DealerService(this);
-    this.zoneService = new ZoneService();
     this._preloadService = ServicesFactory.Preload(this);
     this._gameManagerService = ServicesFactory.GameManager();
   }

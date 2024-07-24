@@ -15,6 +15,7 @@ export class LoverLetterGameManagerDTO extends AGameManagerDTO<
   public discardPile: LoveLetterCardDTO[];
   public asideCard: LoveLetterCardDTO[];
   public playerTurn: number;
+  public roundNumber: number;
 
   // *****************************************************************************************************************
   // CONSTRUCTOR
@@ -26,5 +27,6 @@ export class LoverLetterGameManagerDTO extends AGameManagerDTO<
     this.discardPile = [];
     this.asideCard = [];
     this.playerTurn = -1;
+    this.roundNumber = -1;
   }
 }

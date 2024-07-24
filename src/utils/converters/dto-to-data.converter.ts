@@ -97,6 +97,7 @@ export class DtoToDataConverter {
       );
     }
     gameManager.playerTurn = gameManagerDTO.playerTurn;
+    gameManager.roundNumber = gameManagerDTO.roundNumber;
     gameManager.cardPile = this.loveLetterCards(gameManagerDTO.cardPile);
     gameManager.discardPile = this.loveLetterCards(gameManagerDTO.discardPile);
     gameManager.asidePile = this.loveLetterCards(gameManagerDTO.asideCard);

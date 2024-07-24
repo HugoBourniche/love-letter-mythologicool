@@ -12,6 +12,7 @@ export class LoveLetterGameManagerData extends GameManagerData<
   // *****************************************************************************************************************
 
   private _playerTurn: number;
+  private _roundNumber: number;
   private _cardPile: LoveLetterCardData[];
   private _discardPile: LoveLetterCardData[];
   private _asidePile: LoveLetterCardData[];
@@ -23,6 +24,7 @@ export class LoveLetterGameManagerData extends GameManagerData<
   constructor() {
     super();
     this._playerTurn = -1;
+    this._roundNumber = -1;
     this._cardPile = [];
     this._discardPile = [];
     this._asidePile = [];
@@ -37,6 +39,14 @@ export class LoveLetterGameManagerData extends GameManagerData<
 
   set playerTurn(value: number) {
     this._playerTurn = value;
+  }
+
+  get roundNumber(): number {
+    return this._roundNumber;
+  }
+
+  set roundNumber(value: number) {
+    this._roundNumber = value;
   }
 
   get cardPile(): LoveLetterCardData[] {

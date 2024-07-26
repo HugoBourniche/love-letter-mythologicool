@@ -68,6 +68,18 @@ export class TextInputFieldGameObject extends PositionedSceneGameObject {
   }
 
   // *****************************************************************************************************************
+  // OVERRIDE METHODS
+  // *****************************************************************************************************************
+
+  public override clear(): void {
+    this._textObject.removedFromScene();
+    this._imageFrame?.removedFromScene();
+    this._rectangleFrame?.removedFromScene();
+    this._cursor?.removedFromScene();
+    this._tween?.removeAllListeners();
+  }
+
+  // *****************************************************************************************************************
   // PUBLIC METHODS
   // *****************************************************************************************************************
 
@@ -92,18 +104,6 @@ export class TextInputFieldGameObject extends PositionedSceneGameObject {
         this._cursor.x = this._textObject.x + textWidth - 7;
       }
     }
-  }
-
-  // *****************************************************************************************************************
-  // OVERRIDE METHODS
-  // *****************************************************************************************************************
-
-  public override clear(): void {
-    this._textObject.removedFromScene();
-    this._imageFrame?.removedFromScene();
-    this._rectangleFrame?.removedFromScene();
-    this._cursor?.removedFromScene();
-    this._tween?.removeAllListeners();
   }
 
   // *****************************************************************************************************************

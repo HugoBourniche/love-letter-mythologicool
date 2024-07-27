@@ -3,11 +3,15 @@ import { ACardData } from "../../objects/data/game/cards/a-card.data";
 import { ACardGameObject } from "../cards/a-card.game-object";
 import { SimpleLabelGameObject } from "../simple-label.game-object";
 import { DEFAULT_STYLE_WHITE } from "../../utils/constants/cst";
+import { IClickInteractive } from "../../utils/interfaces/i-click.interactive";
 
 export abstract class ACardStackGameObject<
-  C extends ACardData,
-  CG extends ACardGameObject<C>
-> extends PositionedSceneGameObject {
+    C extends ACardData,
+    CG extends ACardGameObject<C>
+  >
+  extends PositionedSceneGameObject
+  implements IClickInteractive
+{
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
@@ -53,6 +57,16 @@ export abstract class ACardStackGameObject<
   public clear(): void {
     this._topCardObject?.clear();
     this._labelObject?.clear();
+  }
+
+  // *****************************************************************************************************************
+  // IMPLEMENTS METHODS
+  // *****************************************************************************************************************
+
+  // IClickInteractive
+
+  onClick(onClickEvent: () => void): void {
+    this._topCardObject?.onClick(onClickEvent);
   }
 
   // *****************************************************************************************************************

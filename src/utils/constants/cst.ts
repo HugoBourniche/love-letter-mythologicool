@@ -1,27 +1,10 @@
 import Phaser from "phaser";
 
-export const CARD_LIST = [
-  "loveletter_classic_0_spy",
-  "loveletter_classic_0_spy",
-  "loveletter_classic_1_guard",
-  "loveletter_classic_1_guard",
-  "loveletter_classic_1_guard",
-  "loveletter_classic_1_guard",
-  "loveletter_classic_1_guard",
-  "loveletter_classic_1_guard," + "loveletter_classic_2_priest",
-  "loveletter_classic_2_priest",
-  "loveletter_classic_3_baron",
-  "loveletter_classic_3_baron",
-  "loveletter_classic_4_handmaid",
-  "loveletter_classic_4_handmaid",
-  "loveletter_classic_5_prince",
-  "loveletter_classic_5_prince",
-  "loveletter_classic_6_chancellor",
-  "loveletter_classic_6_chancellor",
-  "loveletter_classic_7_king",
-  "loveletter_classic_8_countess",
-  "loveletter_classic_9_princess",
-];
+// Phaser events
+export const PHASER_EVENT_KEY_DOWN = "keydown";
+export const PHASER_EVENT_POINTER_OUT = "pointerout";
+export const PHASER_EVENT_POINTER_OVER = "pointerover";
+export const PHASER_EVENT_POINTER_UP = "pointerup";
 
 export const DEFAULT_FONT_SIZE = "23px";
 export const DEFAULT_STYLE = {

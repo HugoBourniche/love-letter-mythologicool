@@ -1,10 +1,13 @@
 import { ACardData } from "../../objects/data/game/cards/a-card.data";
-import Image = Phaser.GameObjects.Image;
 import { PositionedSceneGameObject } from "../positioned-scene.game-object";
+import { IClickInteractive } from "../../utils/interfaces/i-click.interactive";
+import Image = Phaser.GameObjects.Image;
+import { PHASER_EVENT_POINTER_UP } from "../../utils/constants/cst";
 
-export abstract class ACardGameObject<
-  C extends ACardData
-> extends PositionedSceneGameObject {
+export abstract class ACardGameObject<C extends ACardData>
+  extends PositionedSceneGameObject
+  implements IClickInteractive
+{
   // *****************************************************************************************************************
   // ATTRIBUTES
   // *****************************************************************************************************************
@@ -42,6 +45,16 @@ export abstract class ACardGameObject<
 
   public override clear() {
     this._image.removedFromScene();
+  }
+
+  // *****************************************************************************************************************
+  // IMPLEMENTS METHODS
+  // *****************************************************************************************************************
+
+  // IClickInteractive
+
+  onClick(onClickEvent: () => void): void {
+    this._image.on(PHASER_EVENT_POINTER_UP, () => onClickEvent());
   }
 
   // *****************************************************************************************************************

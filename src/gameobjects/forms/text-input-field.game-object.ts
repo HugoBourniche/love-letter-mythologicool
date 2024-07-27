@@ -6,7 +6,11 @@ import Graphics = Phaser.GameObjects.Graphics;
 import Tween = Phaser.Tweens.Tween;
 import GameObject = Phaser.GameObjects.GameObject;
 import { PositionedSceneGameObject } from "../positioned-scene.game-object";
-import { DEFAULT_STYLE } from "../../utils/constants/cst";
+import {
+  DEFAULT_STYLE,
+  PHASER_EVENT_KEY_DOWN,
+  PHASER_EVENT_POINTER_UP,
+} from "../../utils/constants/cst";
 
 /**
  * Source
@@ -157,31 +161,33 @@ export class TextInputFieldGameObject extends PositionedSceneGameObject {
   }
 
   private initKeydownEvent() {
-    this._context.input.keyboard?.on("keydown", (event: KeyboardEvent) => {
-      if (!this._isFocus) {
-        return;
-      }
+    this._context.input.keyboard?.on(
+      PHASER_EVENT_KEY_DOWN,
+      (event: KeyboardEvent) => {
+        if (!this._isFocus) {
+          return;
+        }
 
-      if (event.key === "Backspace" && this._value.length > 0) {
-        // Delete
-        this._value = this._value.slice(0, -1);
-      } else if (
-        event.key.length === 1 &&
-        event.key.match(/[a-zA-Z0-9\s\-_]/) &&
-        this._value.length < this._maxLength
-      ) {
-        this._value += event.key;
-      } else if (this._value.length === this._maxLength) {
-        // max
+        if (event.key === "Backspace" && this._value.length > 0) {
+          // Delete
+          this._value = this._value.slice(0, -1);
+        } else if (
+          event.key.length === 1 &&
+          event.key.match(/[a-zA-Z0-9\s\-_]/) &&
+          this._value.length < this._maxLength
+        ) {
+          this._value += event.key;
+        } else if (this._value.length === this._maxLength) {
+          // max
+        }
+        this._textObject.text = this._value;
       }
-      this._textObject.text = this._value;
-    });
+    );
   }
 
   // Activate/ deactivate the input form
   private animateAfterFocus(gameObject: GameObject) {
-    gameObject.on("pointerup", () => {
-      console.log("Pointer up");
+    gameObject.on(PHASER_EVENT_POINTER_UP, () => {
       if (this._isFocus) {
         return;
       }
@@ -210,8 +216,8 @@ export class TextInputFieldGameObject extends PositionedSceneGameObject {
   }
 
   private animateFocusOut() {
-    this._context.input.off("pointerup");
-    this._context.input.once("pointerup", () => {
+    this._context.input.off(PHASER_EVENT_POINTER_UP);
+    this._context.input.once(PHASER_EVENT_POINTER_UP, () => {
       if (this._isFocus) {
         let delayTime = 0;
 

@@ -32,6 +32,7 @@ export class LoveLetterCardStacksContainerGameObject extends PositionedSceneGame
     super(context, positionX, positionY);
     this._paddingX = xPadding;
     this.create(cardStackPile, cardStackDiscard, cardStackAside);
+    this.enableInteractions();
   }
 
   // *****************************************************************************************************************
@@ -77,6 +78,15 @@ export class LoveLetterCardStacksContainerGameObject extends PositionedSceneGame
   }
 
   // *****************************************************************************************************************
+  // PUBLIC METHODS
+  // *****************************************************************************************************************
+
+  public enableInteractions() {
+    this.enableStackPileInteraction();
+    this.enableStackDiscardInteraction();
+    this.enableStackAsideInteraction();
+  }
+  // *****************************************************************************************************************
   // PRIVATE METHODS
   // *****************************************************************************************************************
 
@@ -94,5 +104,19 @@ export class LoveLetterCardStacksContainerGameObject extends PositionedSceneGame
       _cardStack,
       _cardStack.length != 1
     );
+  }
+
+  // Events
+
+  enableStackPileInteraction() {
+    this._cardStackPileObjects?.onClick(() => console.log("click on stack"));
+  }
+
+  enableStackDiscardInteraction() {
+    // TODO
+  }
+
+  enableStackAsideInteraction() {
+    // TODO
   }
 }

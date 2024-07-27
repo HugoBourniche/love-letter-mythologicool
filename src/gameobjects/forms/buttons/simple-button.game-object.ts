@@ -1,6 +1,11 @@
 import { Scene } from "phaser";
 import Image = Phaser.GameObjects.Image;
 import { SimpleInteractiveGameObject } from "../simple-interactive.game-object";
+import {
+  PHASER_EVENT_POINTER_OUT,
+  PHASER_EVENT_POINTER_OVER,
+  PHASER_EVENT_POINTER_UP,
+} from "../../../utils/constants/cst";
 
 export class SimpleButtonGameObject extends SimpleInteractiveGameObject {
   // *****************************************************************************************************************
@@ -55,10 +60,12 @@ export class SimpleButtonGameObject extends SimpleInteractiveGameObject {
   // *****************************************************************************************************************
 
   private enableAnimation(): void {
-    this._image.on("pointerup", () => this._action());
-    this._image.on("pointerover", () =>
+    this._image.on(PHASER_EVENT_POINTER_UP, () => this._action());
+    this._image.on(PHASER_EVENT_POINTER_OVER, () =>
       this._image.setTexture(this._imageRef + "Hover")
     );
-    this._image.on("pointerout", () => this._image.setTexture(this._imageRef));
+    this._image.on(PHASER_EVENT_POINTER_OUT, () =>
+      this._image.setTexture(this._imageRef)
+    );
   }
 }

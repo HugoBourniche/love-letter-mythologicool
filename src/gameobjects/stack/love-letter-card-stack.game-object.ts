@@ -32,7 +32,7 @@ export class LoveLetterCardStackGameObject extends ACardStackGameObject<
   protected override initCanvas(): void {
     super.initCanvas();
     if (this._cardStack.length > 0) {
-      this.drawCard();
+      this.initTopCard();
       this.adjustLabelPositionWithCard();
     }
   }
@@ -61,7 +61,7 @@ export class LoveLetterCardStackGameObject extends ACardStackGameObject<
   // PRIVATE METHODS
   // *****************************************************************************************************************
 
-  private drawCard(): void {
+  private initTopCard(): void {
     const lastCard = this._cardStack[this._cardStack.length - 1];
     this._topCardObject = new LoveLetterCardGameObject(
       this._context,

@@ -3,10 +3,11 @@ import { PositionedSceneGameObject } from "../positioned-scene.game-object";
 import { IClickInteractive } from "../../utils/interfaces/i-click.interactive";
 import Image = Phaser.GameObjects.Image;
 import { PHASER_EVENT_POINTER_UP } from "../../utils/constants/cst";
+import { IDraggableInteractive } from "../../utils/interfaces/i-draggable.interactive";
 
 export abstract class ACardGameObject<C extends ACardData>
   extends PositionedSceneGameObject
-  implements IClickInteractive
+  implements IClickInteractive, IDraggableInteractive
 {
   // *****************************************************************************************************************
   // ATTRIBUTES
@@ -36,6 +37,7 @@ export abstract class ACardGameObject<C extends ACardData>
       positionY,
       card.spriteId
     );
+    this._image.setInteractive();
     this._image.setScale(scale, scale);
   }
 
@@ -53,8 +55,14 @@ export abstract class ACardGameObject<C extends ACardData>
 
   // IClickInteractive
 
-  onClick(onClickEvent: () => void): void {
+  public onClick(onClickEvent: () => void): void {
     this._image.on(PHASER_EVENT_POINTER_UP, () => onClickEvent());
+  }
+
+  // IDraggableInteractive
+
+  public enableDrag(): void {
+    this._context.input.setDraggable(this._image);
   }
 
   // *****************************************************************************************************************

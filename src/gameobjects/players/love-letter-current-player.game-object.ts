@@ -41,6 +41,7 @@ export class LoveLetterCurrentPlayerGameObject extends LoveLetterPlayerGameObjec
         cardData,
         0.18
       );
+      cardObject.enableDrag();
       this._cardObjects.push(cardObject);
     }
   }

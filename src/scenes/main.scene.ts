@@ -20,6 +20,8 @@ import {
   GAME_OBJECT_POSITION_Y_ROUND_NUMBER,
 } from "../utils/constants/positions.cst";
 import { RoundNumberLabelGameObject } from "../gameobjects/round-number-label.game-object";
+import Pointer = Phaser.Input.Pointer;
+import Transform = Phaser.GameObjects.Components.Transform;
 
 export default class MainScene extends BaseCustomScene {
   // *****************************************************************************************************************
@@ -72,6 +74,18 @@ export default class MainScene extends BaseCustomScene {
 
   create() {
     this.updateGameStatus(); // Used in update
+    this.input.on(
+      "drag",
+      (
+        pointer: Pointer,
+        gameObject: Transform,
+        dragX: number,
+        dragY: number
+      ) => {
+        gameObject.x = dragX;
+        gameObject.y = dragY;
+      }
+    );
   }
 
   // UPDATE
